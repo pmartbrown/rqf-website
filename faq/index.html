@@ -123,7 +123,7 @@ h2{font-family:var(--disp);font-size:clamp(28px,3.6vw,44px);font-weight:800;lett
 .pcard.affiliate .mono{color:var(--orange)}
 /* founder strip */
 .fstrip{background:#fff;border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:280px 1fr;gap:0;overflow:hidden;box-shadow:0 4px 20px -12px rgba(21,20,18,.1)}
-.fstrip .ph{background:#e7e6e2 url('assets/paul.jpg') top center/cover no-repeat;min-height:320px}
+.fstrip .ph{background:#e7e6e2 url('../assets/paul.jpg') top center/cover no-repeat;min-height:320px}
 .fstrip .fx{padding:44px 48px;align-self:center}
 .fstrip blockquote{font-family:var(--disp);font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.45;color:#2b2a26}
 .fstrip .who{margin-top:16px;font-size:14px;color:var(--mut)}
@@ -226,15 +226,15 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 </div></div>
 <footer><div class="wrap">
   <div class="f-in">
-    <img src="assets/lockup_dark.png" alt="RealQuick Funds">
+    <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
-      <div class="fcol"><b>Funding</b><a href="morby-method/">Morby Method</a><a href="echo-method/">Echo Method</a><a href="double-close/">Double Close</a><a href="emd/">EMD</a><a href="hard-money/">Hard Money</a><a href="dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="calculators/">Morby Calculator</a><a href="calculators/">Echo Calculator</a></div>
-      <div class="fcol"><b>Company</b><a href="about/">About</a><a href="affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="faq/">FAQ</a></div>
+      <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">Morby Calculator</a><a href="../calculators/">Echo Calculator</a></div>
+      <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="#TODO-paul-scheduler" title="Booking link coming">Schedule with Paul</a><a href="#TODO-justin-scheduler" title="Booking link coming">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>
   </div>
-  <div class="f-legal">© 2026 Real Quick Funds, LLC · Lehi, Utah · Funding in all 50 states · Transactional funding for real estate investors. Not a consumer lender.<br><span style="display:inline-block;margin-top:8px"><a href="privacy/" style="text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms/" style="text-decoration:underline">Terms of Use</a></span></div>
+  <div class="f-legal">© 2026 Real Quick Funds, LLC · Lehi, Utah · Funding in all 50 states · Transactional funding for real estate investors. Not a consumer lender.<br><span style="display:inline-block;margin-top:8px"><a href="../privacy/" style="text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="../terms/" style="text-decoration:underline">Terms of Use</a></span></div>
 </div></footer>
 </main>
 <!-- GET FUNDED MODAL -->
@@ -283,7 +283,7 @@ function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b
   document.getElementById('pane_echo').style.display=which==='echo'?'block':'none'}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();
 /* ---------- modal ---------- */
-const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
+const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
 function F(label,type,ph,extra){return {l:label,t:type||'text',p:ph||'',x:extra||''}}
 function FS(label,id,options){return {l:label,t:'select',id:id,o:options}}
 function DEP(field,depId,depVal){field.dep=depId+'='+depVal;return field}
