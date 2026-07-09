@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Double Close Funding | RealQuick Funds</title>
+<meta name="description" content="100% A-to-B funding for back-to-back closings. Your end buyer never sees your contract price - your spread stays private.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--ink:#151412;--mut:#6f6c64;--line:#eae7de;--orange:#FE9506;--orange-d:#e07f00;--deep:#171613;--glass:rgba(255,255,255,.72);--mono:'IBM Plex Mono',monospace;--disp:'Inter Tight',sans-serif;--r:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+a{color:inherit;text-decoration:none}
+.ribbon{background:var(--deep);color:var(--orange);text-align:center;font-size:12px;font-weight:700;letter-spacing:.08em;padding:6px;text-transform:uppercase}
+/* aurora */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none}
+.aurora div{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+.a1{width:640px;height:640px;background:#ffd9a0;top:-220px;right:-140px}
+.a2{width:520px;height:520px;background:#ffe9cc;top:340px;left:-220px}
+.a3{width:400px;height:400px;background:#fff3e0;top:70%;right:5%}
+main{position:relative;z-index:1}
+nav{position:sticky;top:0;z-index:60;background:rgba(18,17,15,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand img{height:46px;display:block}
+.nav-links{display:flex;gap:26px;font-size:14.5px;color:#a9a7a0;font-weight:500}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#141311;font-weight:700;font-family:var(--disp);font-size:15px;padding:13px 26px;border-radius:99px;transition:.18s;cursor:pointer;border:none;box-shadow:0 6px 20px -8px rgba(254,149,6,.55)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(254,149,6,.65)}
+.btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 2px 10px -4px rgba(21,20,18,.08)}
+.btn-ghost:hover{border-color:#d7d3c8;box-shadow:0 10px 24px -10px rgba(21,20,18,.15)}
+.hero .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:none}
+.hero .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.hero .calc{background:#fff;outline:none;border:1px solid rgba(255,255,255,.5);box-shadow:0 50px 110px -30px rgba(0,0,0,.75)}
+.btn-dark{background:var(--deep);color:#fff;box-shadow:0 6px 20px -8px rgba(23,22,19,.5)}
+/* hero */
+.hero{padding:100px 0 76px;background:var(--deep);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:760px;height:760px;border-radius:50%;background:rgba(254,149,6,.20);filter:blur(120px);top:-320px;right:-160px}
+.hero:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(255,181,77,.10);filter:blur(100px);bottom:-260px;left:-160px}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.12fr 1fr;gap:64px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);border-radius:99px;padding:8px 18px;font-size:13px;font-weight:600;color:#c9c7c0;margin-bottom:28px}
+.badge .spark{color:var(--orange-d)}
+h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line-height:1.03;letter-spacing:-.035em}
+.hero h1{color:#fff}
+.grad{background:linear-gradient(100deg,var(--orange-d),#ffb54d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:18.5px;color:var(--mut);margin:26px 0 34px;max-width:520px}
+.hero .sub{color:#b3b1a9}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.micro{margin-top:22px;font-size:13.5px;color:var(--mut)}
+.micro b{color:var(--ink)}
+.hero .micro{color:#8f8d85}
+.hero .micro b{color:#fff}
+/* glass calculator */
+.calc{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);outline:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 40px 90px -30px rgba(21,20,18,.28)}
+.calc .ctabs{display:flex;background:rgba(21,20,18,.05);border-radius:12px;padding:4px;margin-bottom:18px}
+.calc .ctabs button{flex:1;background:transparent;border:none;font-weight:700;font-family:var(--disp);font-size:13.5px;color:var(--mut);padding:9px;border-radius:9px;cursor:pointer}
+.calc .ctabs button.on{background:#fff;color:var(--ink);box-shadow:0 3px 10px -4px rgba(21,20,18,.18)}
+.calc .purpose{font-size:12.5px;color:var(--mut);margin-bottom:16px}
+.fld{margin-bottom:11px}
+.fld label{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em;font-weight:600;display:flex;justify-content:space-between}
+.fld label .hint{color:#b3b0a6;text-transform:none;letter-spacing:0}
+.fld .inwrap{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:11px;margin-top:5px;background:#fff}
+.fld .inwrap span{padding-left:12px;color:#9a978d;font-family:var(--mono)}
+.fld input{width:100%;border:none;background:transparent;font-family:var(--mono);font-size:16.5px;font-weight:600;padding:9px 12px 9px 4px;outline:none;color:var(--ink)}
+.fld .inwrap:focus-within{border-color:var(--orange)}
+.result{border-radius:14px;padding:14px 16px;margin-top:14px;text-align:center;transition:.2s}
+.result .rl{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;opacity:.8}
+.result .rv{font-family:var(--mono);font-size:28px;font-weight:600;margin-top:2px}
+.result.bring{background:#fff2df;color:#8a5200}
+.result.back{background:#e4f7eb;color:#0e7a3d}
+.calc .btn{width:100%;justify-content:center;margin-top:12px;border-radius:12px}
+.calc .note{font-size:11px;color:#9a978d;margin-top:10px;text-align:center}
+/* marquee */
+.marq{border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;white-space:nowrap;background:#fff}
+.marq div{display:inline-block;animation:roll 26s linear infinite;font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:#a09d92;text-transform:uppercase}
+.marq span{padding:0 34px}
+@keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{padding:92px 0}
+.k{font-family:var(--mono);color:var(--orange-d);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+h2{font-family:var(--disp);font-size:clamp(28px,3.6vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.08}
+.sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
+.sechead p{color:var(--mut);max-width:440px;margin-top:12px}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:16px}
+.b{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:.2s;box-shadow:0 4px 20px -12px rgba(21,20,18,.1)}
+.b:hover{transform:translateY(-3px);box-shadow:0 20px 40px -18px rgba(21,20,18,.18)}
+.b .n{font-family:var(--disp);font-size:clamp(30px,3vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.b .n em{font-style:normal;color:var(--orange-d)}
+.b .l{font-size:13px;color:var(--mut);margin-top:4px;font-weight:500}
+.b.wide{grid-column:span 2}
+.b.tall{grid-row:span 2}
+.b.orange{background:linear-gradient(140deg,var(--orange),#ffb54d);border:none;color:#141311}
+.b.orange .n,.b.orange .l{color:#141311}
+.b.dark{background:var(--deep);border:none;color:#fff}
+.b.dark .n{color:#fff}
+.b.dark .l{color:#b7b4ab}
+.b .ai{position:absolute;bottom:-30px;right:-20px;font-size:130px;opacity:.08;font-family:var(--disp);font-weight:800}
+/* funding types */
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ty{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:.2s;box-shadow:0 4px 20px -12px rgba(21,20,18,.1);display:flex;flex-direction:column}
+.ty:hover{transform:translateY(-3px);box-shadow:0 22px 44px -18px rgba(21,20,18,.2)}
+.ty .ic{width:42px;height:42px;border-radius:12px;background:#fff3e0;color:var(--orange-d);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:16px}
+.ty h3{font-family:var(--disp);font-size:19px;font-weight:700;letter-spacing:-.01em}
+.ty p{font-size:14px;color:var(--mut);margin:8px 0 18px;flex:1}
+.ty .acts{display:flex;gap:10px}
+.ty .learn{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;cursor:pointer;transition:.15s;background:#fff}
+.ty .learn:hover{border-color:var(--orange);color:var(--orange-d)}
+.ty .start{flex:1;text-align:center;background:var(--deep);color:#fff;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;cursor:pointer;transition:.15s;border:none;font-family:'Inter'}
+.ty .start:hover{background:#000}
+/* echo section */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+/* partners */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pcard{border-radius:var(--r);padding:44px;position:relative;overflow:hidden}
+.pcard.affiliate{background:var(--deep);color:#fff}
+.pcard.skool{background:linear-gradient(140deg,var(--orange),#ffaf3f);color:#161410}
+.pcard h3{font-family:var(--disp);font-size:26px;font-weight:800;letter-spacing:-.02em}
+.pcard p{margin:12px 0 26px;font-size:15.5px;opacity:.85;max-width:420px}
+.pcard .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;opacity:.85}
+.pcard.affiliate .mono{color:var(--orange)}
+/* founder strip */
+.fstrip{background:#fff;border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:280px 1fr;gap:0;overflow:hidden;box-shadow:0 4px 20px -12px rgba(21,20,18,.1)}
+.fstrip .ph{background:#e7e6e2 url('../assets/paul.jpg') top center/cover no-repeat;min-height:320px}
+.fstrip .fx{padding:44px 48px;align-self:center}
+.fstrip blockquote{font-family:var(--disp);font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.45;color:#2b2a26}
+.fstrip .who{margin-top:16px;font-size:14px;color:var(--mut)}
+.fstrip .who b{color:var(--ink)}
+.trow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.t{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;font-size:14.5px;box-shadow:0 4px 20px -12px rgba(21,20,18,.08)}
+.t .st{color:var(--orange-d);letter-spacing:2px;margin-bottom:10px}
+.t .a{margin-top:14px;font-size:12.5px;color:var(--mut)}
+/* cta */
+.cta{background:var(--deep);border-radius:28px;padding:80px 60px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(254,149,6,.22);filter:blur(90px);top:-200px;left:50%;transform:translateX(-50%)}
+.cta h2{color:#fff;position:relative}
+.cta p{color:#b7b4ab;margin:14px 0 32px;position:relative}
+footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
+.f-in{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px}
+.f-in img{height:50px}
+.fcols{display:flex;gap:60px;flex-wrap:wrap}
+.fcol{font-size:14px;display:grid;gap:9px}
+.fcol b{color:#fff;font-family:var(--disp);margin-bottom:4px}
+.fcol a:hover{color:#fff}
+.f-legal{margin-top:34px;font-size:12px;color:#5f5d55}
+/* modal & drawer */
+.modal{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(8px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.mbox{background:#fff;border-radius:24px;max-width:720px;width:100%;padding:38px;position:relative;max-height:90vh;overflow:auto;box-shadow:0 60px 120px -30px rgba(0,0,0,.4)}
+.mbox .x{position:absolute;top:18px;right:22px;font-size:26px;color:#9a978d;cursor:pointer;background:none;border:none}
+.mbox h3{font-family:var(--disp);font-size:24px;font-weight:800;letter-spacing:-.02em}
+.mbox .msub{color:var(--mut);font-size:14.5px;margin:8px 0 24px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:.13s;background:#fdfcfa}
+.opt:hover{border-color:var(--orange);background:#fff7ea}
+.opt h4{font-family:var(--disp);font-size:15.5px;font-weight:700}
+.opt p{font-size:12.5px;color:var(--mut);margin-top:3px}
+.mstep2{display:none}.mstep2.on{display:block}.mstep1.off{display:none}
+.back-lk{color:#9a978d;font-size:13px;cursor:pointer;background:none;border:none;margin-bottom:14px;font-family:'Inter'}
+/* learn drawer */
+.drawer{position:fixed;top:0;right:-620px;width:600px;max-width:94vw;height:100vh;background:#fff;z-index:110;box-shadow:-30px 0 80px -20px rgba(0,0,0,.3);transition:right .3s ease;overflow-y:auto}
+.drawer.open{right:0}
+.doverlay{position:fixed;inset:0;background:rgba(15,14,12,.4);z-index:105;display:none}
+.doverlay.open{display:block}
+.dr-head{background:var(--deep);color:#fff;padding:40px 40px 32px;position:relative}
+.dr-head .x{position:absolute;top:18px;right:22px;font-size:26px;color:#9a978d;cursor:pointer;background:none;border:none}
+.dr-head .k{color:var(--orange)}
+.dr-head h3{font-family:var(--disp);font-size:28px;font-weight:800;letter-spacing:-.02em}
+.dr-body{padding:36px 40px 50px}
+.dr-body h4{font-family:var(--disp);font-size:16px;font-weight:700;margin:26px 0 8px;letter-spacing:-.01em}
+.dr-body p,.dr-body li{font-size:14.5px;color:#54524b}
+.dr-body ul{padding-left:20px;display:grid;gap:6px;margin-top:6px}
+.dr-body .steps{display:grid;gap:10px;margin-top:10px}
+.dr-body .step{display:flex;gap:14px;background:#faf9f5;border:1px solid var(--line);border-radius:12px;padding:14px}
+.dr-body .step b{font-family:var(--mono);color:var(--orange-d)}
+.dr-cta{margin-top:32px;display:flex;gap:12px}
+@media(max-width:960px){.hero-grid,.split,.duo{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.types{grid-template-columns:1fr}.nav-links{display:none}.fstrip{grid-template-columns:1fr}.fstrip .ph{min-height:280px}}
+
+.pagehero{background:var(--deep);color:#fff;padding:84px 0 64px;position:relative;overflow:hidden}
+.pagehero:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(254,149,6,.18);filter:blur(110px);top:-280px;right:-120px}
+.pagehero .wrap{position:relative;z-index:2}
+.pagehero h1{color:#fff;font-size:clamp(34px,4.6vw,56px)}
+.pagehero .sub{color:#b3b1a9}
+.content{padding:72px 0}
+.content h2{font-size:clamp(24px,3vw,34px);margin-top:48px}
+.content h2:first-child{margin-top:0}
+.content p,.content li{font-size:16px;color:#54524b;max-width:760px}
+.content ul{padding-left:22px;display:grid;gap:8px;margin-top:10px}
+.steps{display:grid;gap:12px;margin-top:18px;max-width:760px}
+.step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.step b{font-family:var(--mono);color:var(--orange-d)}
+.ctaband{background:var(--deep);border-radius:24px;padding:56px;text-align:center;color:#fff;margin-top:64px}
+.ctaband h2{color:#fff;margin:0 0 10px}
+.ctaband p{color:#b7b4ab;margin-bottom:26px;max-width:none}
+.faqi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:12px;max-width:820px}
+.faqi h3{font-family:var(--disp);font-size:17px;font-weight:700}
+.faqi p{margin-top:8px;font-size:15px}
+.sched{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.duo2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin-top:20px}
+@media(max-width:760px){.duo2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="aurora"><div class="a2"></div></div>
+<main>
+<nav><div class="wrap nav-in">
+  <a class="brand" href="../"><img src="../assets/lockup_dark.png" alt="RealQuick Funds"></a>
+  <div class="nav-links"><a href="../#types">Funding</a><a href="../calculators/">Calculators</a><a href="../#types">Learn</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Community</a></div>
+  <button class="btn" onclick="openModal()">Get Funded</button>
+</div></nav>
+<header class="pagehero"><div class="wrap">
+  <div class="k" style="color:var(--orange)">Transactional Funding</div>
+  <h1>Double Close</h1>
+  <p class="sub" style="max-width:640px">100% A-to-B funding for back-to-back closings. Your end buyer never sees your contract price - your spread stays private.</p>
+  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('dc')">Start a Double Close request</button></div>
+</div></header>
+<div class="content"><div class="wrap">
+
+<h2>What a double close is</h2>
+<p>A double close (or back-to-back close) is two closings on the same property, the same day: you buy from the seller (A-to-B), then sell to your end buyer (B-to-C). RealQuick Funds provides 100% of the A-to-B purchase capital, and escrow repays us from your B-to-C proceeds. Unlike an assignment, your contract price and your profit are never disclosed to the end buyer.</p>
+<h2>When to use it</h2>
+<ul><li>Assignments are restricted in your market or by the contract</li><li>You don't want your fee visible to buyer or seller</li><li>Your end buyer is ready and funded</li><li>You need same-day in-and-out capital with zero of your own cash</li></ul>
+<h2>How RealQuick Funds funds it</h2>
+<div class="steps"><div class="step"><b>01</b><span>Submit both contracts and the closing date.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours. No credit pull.</span></div><div class="step"><b>03</b><span>We fund A-to-B; escrow repays us from your B-to-C proceeds.</span></div></div>
+<h2>What you'll need</h2>
+<ul><li>A-to-B and B-to-C contracts</li><li>End buyer proof of funds or loan approval</li><li>One title/escrow office handling both legs (preferred)</li></ul>
+<div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
+<p>Two-minute form &middot; written terms in 8 business hours &middot; all 50 states.</p>
+<button class="btn" onclick="openModal('dc')">Start a Double Close request</button></div>
+</div></div>
+<footer><div class="wrap">
+  <div class="f-in">
+    <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
+    <div class="fcols">
+      <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">Morby Calculator</a><a href="../calculators/">Echo Calculator</a></div>
+      <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
+      <div class="fcol"><b>Contact</b><a href="#TODO-paul-scheduler" title="Booking link coming">Schedule with Paul</a><a href="#TODO-justin-scheduler" title="Booking link coming">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
+    </div>
+  </div>
+  <div class="f-legal">© 2026 Real Quick Funds, LLC · Lehi, Utah · Funding in all 50 states · Transactional funding for real estate investors. Not a consumer lender.<br><span style="display:inline-block;margin-top:8px"><a href="../privacy/" style="text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="../terms/" style="text-decoration:underline">Terms of Use</a></span></div>
+</div></footer>
+</main>
+<!-- GET FUNDED MODAL -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="mbox">
+    <button class="x" onclick="closeModal()">×</button>
+    <div class="mstep1" id="step1">
+      <h3>What are you funding?</h3>
+      <div class="msub">Pick your deal type — we'll take you to a two-minute form built for it.</div>
+      <div class="opts">
+        <div class="opt" onclick="pick('morby')"><h4>Morby Method</h4><p>Seller carry + primary lender stack</p></div>
+        <div class="opt" onclick="pick('echo')"><h4>Echo Method</h4><p>Cash buy repaid by your end loan</p></div>
+        <div class="opt" onclick="pick('dc')"><h4>Double Close</h4><p>100% A-to-B transactional funding</p></div>
+        <div class="opt" onclick="pick('emd')"><h4>EMD</h4><p>Earnest money deposit funding</p></div>
+        <div class="opt" onclick="pick('hml')"><h4>Hard Money Loan</h4><p>Asset-based flip / value-add financing</p></div>
+        <div class="opt" onclick="pick('dscr')"><h4>DSCR Loan</h4><p>Long-term rental financing</p></div>
+      </div>
+    </div>
+    <div class="mstep2" id="step2">
+      <button class="back-lk" onclick="backStep()">← All funding types</button>
+      <h3 id="formTitle">Funding Request</h3>
+      <div class="msub">Two minutes. No credit pull on transactional funding. Written terms in 8 business hours.</div>
+      <div class="mform" id="mform"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="doverlay" id="doverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer"><div class="dr-head"><button class="x" onclick="closeDrawer()">&times;</button><div class="k" id="dr_k"></div><h3 id="dr_title"></h3></div><div class="dr-body" id="dr_body"></div></div>
+<script>
+/* ---------- calculators ---------- */
+function num(id){var el=document.getElementById(id);return el?(+(el.value.replace(/[^0-9]/g,''))||0):0}
+function fmt(el){const v=el.value.replace(/[^0-9]/g,'');el.value=v?(+v).toLocaleString():''}
+function money(n){return '$'+Math.abs(Math.round(n)).toLocaleString()}
+function stack(){const pp=num('s_pp'),sc=num('s_sc'),pl=num('s_pl'),cc=num('s_cc'),ff=num('s_ff');const cash=pp+cc+ff-sc-pl;
+  const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(cash);
+  if(cash<=0){res.className='result back';document.getElementById('s_rl').textContent='Estimated cash BACK to you at closing'}
+  else{res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close'}}
+function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;
+  const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(cash);
+  if(cash<=0){res.className='result back';document.getElementById('e_rl').textContent='Estimated cash BACK to you at closing'}
+  else{res.className='result bring';document.getElementById('e_rl').textContent='Estimated cash to close'}}
+function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('pane_morby').style.display=which==='morby'?'block':'none';
+  document.getElementById('pane_echo').style.display=which==='echo'?'block':'none'}
+if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();
+/* ---------- modal ---------- */
+const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
+function F(label,type,ph,extra){return {l:label,t:type||'text',p:ph||'',x:extra||''}}
+function FS(label,id,options){return {l:label,t:'select',id:id,o:options}}
+function DEP(field,depId,depVal){field.dep=depId+'='+depVal;return field}
+const BORROWER=[F('Borrower first name'),F('Borrower last name'),F('Borrower email address','email','name@email.com'),F('Borrower phone number','tel','(555) 555-5555')];
+const FORMS={
+ emd:{title:'EMD Funding Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Deal information',f:[F('Requested amount','money','25,000'),F('When are the funds required?','date'),F('Subject property address','address','Start typing the address…'),F('End of inspection date','date'),F('Close of escrow date','date')]},
+  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ echo:{title:'Echo Method Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Requested funding amount','money','300,000'),F('Close of escrow date','date'),F('A-B leg purchase price','money','300,000'),F('B-C leg sell price','money','340,000')]},
+  {h:'Documents',f:[F('A-B purchase and sale agreement','file'),F('B-C purchase and sale agreement','file'),F('Other relevant files','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ morby:{title:'Morby Method Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Close date','date'),F('Purchase price','money','400,000'),F('Seller finance amount','money','80,000'),F('Estimated DSCR amount needed','money','320,000')]},
+  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Addendums or other documents','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ dc:{title:'Double Close Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Deal information',f:[F('Requested amount','money','200,000'),F('Close of escrow date','date'),F('Subject property address','address','Start typing the address…')]},
+  {h:'Documents',f:[F('A-B Contract','file'),F('B-C Contract','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ hml:{title:'Hard Money Loan Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Loan information',f:[F('Estimated funding needed','money','250,000'),F('When is funding needed?','date'),F('Estimated credit score','text','e.g. 700'),FS('Loan purpose','hml_purpose',['Fix and flip','Morby / Stack deal','Other'])]},
+  {h:'Property information',f:[F('Property address','address','Start typing the address…'),FS('Is this a renovation?','hml_reno',['No','Yes']),DEP(FS('Are renovation funds also needed?','hml_renofunds',['No','Yes']),'hml_reno','Yes'),DEP(F('Estimated rehab budget','money','60,000'),'hml_renofunds','Yes'),FS('Will the property be used as a rental?','hml_rental',['No','Yes'])]},
+  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ dscr:{title:'DSCR Loan Request',sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Loan information',f:[F('Estimated funding needed','money','300,000'),F('When is funding needed?','date'),F('Estimated credit score','text','e.g. 700'),FS('Loan purpose','dscr_purpose',['Purchase to rent','Refinance','Morby / Stack deal'])]},
+  {h:'Property information',f:[F('Property address','address','Start typing the address…'),FS('Will the property be used as a rental?','dscr_rental',['Yes','No']),F('Current or projected monthly rent','money','2,400'),FS('Is that current rent or projected rent?','dscr_renttype',['Current','Projected']),FS('Is a lease currently in place?','dscr_lease',['No','Yes']),FS('Is it a short-term rental?','dscr_str',['No','Yes']),FS('Is any renovation being done?','dscr_reno',['No','Yes'])]},
+  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ _default:{sections:[
+  {h:'Borrower information',f:BORROWER},
+  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Closing date','date'),F('Funding amount needed','money','150,000')]},
+  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+ affiliate:{title:'Affiliate Application',sections:[
+  {h:'Your information',f:BORROWER.map(function(b){return {l:b.l.replace('Borrower ','Your ').replace('Your f','F').replace('Your l','L'),t:b.t,p:b.p,x:''}})},
+  {h:'About your network',f:[F('Company / community name'),F('Audience or network size','text','e.g. 2,500 members'),F('How would you refer deals to us?','textarea')]}]}
+};
+const NAMES={morby:'Morby Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
+function fieldHTML(f){
+ var inner;
+ if(f.t==='textarea') inner='<textarea rows="4" style="width:100%;border:1.5px solid var(--line);border-radius:11px;margin-top:5px;background:#fff;padding:10px 12px;font-family:Inter;font-size:14.5px;outline:none;resize:vertical" placeholder="'+f.p+'"></textarea>';
+ else if(f.t==='file') inner='<div class="inwrap" style="padding:8px 12px"><input type="file" style="font-family:Inter;font-size:13px;font-weight:400;padding:2px 0"></div>';
+ else if(f.t==='money') inner='<div class="inwrap"><span>$</span><input inputmode="numeric" placeholder="'+f.p+'" oninput="fmt(this)"></div>';
+ else if(f.t==='date') inner='<div class="inwrap" style="padding-left:10px"><input type="date"></div>';
+ else if(f.t==='address') inner='<div class="inwrap" style="padding-left:10px"><input type="text" class="addr-autocomplete" placeholder="'+f.p+'" autocomplete="street-address"></div>'; /* TODO: Google Places Autocomplete at deploy */
+ else if(f.t==='select'){inner='<div class="inwrap" style="padding-left:6px"><select '+(f.id?'id="'+f.id+'" ':'')+'onchange="updDeps()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)">'+f.o.map(function(o){return '<option>'+o+'</option>'}).join('')+'</select></div>'}
+ else inner='<div class="inwrap" style="padding-left:10px"><input type="'+f.t+'" placeholder="'+f.p+'"></div>';
+ return '<div class="fld"'+(f.dep?' data-dep="'+f.dep+'" style="display:none"':'')+'><label>'+f.l+'</label>'+inner+'</div>';
+}
+function renderForm(t){
+ var cfg=FORMS[t]||FORMS._default;
+ var html='';
+ cfg.sections.forEach(function(s){
+  html+='<div style="font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#8a887f;margin:20px 0 10px">'+s.h+'</div>';
+  s.f.forEach(function(f){html+=fieldHTML(f)});
+  if(s.note)html+='<p style="font-size:12.5px;color:#9a978d;margin-top:4px">'+s.note+'</p>';
+ });
+ html+=CONSENT_HTML;
+ html+='<button class="btn" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">Submit — terms in 8 business hours</button>';
+ html+='<p style="font-size:11px;color:#b3b0a6;margin-top:10px;text-align:center"><em>Demo — production form posts into HubSpot.</em></p>';
+ document.getElementById('mform').innerHTML=html;
+ updDeps();
+}
+function updDeps(){document.querySelectorAll('#mform [data-dep]').forEach(function(el){var kv=el.getAttribute('data-dep').split('=');var src=document.getElementById(kv[0]);el.style.display=(src&&src.value===kv[1]&&src.closest('.fld').style.display!=='none')?'block':'none'});
+ // second pass for chained deps
+ document.querySelectorAll('#mform [data-dep]').forEach(function(el){var kv=el.getAttribute('data-dep').split('=');var src=document.getElementById(kv[0]);el.style.display=(src&&src.value===kv[1]&&src.closest('.fld').style.display!=='none')?'block':'none'});
+}
+function openModal(type){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';if(type){pick(type)}else{backStep()}}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+function pick(t){document.getElementById('step1').classList.add('off');document.getElementById('step2').classList.add('on');document.getElementById('formTitle').textContent=NAMES[t]||'Funding Request';renderForm(t)}
+function backStep(){document.getElementById('step1').classList.remove('off');document.getElementById('step2').classList.remove('on')}
+/* ---------- learn drawer ---------- */
+const LEARN={
+ morby:{k:'Creative Finance',t:'Morby Method',b:`
+  <h4>What it is</h4><p>A creative-finance structure that stacks seller carry with a primary lender so you can acquire property with little — sometimes zero — of your own cash. In the right structure, you can even receive cash back at closing.</p>
+  <h4>When to use it</h4><ul><li>The seller is open to carrying part of the price</li><li>You have a primary lender (DSCR, private, or hard money) covering most of the purchase</li><li>You want to preserve cash while still closing quickly</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms within 8 business hours.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
+  <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
+  <h4>Run your numbers first</h4><p>Use the Morby Calculator to see your estimated cash to close — or cash back — before you submit.</p>`},
+ echo:{k:'Creative Finance',t:'Echo Method',b:`
+  <h4>What it is</h4><p>A two-closing structure where our capital makes you a true cash buyer, and your end loan (often DSCR) repays us at a same-day second closing. You get cash-buyer pricing power without tying up your own capital.</p>
+  <h4>When to use it</h4><ul><li>The seller wants a fast, clean, cash close</li><li>Your end financing can't close as fast as the seller needs</li><li>You want cash-offer leverage in negotiations</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
+  <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>End loan approval or term sheet</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
+  <h4>Run your numbers first</h4><p>Use the Echo Calculator to estimate what you'll bring to closing — or get back.</p>`},
+ dc:{k:'Transactional',t:'Double Close',b:`
+  <h4>What it is</h4><p>Back-to-back closings where we fund 100% of your A-to-B purchase, and your B-to-C sale repays us the same day. Your end buyer never sees your contract price — your spread stays private.</p>
+  <h4>When to use it</h4><ul><li>Assignments are restricted or you don't want your fee visible</li><li>Your end buyer is ready and funded</li><li>You need same-day in-and-out capital</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit both contracts and the closing date.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours. No credit pull.</span></div><div class="step"><b>03</b><span>We fund A-to-B; escrow repays us from your B-to-C proceeds.</span></div></div>
+  <h4>What you'll need</h4><ul><li>A-to-B and B-to-C contracts</li><li>End buyer proof of funds or loan approval</li><li>One title/escrow office handling both legs (preferred)</li></ul>`},
+ emd:{k:'Transactional',t:'EMD Funding',b:`
+  <h4>What it is</h4><p>We wire your earnest money deposit so you can lock the contract without pulling from your own reserves. Built for high-velocity wholesalers and Gator-style operators.</p>
+  <h4>When to use it</h4><ul><li>You're juggling multiple contracts and need EMD liquidity</li><li>A deadline is hours away and your capital is deployed elsewhere</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit the contract, EMD amount, and escrow details.</span></div><div class="step"><b>02</b><span>Fast verification and written terms — typically same business day.</span></div><div class="step"><b>03</b><span>EMD wires to escrow; repayment per the agreement at closing or termination.</span></div></div>
+  <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Escrow/title wiring instructions</li><li>Clear EMD refundability terms</li></ul>`},
+ hml:{k:'Leverage',t:'Hard Money',b:`
+  <h4>What it is</h4><p>Asset-based lending for flips and value-add projects. Underwritten on the property and the plan — not your W-2, tax returns, or credit story.</p>
+  <h4>When to use it</h4><ul><li>Fix-and-flip acquisitions and rehab budgets</li><li>Value-add projects that banks move too slowly for</li><li>Bridge situations before longer-term financing</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit property, purchase price, rehab budget, and exit plan.</span></div><div class="step"><b>02</b><span>Deal-first underwriting with clear terms in writing.</span></div><div class="step"><b>03</b><span>Fund at closing; draws structured to your project.</span></div></div>
+  <h4>What you'll need</h4><ul><li>Purchase contract and rehab scope/budget</li><li>Exit strategy (sale or refi)</li><li>Entity documents</li></ul>`},
+ dscr:{k:'Long-Term',t:'DSCR Loans',b:`
+  <h4>What it is</h4><p>Long-term rental financing qualified on the property's cash flow — its debt-service coverage ratio — instead of your personal income. The portfolio-builder's loan.</p>
+  <h4>When to use it</h4><ul><li>Buying or refinancing rentals (LTR, STR, midterm)</li><li>Scaling past what personal-income underwriting allows</li><li>Echo Method end loans</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit property, rents (actual or market), and target loan.</span></div><div class="step"><b>02</b><span>Cash-flow-based qualification with clear written terms.</span></div><div class="step"><b>03</b><span>Close and hold — build the portfolio without the paperwork circus.</span></div></div>
+  <h4>What you'll need</h4><ul><li>Property address and rent documentation</li><li>Entity documents</li><li>Basic reserves verification</li></ul>`}
+};
+function openDrawer(t){const d=LEARN[t];if(!d)return;
+  document.getElementById('dr_k').textContent=d.k;
+  document.getElementById('dr_title').textContent=d.t;
+  document.getElementById('dr_body').innerHTML=d.b+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">Start a ${d.t} request →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
+  document.getElementById('drawer').classList.add('open');document.getElementById('doverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('doverlay').classList.remove('open');document.body.style.overflow=''}
+/* ---------- animated counters ---------- */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);
+  const target=+el.dataset.count,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';const t0=performance.now();
+  function tick(t){const p=Math.min((t-t0)/1200,1);const v=Math.round(target*(1-Math.pow(1-p,3)));el.textContent=pre+v+suf;if(p<1)requestAnimationFrame(tick)}
+  requestAnimationFrame(tick)})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
