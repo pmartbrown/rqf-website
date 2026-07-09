@@ -209,7 +209,7 @@ ABOUT_BODY = '''
 <div class="fstrip" style="margin-top:36px">
   <div class="ph" style="background-image:url('/assets/paul.jpg')"></div>
   <div class="fx">
-    <blockquote>"My job for thirty years was knowing exactly which risks were worth taking. Your deal gets that same discipline - at startup speed."</blockquote>
+    <blockquote>"My job for twenty years was knowing exactly which risks were worth taking. Your deal gets that same discipline - at startup speed."</blockquote>
     <div class="who"><b>Paul Brown</b> &middot; Founder &middot; Former Chief Underwriting Officer, Zurich &amp; AIG</div>
   </div>
 </div>
@@ -219,9 +219,9 @@ ABOUT_BODY = '''
   <a class="btn" href="#TODO-paul-scheduler">Schedule with Paul</a>
   <a class="btn btn-ghost" style="background:#fff;color:var(--ink);border:1px solid var(--line)" href="#TODO-justin-scheduler">Schedule with Justin</a>
 </div>'''
-page('about','About RealQuick Funds | 30 Years of Underwriting Discipline',
+page('about','About RealQuick Funds | 20 Years of Underwriting Discipline',
  'Founded by a former Chief Underwriting Officer of Zurich and AIG. $20M+ deployed, 800+ deals, all 50 states.',
- 'About RealQuick Funds','Thirty years of pricing risk.<br>Now pricing your deal.',
+ 'About RealQuick Funds','Twenty years of pricing risk.<br>Now pricing your deal.',
  'The funding company built on institutional underwriting and creative-finance fluency.',ABOUT_BODY)
 
 FAQS = [
