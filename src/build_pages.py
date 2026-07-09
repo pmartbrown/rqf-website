@@ -191,16 +191,34 @@ page('calculators','Deal Calculators - Morby & Echo | RealQuick Funds',
  'Deal Tools','Run your numbers.','Two viability calculators built for creative finance. Know whether the deal works before you talk to anyone.',CALC_BODY)
 
 AFF_BODY = '''
-<h2>Earn on every deal you send</h2>
-<p>Coaches, community leaders, agents, wholesalers, and connectors: you already know investors who need funding. Join the RealQuick Funds acquisition team as an affiliate, send them our way, and earn on every funded deal. Simple tracking, real payouts, zero drama.</p>
+<h2>Two ways to earn</h2>
+<p>Every affiliate earns on funded deals. Pick your lane: refer for free through realquickfunds.com, or go VIP and run your own white-label funding business with the RealQuick Funds engine behind it.</p>
+<div class="duo2">
+  <div class="faqi"><h3>Free Affiliate</h3>
+  <ul>
+   <li>Send investors to realquickfunds.com - every application carries your name as the referrer</li>
+   <li>Earn on every deal that funds</li>
+   <li>No cost, no tech to manage, no paperwork burden</li>
+   <li>Sharpen your skills anytime in <a href="https://www.skool.com/fundinghub">The Funding Hub on Skool</a> - a free section plus a low-cost premium learning track</li>
+  </ul></div>
+  <div class="faqi" style="border:2px solid var(--orange)"><h3>VIP Affiliate</h3>
+  <ul>
+   <li>A complete <b>white-label website</b> - a web app you log into and customize whenever, however you choose</li>
+   <li>White-labels all four transactional funding types and both lending types - Morby/Stack, Echo, Double Close, EMD, Hard Money, and DSCR</li>
+   <li><b>Automated nurture campaigns</b> that warm your cold leads - the emails and follow-up structure are already built</li>
+   <li><b>Proof-of-funds letters on demand</b></li>
+   <li>Your calendar links and contact info front and center</li>
+   <li>Operations, transaction coordination, and capital - all handled by RealQuick Funds</li>
+  </ul></div>
+</div>
 <h2>How it works</h2>
-''' + steps(['Apply - two minutes, tell us about your audience or network.','Refer - share your link or introduce deals directly.','Earn - get paid on every deal that funds. We handle underwriting, docs, and closing.']) + '''
+''' + steps(['Apply and pick your lane - Free referrer or VIP white-label.','Refer - send investors to realquickfunds.com with your name on the application, or run everything through your own white-label site.','Earn - get paid on every deal that funds. We handle underwriting, docs, TC, and capital.']) + '''
 <h2>Who it's for</h2>
 ''' + ul(['Coaches and educators with investor communities','Real estate agents and brokers who meet investors daily','Wholesalers and operators with deal flow beyond their own capital','Community builders in the creative-finance world']) + '''
-<p style="margin-top:22px"><em>Program terms and payout schedule provided during onboarding.</em></p>'''
+<p style="margin-top:22px"><em>VIP pricing and full program terms provided during onboarding.</em></p>'''
 page('affiliates','Become an Affiliate | RealQuick Funds',
  'Join the RealQuick Funds affiliate program - refer real estate investors who need funding and earn on every funded deal.',
- 'Affiliate Program','Become an affiliate.','Refer investors who need funding. Earn on every funded deal. Join the acquisition team.',AFF_BODY,cta_type='affiliate',cta_label='Apply - Become an Affiliate')
+ 'Affiliate Program','Become an affiliate.','Two paths: refer free through realquickfunds.com, or go VIP with a full white-label funding business. Either way, you earn on every funded deal.',AFF_BODY,cta_type='affiliate',cta_label='Apply - Become an Affiliate')
 
 ABOUT_BODY = '''
 <h2>Underwritten like an institution. Delivered like a friend in the business.</h2>

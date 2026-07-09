@@ -339,6 +339,7 @@ const FORMS={
   {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  affiliate:{title:'Affiliate Application',sections:[
   {h:'Your information',f:BORROWER.map(function(b){return {l:b.l.replace('Borrower ','Your ').replace('Your f','F').replace('Your l','L'),t:b.t,p:b.p,x:''}})},
+  {h:'Your path',f:[FS('Which affiliate path interests you?','aff_tier',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
   {h:'About your network',f:[F('Company / community name'),F('Audience or network size','text','e.g. 2,500 members'),F('How would you refer deals to us?','textarea')]}]}
 };
 const NAMES={morby:'Morby Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
@@ -361,6 +362,7 @@ function renderForm(t){
   s.f.forEach(function(f){html+=fieldHTML(f)});
   if(s.note)html+='<p style="font-size:12.5px;color:#9a978d;margin-top:4px">'+s.note+'</p>';
  });
+ if(t!=='affiliate'){html+='<div style="font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#8a887f;margin:20px 0 10px">Referral</div>'+fieldHTML(F('Referred by (affiliate name - optional)','text','Who sent you?'));}
  html+=CONSENT_HTML;
  html+='<button class="btn" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">Submit — same-day decisions on most deals</button>';
  html+='<p style="font-size:11px;color:#b3b0a6;margin-top:10px;text-align:center"><em>Demo — production form posts into HubSpot.</em></p>';
