@@ -176,7 +176,8 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 .dr-body .step{display:flex;gap:14px;background:#faf9f5;border:1px solid var(--line);border-radius:12px;padding:14px}
 .dr-body .step b{font-family:var(--mono);color:var(--orange-d)}
 .dr-cta{margin-top:32px;display:flex;gap:12px}
-@media(max-width:960px){.hero-grid,.split,.duo{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.types{grid-template-columns:1fr}.nav-links{display:none}.fstrip{grid-template-columns:1fr}.fstrip .ph{min-height:280px}}
+@media(max-width:960px){.hero-grid,.split,.duo{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.b{min-height:130px}.b.tall{grid-row:auto}.b .ai{font-size:80px}.types{grid-template-columns:1fr}.nav-links{display:none}.fstrip{grid-template-columns:1fr}.fstrip .ph{min-height:280px}}
+@media(max-width:640px){.bento{grid-template-columns:1fr}.b.wide{grid-column:auto}.b{min-height:0;padding:22px}}
 
 .pagehero{background:var(--deep);color:#fff;padding:84px 0 64px;position:relative;overflow:hidden}
 .pagehero:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(254,149,6,.18);filter:blur(110px);top:-280px;right:-120px}
@@ -223,11 +224,11 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 <h2>When to use it</h2>
 <ul><li>The seller wants a fast, clean, cash close</li><li>Your end financing can't close as fast as the seller needs</li><li>You want cash-offer leverage in negotiations</li><li>Estimate your numbers in the <a href="../calculators/">Echo Calculator</a></li></ul>
 <h2>How RealQuick Funds funds it</h2>
-<div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
+<div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms same day on most submissions; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
 <h2>What you'll need</h2>
 <ul><li>Executed purchase contract</li><li>End loan approval or term sheet</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
 <div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
-<p>Two-minute form &middot; written terms in 8 business hours &middot; all 50 states.</p>
+<p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
 <button class="btn" onclick="openModal('echo')">Start a Echo Method request</button></div>
 </div></div>
 <footer><div class="wrap">
@@ -262,7 +263,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <div class="mstep2" id="step2">
       <button class="back-lk" onclick="backStep()">← All funding types</button>
       <h3 id="formTitle">Funding Request</h3>
-      <div class="msub">Two minutes. No credit pull on transactional funding. Written terms in 8 business hours.</div>
+      <div class="msub">Two minutes. No credit pull on transactional funding. Same-day decisions on most deals.</div>
       <div class="mform" id="mform"></div>
     </div>
   </div>
@@ -356,7 +357,7 @@ function renderForm(t){
   if(s.note)html+='<p style="font-size:12.5px;color:#9a978d;margin-top:4px">'+s.note+'</p>';
  });
  html+=CONSENT_HTML;
- html+='<button class="btn" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">Submit — terms in 8 business hours</button>';
+ html+='<button class="btn" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">Submit — same-day decisions on most deals</button>';
  html+='<p style="font-size:11px;color:#b3b0a6;margin-top:10px;text-align:center"><em>Demo — production form posts into HubSpot.</em></p>';
  document.getElementById('mform').innerHTML=html;
  updDeps();
@@ -374,19 +375,19 @@ const LEARN={
  morby:{k:'Creative Finance',t:'Morby Method',b:`
   <h4>What it is</h4><p>A creative-finance structure that stacks seller carry with a primary lender so you can acquire property with little — sometimes zero — of your own cash. In the right structure, you can even receive cash back at closing.</p>
   <h4>When to use it</h4><ul><li>The seller is open to carrying part of the price</li><li>You have a primary lender (DSCR, private, or hard money) covering most of the purchase</li><li>You want to preserve cash while still closing quickly</li></ul>
-  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms within 8 business hours.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
   <h4>Run your numbers first</h4><p>Use the Morby Calculator to see your estimated cash to close — or cash back — before you submit.</p>`},
  echo:{k:'Creative Finance',t:'Echo Method',b:`
   <h4>What it is</h4><p>A two-closing structure where our capital makes you a true cash buyer, and your end loan (often DSCR) repays us at a same-day second closing. You get cash-buyer pricing power without tying up your own capital.</p>
   <h4>When to use it</h4><ul><li>The seller wants a fast, clean, cash close</li><li>Your end financing can't close as fast as the seller needs</li><li>You want cash-offer leverage in negotiations</li></ul>
-  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms same day on most submissions; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>End loan approval or term sheet</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
   <h4>Run your numbers first</h4><p>Use the Echo Calculator to estimate what you'll bring to closing — or get back.</p>`},
  dc:{k:'Transactional',t:'Double Close',b:`
   <h4>What it is</h4><p>Back-to-back closings where we fund 100% of your A-to-B purchase, and your B-to-C sale repays us the same day. Your end buyer never sees your contract price — your spread stays private.</p>
   <h4>When to use it</h4><ul><li>Assignments are restricted or you don't want your fee visible</li><li>Your end buyer is ready and funded</li><li>You need same-day in-and-out capital</li></ul>
-  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit both contracts and the closing date.</span></div><div class="step"><b>02</b><span>Written terms in 8 business hours. No credit pull.</span></div><div class="step"><b>03</b><span>We fund A-to-B; escrow repays us from your B-to-C proceeds.</span></div></div>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit both contracts and the closing date.</span></div><div class="step"><b>02</b><span>Written terms same day on most submissions. No credit pull.</span></div><div class="step"><b>03</b><span>We fund A-to-B; escrow repays us from your B-to-C proceeds.</span></div></div>
   <h4>What you'll need</h4><ul><li>A-to-B and B-to-C contracts</li><li>End buyer proof of funds or loan approval</li><li>One title/escrow office handling both legs (preferred)</li></ul>`},
  emd:{k:'Transactional',t:'EMD Funding',b:`
   <h4>What it is</h4><p>We wire your earnest money deposit so you can lock the contract without pulling from your own reserves. Built for high-velocity wholesalers and Gator-style operators.</p>

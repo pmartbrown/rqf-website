@@ -70,7 +70,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="content"><div class="wrap">
 %s
 <div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
-<p>Two-minute form &middot; written terms in 8 business hours &middot; all 50 states.</p>
+<p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
 <button class="btn" onclick="%s">%s</button></div>
 </div></div>
 %s
@@ -99,7 +99,7 @@ DEALS = {
 <h2>When to use it</h2>
 ''' + ul(['The seller is open to carrying part of the purchase price','You have a primary lender (DSCR, private, or hard money) covering most of the purchase','You want to preserve cash while still closing quickly','The numbers work - run them in the <a href="/calculators/">Morby Calculator</a> first']) + '''
 <h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms within 8 business hours.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
+''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms — same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
  'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo',
@@ -110,7 +110,7 @@ DEALS = {
 <h2>When to use it</h2>
 ''' + ul(['The seller wants a fast, clean, cash close',"Your end financing can't close as fast as the seller needs",'You want cash-offer leverage in negotiations','Estimate your numbers in the <a href="/calculators/">Echo Calculator</a>']) + '''
 <h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit the purchase and your end-loan details.','Written terms in 8 business hours; both closings coordinated with title.','We fund the cash purchase; your end loan repays us at the second closing.']) + '''
+''' + steps(['Submit the purchase and your end-loan details.','Written terms same day on most submissions; both closings coordinated with title.','We fund the cash purchase; your end loan repays us at the second closing.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','End loan approval or term sheet','Title/escrow contact comfortable with back-to-back closings'])),
  'double-close': dict(kicker='Transactional Funding', name='Double Close', cta='dc',
@@ -121,7 +121,7 @@ DEALS = {
 <h2>When to use it</h2>
 ''' + ul(['Assignments are restricted in your market or by the contract',"You don't want your fee visible to buyer or seller",'Your end buyer is ready and funded','You need same-day in-and-out capital with zero of your own cash']) + '''
 <h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit both contracts and the closing date.','Written terms in 8 business hours. No credit pull.','We fund A-to-B; escrow repays us from your B-to-C proceeds.']) + '''
+''' + steps(['Submit both contracts and the closing date.','Written terms same day on most submissions. No credit pull.','We fund A-to-B; escrow repays us from your B-to-C proceeds.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['A-to-B and B-to-C contracts','End buyer proof of funds or loan approval','One title/escrow office handling both legs (preferred)'])),
  'emd': dict(kicker='Transactional Funding', name='EMD Funding', cta='emd',
@@ -165,7 +165,7 @@ for slug,d in DEALS.items():
 
 CALC_BODY = '''
 <h2>Two calculators. One question: can you do this deal?</h2>
-<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some. Exact figures always come with your written terms, in 8 business hours.</p>
+<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some. Exact figures always come with your written terms - typically the same day.</p>
 <div class="duo2">
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Morby / Stack</button></div>
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
@@ -185,7 +185,7 @@ CALC_BODY = '''
     <div class="result bring" id="e_res"><div class="rl" id="e_rl">Estimated cash to close</div><div class="rv" id="e_rv">$0</div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo')">Submit this deal</button></div>
 </div>
-<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms in 8 business hours.</p>'''
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
 page('calculators','Deal Calculators - Morby & Echo | RealQuick Funds',
  'Free Morby Method and Echo Method deal calculators. See your estimated cash to close - or cash back - before you submit.',
  'Deal Tools','Run your numbers.','Two viability calculators built for creative finance. Know whether the deal works before you talk to anyone.',CALC_BODY)
@@ -205,7 +205,7 @@ page('affiliates','Become an Affiliate | RealQuick Funds',
 ABOUT_BODY = '''
 <h2>Underwritten like an institution. Delivered like a friend in the business.</h2>
 <p>RealQuick Funds was founded by Paul Brown after a 30-year career in global insurance - including Chief Underwriting Officer roles at Zurich and AIG across the United States, Japan, and Singapore. Three decades of pricing risk for some of the world's largest financial institutions now works for real estate investors: disciplined underwriting, honest answers, and capital that shows up when the closing table needs it.</p>
-<p>Based in Lehi, Utah, RQF has managed 800+ deals and deployed more than $20M across all 50 states - with a typical approval inside 8 business hours.</p>
+<p>Based in Lehi, Utah, RQF has managed 800+ deals and deployed more than $20M across all 50 states - with same-day decisions on most submissions.</p>
 <div class="fstrip" style="margin-top:36px">
   <div class="ph" style="background-image:url('/assets/paul.jpg')"></div>
   <div class="fx">
@@ -225,9 +225,9 @@ page('about','About RealQuick Funds | 30 Years of Underwriting Discipline',
  'The funding company built on institutional underwriting and creative-finance fluency.',ABOUT_BODY)
 
 FAQS = [
- ("How fast will I get an answer?","Typical approval is within 8 business hours of a complete submission. Complex structures may take slightly longer, but you will always get a clear written answer - not a maybe."),
+ ("How fast will I get an answer?","Most complete submissions get a same-day decision. Submit in the morning and you will usually hear back that afternoon; submit late in the day and your answer arrives by the next business morning. No deal waits more than one business day - and it is always a clear written answer, not a maybe."),
  ("Do you run a credit check?","No credit checks on transactional funding (double close, EMD, Morby, Echo). We underwrite the transaction. Longer-term products like DSCR loans qualify on property cash flow and involve standard lending verification."),
- ("What does it cost?","Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you'll have exact written terms within 8 business hours - no obligation."),
+ ("What does it cost?","Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you'll have exact written terms - same day on most submissions, and never more than one business day. No obligation."),
  ("What states do you fund in?","All 50 states."),
  ("Do you fund 100% of a double close?","Yes - we fund 100% of the A-to-B purchase. Your B-to-C sale repays us through escrow the same day."),
  ("What is the Morby Method?","A creative-finance structure stacking seller carry with a primary lender so you close with little or no cash - sometimes with cash back. See the full guide on our Morby Method page, and run your numbers in the calculator."),
