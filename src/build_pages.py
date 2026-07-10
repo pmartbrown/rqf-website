@@ -104,16 +104,17 @@ DEALS = {
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
  'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo',
-   sub='Buy like a true cash buyer with our capital, then repay it with your end loan at a same-day second closing. Cash-offer leverage without tying up your own money.',
+   sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
    body='''
 <h2>What the Echo Method is</h2>
-<p>The Echo is a two-closing structure. RealQuick Funds provides the cash for your purchase, making you a genuine cash buyer with all the negotiating power that carries. The same day, a second closing funds your end loan - typically a DSCR loan - which repays our capital. You keep the property, the seller gets a clean fast close, and your own cash stays in your pocket.</p>
+<p>Echo is short-term funding for the end buyer's down payment on the back half of a double close. The end buyer closes with their primary lender plus our capital - and we're repaid out of the deal's spread on that same settlement statement. Funds in, funds out, one closing. That's the echo.</p>
+<p>Compare that to a gap loan: no recorded second-position note, no debt sitting on the deal for six to nine months. The funding is in and out of a single closing, and every party - seller, wholesaler, end buyer, lender - cashes out at the table.</p>
 <h2>When to use it</h2>
-''' + ul(['The seller wants a fast, clean, cash close',"Your end financing can't close as fast as the seller needs",'You want cash-offer leverage in negotiations','Estimate your numbers in the <a href="/calculators/">Echo Calculator</a>']) + '''
+''' + ul(["You wholesale, and good buyers keep stalling because they can't cover the down payment","You're the end buyer purchasing from a wholesaler and don't want second-position gap debt","The B-C price is supported by the appraisal - that's what sizes the primary loan and creates the spread",'Run the legs in the <a href="/calculators/">Echo Calculator</a> first - if the spread covers the funding, we can move fast']) + '''
 <h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit the purchase and your end-loan details.','Written terms same day on most submissions; both closings coordinated with title.','We fund the cash purchase; your end loan repays us at the second closing.']) + '''
+''' + steps(["Submit both legs - A-B and B-C contracts, the end buyer's primary lender terms, and the closing date.",'We verify the spread covers the funding and issue written terms - same day on most submissions.','Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.']) + '''
 <h2>What you'll need</h2>
-''' + ul(['Executed purchase contract','End loan approval or term sheet','Title/escrow contact comfortable with back-to-back closings'])),
+''' + ul(['A-B and B-C purchase contracts',"The end buyer's primary lender term sheet or approval",'Title/escrow contact comfortable with back-to-back closings'])),
  'double-close': dict(kicker='Transactional Funding', name='Double Close', cta='dc',
    sub='100% A-to-B funding for back-to-back closings. Your end buyer never sees your contract price - your spread stays private.',
    body='''
@@ -223,12 +224,17 @@ CALC_BODY = '''
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div></div>
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
-    <div class="purpose">Buy like cash - your end loan repays us at the second closing.</div>
-    <div class="fld"><label>Purchase price (cash buy)</label><div class="inwrap"><span>$</span><input id="e_pp" value="300,000" oninput="fmt(this);echo()"></div></div>
-    <div class="fld"><label>End loan amount (your refi)</label><div class="inwrap"><span>$</span><input id="e_ln" value="255,000" oninput="fmt(this);echo()"></div></div>
-    <div class="fld"><label>Est. closing costs (both closings)</label><div class="inwrap"><span>$</span><input id="e_cc" value="10,000" oninput="fmt(this);echo()"></div></div>
-    <div class="fld"><label>Est. funding &amp; transaction fees <span class="hint">confirmed in quote</span></label><div class="inwrap"><span>$</span><input id="e_ff" value="6,000" oninput="fmt(this);echo()"></div></div>
-    <div class="result bring" id="e_res"><div class="rl" id="e_rl">Estimated cash to close</div><div class="rv" id="e_rv">$0</div></div>
+    <div class="purpose">Does the spread cover the Echo? Run both legs of the deal.</div>
+    <div class="cgrid">
+      <div class="fld"><label>A-B purchase price</label><div class="inwrap"><span>$</span><input id="e_ab" value="500,000" oninput="fmt(this);echo()"></div></div>
+      <div class="fld"><label>B-C sale price <span class="hint">must appraise</span></label><div class="inwrap"><span>$</span><input id="e_bc" value="725,000" oninput="fmt(this);echo()"></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Primary lender <span class="hint" id="e_ln_d"></span></label><div class="inwrap"><input class="pctin" id="e_lv" value="75.0" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Closing costs <span class="hint" id="e_cc_d"></span></label><div class="inwrap"><input class="pctin" id="e_ccp" value="2.0" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Funding fee <span class="hint" id="e_ff_d"></span></label><div class="inwrap"><input class="pctin" id="e_fp" value="2.5" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="result out" id="e_res"><div class="rl" id="e_rl">Spread covers the Echo</div><div class="rv" id="e_rv">$0</div><div class="rsub" id="e_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo',true)">Submit this deal</button></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''

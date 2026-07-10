@@ -69,9 +69,10 @@ h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line
 .fld .inwrap span.sfx{padding-left:4px;padding-right:12px}
 .fld input.pctin{padding:9px 4px 9px 12px;text-align:right}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
-.cgrid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:0 10px}
+.cgrid3{display:grid;grid-template-columns:1.15fr 1.1fr 1fr;gap:0 10px}
 .cgrid .fld,.cgrid3 .fld{margin-bottom:9px;min-width:0}
 .cgrid3 .fld label{white-space:nowrap;overflow:hidden}
+.cgrid3 .fld label .hint{font-size:10px;letter-spacing:0}
 .result .rsub{font-size:11px;margin-top:5px;opacity:.78;line-height:1.45}
 .result{border-radius:14px;padding:14px 16px;margin-top:14px;text-align:center;transition:.2s}
 .result .rl{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;opacity:.8}
@@ -260,7 +261,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
       <div class="msub">Pick your deal type — we'll take you to a two-minute form built for it.</div>
       <div class="opts">
         <div class="opt" onclick="pick('morby')"><h4>Morby Method</h4><p>Seller carry + primary lender stack</p></div>
-        <div class="opt" onclick="pick('echo')"><h4>Echo Method</h4><p>Cash buy repaid by your end loan</p></div>
+        <div class="opt" onclick="pick('echo')"><h4>Echo Method</h4><p>End-buyer down payment funded from the spread</p></div>
         <div class="opt" onclick="pick('dc')"><h4>Double Close</h4><p>100% A-to-B transactional funding</p></div>
         <div class="opt" onclick="pick('emd')"><h4>EMD</h4><p>Earnest money deposit funding</p></div>
         <div class="opt" onclick="pick('hml')"><h4>Hard Money Loan</h4><p>Asset-based flip / value-add financing</p></div>
@@ -306,10 +307,19 @@ function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s
   else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash back at closing';
     if(cash>0)setT('s_sub','Your seller carry supports up to '+money(cap)+' in funding — '+money(cash)+' covers your close and the rest can come out to you. Final structure set in your written terms.');
     else setT('s_sub','Your primary loan more than covers the close, and your carry supports up to '+money(cap)+' in funding on top. Final structure set in your written terms.')}}
-function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;window.CALC_ECHO=pp;
-  const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(cash);
-  if(cash<=0){res.className='result out';document.getElementById('e_rl').textContent='Estimated cash back at closing'}
-  else{res.className='result bring';document.getElementById('e_rl').textContent='Estimated cash to close'}}
+function echo(){const ab=num('e_ab'),bc=num('e_bc'),lv=pct('e_lv'),ccp=pct('e_ccp'),fp=pct('e_fp');
+  const MINF=(typeof DEALMIN!=='undefined'&&DEALMIN&&DEALMIN.ECHO&&+DEALMIN.ECHO.minimum_fee>0)?+DEALMIN.ECHO.minimum_fee:2500;
+  const loan=bc*lv/100;
+  const ctc=bc*(1-lv/100)+bc*ccp/100; /* end buyer down payment + closing costs — what RQF funds on the B-C close */
+  let fee=ctc*fp/100,mf=false;if(fee<MINF&&ctc>0){fee=MINF;mf=true}
+  const repay=ctc+fee,spread=bc-ab,net=spread-repay;
+  window.CALC_ECHO=ctc;
+  setT('e_ln_d',money(loan));setT('e_cc_d',money(bc*ccp/100));setT('e_ff_d',mf?'min '+money(MINF):money(fee));
+  const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(net);
+  if(net>=0){res.className='result out';document.getElementById('e_rl').textContent='Spread covers the Echo ✓ — left for the wholesaler';
+    setT('e_sub','RQF funds '+money(ctc)+' of end-buyer cash to close · repaid '+money(repay)+' from the spread on the same settlement · end buyer brings $0 down.')}
+  else{res.className='result bring';document.getElementById('e_rl').textContent='Spread comes up short by';
+    setT('e_sub','The '+money(spread)+' spread can’t cover '+money(repay)+' in funding + fee. Raise the B-C price (appraisal permitting) or reduce the funded amount.')}}
 function smoney(n){return (n<0?'−':'')+money(n)}
 function pmt(P,ar,yrs){var n=Math.round(yrs*12),r=ar/100/12;if(n<=0||P<=0)return 0;return r?P*r/(1-Math.pow(1+r,-n)):P/n}
 function loanbal(P,ar,yrs,k){var n=Math.round(yrs*12),r=ar/100/12,M=pmt(P,ar,yrs);k=Math.min(k,n);if(P<=0)return 0;return r?P*Math.pow(1+r,k)-M*(Math.pow(1+r,k)-1)/r:Math.max(P-M*k,0)}
@@ -349,7 +359,7 @@ const DEAL_TYPE={morby:'STACK',echo:'ECHO',dc:'DC',emd:'EMD',hml:'HARDMONEY',dsc
 const RC_ACTION={DC:'DEAL_SUBMISSION',EMD:'EMD_SUBMISSION',STACK:'STACK_SUBMISSION',ECHO:'ECHO_SUBMISSION',HARDMONEY:'HARDMONEY_SUBMISSION'};
 var DEALMIN=null,SUBMITTING=false;
 function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
- return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();return DEALMIN}).catch(function(){return null})}
+ return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();return DEALMIN}).catch(function(){return null})}
 function ensureRC(){if(document.getElementById('rcs'))return;var s=document.createElement('script');s.id='rcs';s.async=true;s.defer=true;s.src='https://www.google.com/recaptcha/enterprise.js?render='+RC_KEY;document.head.appendChild(s)}
 function rcToken(action){return new Promise(function(res){if(!(window.grecaptcha&&window.grecaptcha.enterprise)){res('');return}
  try{grecaptcha.enterprise.ready(function(){grecaptcha.enterprise.execute(RC_KEY,{action:action}).then(res).catch(function(){res('')})})}catch(e){res('')}})}
@@ -541,11 +551,11 @@ const LEARN={
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
   <h4>Run your numbers first</h4><p>Use the Morby Calculator to see your estimated cash to close — or cash back — before you submit.</p>`},
  echo:{k:'Creative Finance',t:'Echo Method',b:`
-  <h4>What it is</h4><p>A two-closing structure where our capital makes you a true cash buyer, and your end loan (often DSCR) repays us at a same-day second closing. You get cash-buyer pricing power without tying up your own capital.</p>
-  <h4>When to use it</h4><ul><li>The seller wants a fast, clean, cash close</li><li>Your end financing can't close as fast as the seller needs</li><li>You want cash-offer leverage in negotiations</li></ul>
-  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit the purchase and your end-loan details.</span></div><div class="step"><b>02</b><span>Written terms same day on most submissions; both closings coordinated with title.</span></div><div class="step"><b>03</b><span>We fund the cash purchase; your end loan repays us at the second closing.</span></div></div>
-  <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>End loan approval or term sheet</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
-  <h4>Run your numbers first</h4><p>Use the Echo Calculator to estimate what you'll bring to closing — or get back.</p>`},
+  <h4>What it is</h4><p>Echo is short-term funding for the end buyer’s down payment on the back half of a double close. Your buyer closes with their primary lender plus our capital — and we’re repaid out of the deal’s spread on that same settlement statement. Funds in, funds out, one closing. That’s the echo.</p>
+  <h4>When to use it</h4><ul><li>You’re wholesaling and buyers keep stalling on down-payment money</li><li>You’re buying from a wholesaler and don’t want second-position gap debt sitting on the deal for months</li><li>The B-C price is supported by the appraisal and the spread can cover the funding</li></ul>
+  <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit both legs — A-B and B-C contracts, your buyer’s primary lender terms, closing date.</span></div><div class="step"><b>02</b><span>We verify the spread covers the funding and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.</span></div></div>
+  <h4>What you'll need</h4><ul><li>A-B and B-C purchase contracts</li><li>Your buyer’s primary lender term sheet or approval</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
+  <h4>Run your numbers first</h4><p>Use the Echo Calculator to see whether the spread covers the funding before you submit.</p>`},
  dc:{k:'Transactional',t:'Double Close',b:`
   <h4>What it is</h4><p>Back-to-back closings where we fund 100% of your A-to-B purchase, and your B-to-C sale repays us the same day. Your end buyer never sees your contract price — your spread stays private.</p>
   <h4>When to use it</h4><ul><li>Assignments are restricted or you don't want your fee visible</li><li>Your end buyer is ready and funded</li><li>You need same-day in-and-out capital</li></ul>
