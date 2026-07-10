@@ -367,9 +367,6 @@ function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
-function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  document.getElementById('pane_morby').style.display=which==='morby'?'block':'none';
-  document.getElementById('pane_echo').style.display=which==='echo'?'block':'none'}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();
 /* ---------- modal ---------- */
 const API_BASE='https://api.txfhub.com';
