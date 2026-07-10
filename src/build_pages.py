@@ -93,10 +93,12 @@ def ul(items):
 
 DEALS = {
  'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby',
+   title='Morby Method (Stack Method) Funding | RealQuick Funds',
+   desc='Morby Method (Stack Method) funding - seller carry + primary lender stacked into one creative close. All 50 states. Same-day decisions on most deals.',
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
    body='''
 <h2>What the Morby Method is</h2>
-<p>The Morby Method is a creative-finance acquisition structure that combines a seller-carried note with a primary lender so the total capital stack covers - or exceeds - the purchase price and closing costs. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
+<p>The Morby Method is a creative-finance acquisition structure that combines a seller-carried note with a primary lender so the total capital stack covers - or exceeds - the purchase price and closing costs. You'll also hear it called the <b>Stack Method</b> - same structure, same math; the name comes from stacking funding sources on one deal. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
 <h2>When to use it</h2>
 ''' + ul(['The seller is open to carrying part of the purchase price','You have a primary lender (DSCR, private, or hard money) covering most of the purchase','You want to preserve cash while still closing quickly','The numbers work - run them in the <a href="/calculators/">Morby Calculator</a> first']) + '''
 <h2>How RealQuick Funds funds it</h2>
@@ -160,8 +162,11 @@ DEALS = {
 <h2>What you'll need</h2>
 ''' + ul(['Property address and rent documentation','Entity documents','Basic reserves verification'])),
 }
+def meta_desc(s, n=155):
+    if len(s) <= n: return s
+    return s[:n].rsplit(' ', 1)[0].rstrip(' -,;:') + '…'
 for slug,d in DEALS.items():
-    page(slug, "%s Funding | RealQuick Funds" % d['name'], d['sub'][:150],
+    page(slug, d.get('title', "%s Funding | RealQuick Funds" % d['name']), meta_desc(d.get('desc', d['sub'])),
          d['kicker'], d['name'], d['sub'], d['body'], cta_type=d['cta'],
          cta_label="Start a %s request" % d['name'])
 
@@ -301,7 +306,7 @@ FAQS = [
  ("What does it cost?","Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you'll have exact written terms - same day on most submissions, and never more than one business day. No obligation."),
  ("What states do you fund in?","All 50 states."),
  ("Do you fund 100% of a double close?","Yes - we fund 100% of the A-to-B purchase. Your B-to-C sale repays us through escrow the same day."),
- ("What is the Morby Method?","A creative-finance structure stacking seller carry with a primary lender so you close with little or no cash - sometimes with cash back. See the full guide on our Morby Method page, and run your numbers in the calculator."),
+ ("What is the Morby Method?","A creative-finance structure - also called the Stack Method - stacking seller carry with a primary lender so you close with little or no cash - sometimes with cash back. Morby Method and Stack Method are the same thing. See the full guide on our Morby Method page, and run your numbers in the calculator."),
  ("How does repayment work?","Repayment flows through licensed title/escrow at closing - funds never pass through personal accounts. Every transaction is escrow-secured and title-verified."),
  ("How do I become an affiliate?","Two paths. Free Affiliates refer investors to realquickfunds.com - every deal form has a Referred-by field, and your name on the application is all it takes to earn on funded deals. VIP Affiliates get a complete white-label funding business: a customizable website covering our full product line, automated nurture campaigns, and proof-of-funds letters on demand, with operations and capital handled by our team. Apply on the affiliates page and pick your lane."),
 ]
