@@ -78,6 +78,7 @@ h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line
 .result .rv{font-family:var(--mono);font-size:28px;font-weight:600;margin-top:2px}
 .result.bring{background:#fff2df;color:#8a5200}
 .result.back{background:#e4f7eb;color:#0e7a3d}
+.result.out{background:#eceef4;color:#3d4b66}
 .calc .btn{width:100%;justify-content:center;margin-top:12px;border-radius:12px}
 .calc .note{font-size:11px;color:#9a978d;margin-top:10px;text-align:center}
 /* marquee */
@@ -300,21 +301,24 @@ function setT(id,t){var el=document.getElementById(id);if(el)el.textContent=t}
 function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
   const pl=pp*plp/100,cc=pp*ccp/100;
   const cash=pp+cc-pl; /* cash to close above the primary loan */
-  const cap=Math.max((sc-tc-x2)/(1+fp/100),0); /* max TF the seller carry can repay (TF + fee + TC + 2nd close) */
-  const tf=Math.min(Math.max(cash,0),cap);
-  const fee=tf*fp/100;
-  const buyer=cash-tf;
-  setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d','= '+money(fee));
-  const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(buyer);
-  if(cash<=0){res.className='result back';document.getElementById('s_rl').textContent='Estimated cash BACK to you at closing';
-    setT('s_sub','Your primary loan covers the full close — no transactional funding needed.')}
-  else{res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
-    if(tf<=0)setT('s_sub','Seller carry can’t cover funding repayment — restructure or bring full cash to close.');
-    else if(buyer<=0.5)setT('s_sub','RQF funds the full '+money(tf)+' gap — seller carry covers repayment ✓');
-    else setT('s_sub','RQF funds '+money(tf)+' (max your seller carry repays) — you bring the rest.')}}
+  const MINFEE=2500;
+  let cap=Math.max((sc-tc-x2)/(1+fp/100),0); /* max TF the seller carry can repay (TF + fee + TC + 2nd close) */
+  let fee=cap*fp/100,mf=false;
+  if(fee<MINFEE){mf=true;fee=MINFEE;cap=Math.max(sc-tc-x2-MINFEE,0)} /* $2,500 minimum funding fee */
+  const net=cash-cap; /* >0: buyer brings; <0: carry supports funding beyond the gap — cash can come out */
+  setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d',mf?'min $2,500':'= '+money(fee));
+  const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(net);
+  if(net>0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
+    if(cap<=0)setT('s_sub','Seller carry can’t cover funding repayment — restructure or bring full cash to close.');
+    else setT('s_sub','RQF funds '+money(cap)+' (max your seller carry repays) — you bring the rest.')}
+  else if(net>=-0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
+    setT('s_sub','RQF funds the full '+money(Math.max(cash,0))+' gap — seller carry covers repayment ✓')}
+  else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash available to you at closing';
+    if(cash>0)setT('s_sub','Your seller carry supports up to '+money(cap)+' in funding — '+money(cash)+' covers your close and the rest can come out to you. Final structure set in your written terms.');
+    else setT('s_sub','Your primary loan more than covers the close, and your carry supports up to '+money(cap)+' in funding on top. Final structure set in your written terms.')}}
 function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;
   const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(cash);
-  if(cash<=0){res.className='result back';document.getElementById('e_rl').textContent='Estimated cash BACK to you at closing'}
+  if(cash<=0){res.className='result out';document.getElementById('e_rl').textContent='Estimated cash available to you at closing'}
   else{res.className='result bring';document.getElementById('e_rl').textContent='Estimated cash to close'}}
 function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_morby').style.display=which==='morby'?'block':'none';
