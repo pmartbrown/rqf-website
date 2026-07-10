@@ -184,7 +184,7 @@ CALC_BODY = '''
       <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
     </div>
     <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div>
     <div id="pane_cf" style="display:none">
     <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
@@ -220,7 +220,7 @@ CALC_BODY = '''
       <div class="prow tot" id="cf_blr" style="display:none"><span id="cf_bll">Carry balloon due</span><b id="cf_bl"></b></div>
     </div>
     <div class="result bring" id="cf_res"><div class="rl" id="cf_rl">Estimated monthly cash flow</div><div class="rv" id="cf_rv">$0</div><div class="rsub" id="cf_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div></div>
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
     <div class="purpose">Buy like cash - your end loan repays us at the second closing.</div>
@@ -229,7 +229,7 @@ CALC_BODY = '''
     <div class="fld"><label>Est. closing costs (both closings)</label><div class="inwrap"><span>$</span><input id="e_cc" value="10,000" oninput="fmt(this);echo()"></div></div>
     <div class="fld"><label>Est. funding &amp; transaction fees <span class="hint">confirmed in quote</span></label><div class="inwrap"><span>$</span><input id="e_ff" value="6,000" oninput="fmt(this);echo()"></div></div>
     <div class="result bring" id="e_res"><div class="rl" id="e_rl">Estimated cash to close</div><div class="rv" id="e_rv">$0</div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo')">Submit this deal</button></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo',true)">Submit this deal</button></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
 page('calculators','Deal Calculators - Morby, Echo & Rental Cash Flow | RealQuick Funds',

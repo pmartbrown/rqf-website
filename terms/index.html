@@ -302,11 +302,12 @@ function setT(id,t){var el=document.getElementById(id);if(el)el.textContent=t}
 function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
   const pl=pp*plp/100,cc=pp*ccp/100;
   const cash=pp+cc-pl; /* cash to close above the primary loan */
-  const MINFEE=2500;
+  const MINFEE=(typeof DEALMIN!=='undefined'&&DEALMIN&&DEALMIN.STACK&&+DEALMIN.STACK.minimum_fee>0)?+DEALMIN.STACK.minimum_fee:2500;
   let cap=Math.max((sc-tc-x2)/(1+fp/100),0); /* max TF the seller carry can repay (TF + fee + TC + 2nd close) */
   let fee=cap*fp/100,mf=false;
   if(fee<MINFEE){mf=true;fee=MINFEE;cap=Math.max(sc-tc-x2-MINFEE,0)} /* $2,500 minimum funding fee */
   const net=cash-cap; /* >0: buyer brings; <0: carry supports funding beyond the gap — cash can come out */
+  window.CALC_TF=Math.min(Math.max(cash,0),cap);
   setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d',mf?'min $2,500':'= '+money(fee));
   const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(net);
   if(net>0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
@@ -317,7 +318,7 @@ function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s
   else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash back at closing';
     if(cash>0)setT('s_sub','Your seller carry supports up to '+money(cap)+' in funding — '+money(cash)+' covers your close and the rest can come out to you. Final structure set in your written terms.');
     else setT('s_sub','Your primary loan more than covers the close, and your carry supports up to '+money(cap)+' in funding on top. Final structure set in your written terms.')}}
-function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;
+function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;window.CALC_ECHO=pp;
   const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(cash);
   if(cash<=0){res.className='result out';document.getElementById('e_rl').textContent='Estimated cash back at closing'}
   else{res.className='result bring';document.getElementById('e_rl').textContent='Estimated cash to close'}}
@@ -354,87 +355,194 @@ function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b
   document.getElementById('pane_echo').style.display=which==='echo'?'block':'none'}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();
 /* ---------- modal ---------- */
-const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
-function F(label,type,ph,extra){return {l:label,t:type||'text',p:ph||'',x:extra||''}}
-function FS(label,id,options){return {l:label,t:'select',id:id,o:options}}
+const API_BASE='https://api.txfhub.com';
+const RC_KEY='6Lf4iS8sAAAAAKxk_0dkpPQpuUZlLf6coT_YhDLY';
+const DEAL_TYPE={morby:'STACK',echo:'ECHO',dc:'DC',emd:'EMD',hml:'HARDMONEY',dscr:'HARDMONEY'};
+const RC_ACTION={DC:'DEAL_SUBMISSION',EMD:'EMD_SUBMISSION',STACK:'STACK_SUBMISSION',ECHO:'ECHO_SUBMISSION',HARDMONEY:'HARDMONEY_SUBMISSION'};
+var DEALMIN=null,SUBMITTING=false;
+function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
+ return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();return DEALMIN}).catch(function(){return null})}
+function ensureRC(){if(document.getElementById('rcs'))return;var s=document.createElement('script');s.id='rcs';s.async=true;s.defer=true;s.src='https://www.google.com/recaptcha/enterprise.js?render='+RC_KEY;document.head.appendChild(s)}
+function rcToken(action){return new Promise(function(res){if(!(window.grecaptcha&&window.grecaptcha.enterprise)){res('');return}
+ try{grecaptcha.enterprise.ready(function(){grecaptcha.enterprise.execute(RC_KEY,{action:action}).then(res).catch(function(){res('')})})}catch(e){res('')}})}
+const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" id="consentChk" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
+function F(name,label,type,ph,req){return {n:name,l:label,t:type||'text',p:ph||'',req:!!req}}
+function FS(name,label,id,options,bool){return {n:name,l:label,t:'select',id:id,o:options,b:!!bool}}
+function FF(name,label,req,multi){return {n:name,l:label,t:'file',req:!!req,multi:!!multi}}
 function DEP(field,depId,depVal){field.dep=depId+'='+depVal;return field}
-const BORROWER=[F('Borrower first name'),F('Borrower last name'),F('Borrower email address','email','name@email.com'),F('Borrower phone number','tel','(555) 555-5555')];
+const BORROWER=[F('borrower_first_name','Borrower first name','text','',1),F('borrower_last_name','Borrower last name','text','',1),F('borrower_email','Borrower email','email','you@example.com',1),F('borrower_phone','Borrower phone','tel','(555) 555-5555',1)];
 const FORMS={
  emd:{title:'EMD Funding Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('Requested amount','money','25,000'),F('When are the funds required?','date'),F('Subject property address','address','Start typing the address…'),F('End of inspection date','date'),F('Close of escrow date','date')]},
-  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Deal information',f:[F('requested_amount','Requested amount','money','25,000',1),F('when_funds_required','When are the funds required?','date','',1),F('address','Subject property address','address','',1),F('end_of_inspection_period','End of inspection date','date','',1),F('close_of_escrow_date','Close of escrow date','date','',1)]},
+  {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement',1),FF('other_documents','Other relevant documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  echo:{title:'Echo Method Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Requested funding amount','money','300,000'),F('Close of escrow date','date'),F('A-B leg purchase price','money','300,000'),F('B-C leg sell price','money','340,000')]},
-  {h:'Documents',f:[F('A-B purchase and sale agreement','file'),F('B-C purchase and sale agreement','file'),F('Other relevant files','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Deal information',f:[F('address','Subject property address','address','',1),F('requested_amount','Requested funding amount','money','300,000',1),F('close_of_escrow_date','Close of escrow date','date','',1),F('ab_leg_purchase_price','A-B leg purchase price','money','300,000',1),F('bc_leg_sale_price','B-C leg sell price','money','340,000',1)]},
+  {h:'Documents',f:[FF('ab_contract','A-B purchase and sale agreement',1),FF('bc_contract','B-C purchase and sale agreement'),FF('other_documents','Other relevant files',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea','',1)]}]},
  morby:{title:'Morby Method Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Close date','date'),F('Purchase price','money','400,000'),F('Seller finance amount','money','80,000'),F('Estimated DSCR amount needed','money','320,000')]},
-  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Addendums or other documents','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Deal information',f:[F('address','Subject property address','address','',1),F('close_of_escrow_date','Close date','date','',1),F('purchase_price','Purchase price','money','400,000',1),F('seller_financed_amount','Seller finance amount','money','80,000',1),F('_primary_needed','Estimated DSCR / primary loan amount','money','320,000'),F('requested_amount','Requested transactional funding','money','75,000',1)]},
+  {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement',1),FF('other_documents','Addendums or other documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  dc:{title:'Double Close Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('Requested amount','money','200,000'),F('Close of escrow date','date'),F('Subject property address','address','Start typing the address…')]},
-  {h:'Documents',f:[F('A-B Contract','file'),F('B-C Contract','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Deal information',f:[F('requested_amount','Requested amount','money','200,000',1),F('close_of_escrow_date','Close of escrow date','date','',1),F('address','Subject property address','address','',1)]},
+  {h:'Documents',f:[FF('ab_contract','A-B Contract',1),FF('bc_contract','B-C Contract',1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  hml:{title:'Hard Money Loan Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Loan information',f:[F('Estimated funding needed','money','250,000'),F('When is funding needed?','date'),F('Estimated credit score','text','e.g. 700'),FS('Loan purpose','hml_purpose',['Fix and flip','Morby / Stack deal','Other'])]},
-  {h:'Property information',f:[F('Property address','address','Start typing the address…'),FS('Is this a renovation?','hml_reno',['No','Yes']),DEP(FS('Are renovation funds also needed?','hml_renofunds',['No','Yes']),'hml_reno','Yes'),DEP(F('Estimated rehab budget','money','60,000'),'hml_renofunds','Yes'),FS('Will the property be used as a rental?','hml_rental',['No','Yes'])]},
-  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','250,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','hml_purpose',['Fix and flip','Morby / Stack deal','Other'])]},
+  {h:'Property information',f:[F('address','Property address','address','',1),FS('is_renovation','Is this a renovation?','hml_reno',['No','Yes'],1),DEP(FS('needs_rehab_funds','Are renovation funds also needed?','hml_renofunds',['No','Yes'],1),'hml_reno','Yes'),DEP(F('estimated_rehab_budget','Estimated rehab budget','money','60,000'),'hml_renofunds','Yes'),FS('is_rental','Will the property be used as a rental?','hml_rental',['No','Yes'],1)]},
+  {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement'),FF('other_documents','Other relevant documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  dscr:{title:'DSCR Loan Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Loan information',f:[F('Estimated funding needed','money','300,000'),F('When is funding needed?','date'),F('Estimated credit score','text','e.g. 700'),FS('Loan purpose','dscr_purpose',['Purchase to rent','Refinance','Morby / Stack deal'])]},
-  {h:'Property information',f:[F('Property address','address','Start typing the address…'),FS('Will the property be used as a rental?','dscr_rental',['Yes','No']),F('Current or projected monthly rent','money','2,400'),FS('Is that current rent or projected rent?','dscr_renttype',['Current','Projected']),FS('Is a lease currently in place?','dscr_lease',['No','Yes']),FS('Is it a short-term rental?','dscr_str',['No','Yes']),FS('Is any renovation being done?','dscr_reno',['No','Yes'])]},
-  {h:'Documents',f:[F('Purchase and sale agreement','file'),F('Other relevant documents','file')],note:'Have more documents? You can send additional files after submitting.'},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
- _default:{sections:[
-  {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('Subject property address','address','Start typing the address…'),F('Closing date','date'),F('Funding amount needed','money','150,000')]},
-  {h:'Deal description',f:[F('Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
+  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','300,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','dscr_purpose',['Purchase to rent','Refinance','Morby / Stack deal'])]},
+  {h:'Property information',f:[F('address','Property address','address','',1),FS('is_rental','Will the property be used as a rental?','dscr_rental',['Yes','No'],1),F('monthly_rent','Current or projected monthly rent','money','2,400'),FS('_rent_type','Is that current rent or projected rent?','dscr_renttype',['Current','Projected']),FS('has_lease','Is a lease currently in place?','dscr_lease',['No','Yes'],1),FS('is_short_term_rental','Is it a short-term rental?','dscr_str',['No','Yes'],1),FS('is_renovation','Is any renovation being done?','dscr_reno',['No','Yes'],1)]},
+  {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement'),FF('other_documents','Other relevant documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
+  {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  affiliate:{title:'Affiliate Application',sections:[
-  {h:'Your information',f:BORROWER.map(function(b){return {l:b.l.replace('Borrower ','Your ').replace('Your f','F').replace('Your l','L'),t:b.t,p:b.p,x:''}})},
-  {h:'Your path',f:[FS('Which affiliate path interests you?','aff_tier',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
-  {h:'About your network',f:[F('Company / community name'),F('Audience or network size','text','e.g. 2,500 members'),F('How would you refer deals to us?','textarea')]}]}
+  {h:'Your information',f:[F('aff_first','First name'),F('aff_last','Last name'),F('aff_email','Email','email'),F('aff_phone','Phone','tel')]},
+  {h:'Your path',f:[FS('aff_tier','Which affiliate path interests you?','aff_tier_sel',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
+  {h:'About your network',f:[F('aff_company','Company / community name'),F('aff_size','Audience or network size','text','e.g. 2,500 members'),F('aff_how','How would you refer deals to us?','textarea')]}]}
 };
 const NAMES={morby:'Morby Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
+const FILE_OK=['application/pdf','image/png','image/jpeg'];
+function fileBad(file){if(file.size>5*1024*1024)return file.name+' is over the 5MB limit';
+ if(FILE_OK.indexOf(file.type)<0&&!/\.(pdf|png|jpe?g)$/i.test(file.name))return file.name+' must be a PDF, PNG, or JPG';return null}
+function fileChk(el){var msgs=[];for(var i=0;i<el.files.length;i++){var m=fileBad(el.files[i]);if(m)msgs.push(m)}
+ if(el.multiple&&el.files.length>10)msgs.push('Maximum 10 files');
+ el.closest('.fld').querySelector('label').style.color=msgs.length?'#a02020':'';
+ if(msgs.length){showErr(msgs)}else{hideErr()}}
 function fieldHTML(f){
+ var attrs=' data-name="'+f.n+'" data-label="'+f.l.replace(/"/g,'')+'"'+(f.req?' data-req="1"':'');
  var inner;
- if(f.t==='textarea') inner='<textarea rows="4" style="width:100%;border:1.5px solid var(--line);border-radius:11px;margin-top:5px;background:#fff;padding:10px 12px;font-family:Inter;font-size:14.5px;outline:none;resize:vertical" placeholder="'+f.p+'"></textarea>';
- else if(f.t==='file') inner='<div class="inwrap" style="padding:8px 12px"><input type="file" style="font-family:Inter;font-size:13px;font-weight:400;padding:2px 0"></div>';
- else if(f.t==='money') inner='<div class="inwrap"><span>$</span><input inputmode="numeric" placeholder="'+f.p+'" oninput="fmt(this)"></div>';
- else if(f.t==='date') inner='<div class="inwrap" style="padding-left:10px"><input type="date"></div>';
- else if(f.t==='address') inner='<div class="inwrap" style="padding-left:10px"><input type="text" class="addr-autocomplete" placeholder="'+f.p+'" autocomplete="street-address"></div>'; /* TODO: Google Places Autocomplete at deploy */
- else if(f.t==='select'){inner='<div class="inwrap" style="padding-left:6px"><select '+(f.id?'id="'+f.id+'" ':'')+'onchange="updDeps()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)">'+f.o.map(function(o){return '<option>'+o+'</option>'}).join('')+'</select></div>'}
- else inner='<div class="inwrap" style="padding-left:10px"><input type="'+f.t+'" placeholder="'+f.p+'"></div>';
- return '<div class="fld"'+(f.dep?' data-dep="'+f.dep+'" style="display:none"':'')+'><label>'+f.l+'</label>'+inner+'</div>';
+ if(f.t==='address'){
+  return '<div class="fld"'+(f.dep?' data-dep="'+f.dep+'" style="display:none"':'')+'><label>'+f.l+(f.req?' *':'')+'</label><div class="inwrap" style="padding-left:10px"><input type="text"'+attrs.replace('data-name="'+f.n+'"','data-name="address"')+' class="addr-autocomplete" placeholder="Street address" autocomplete="street-address"></div></div>'
+  +'<div class="cgrid3"><div class="fld"><label>City'+(f.req?' *':'')+'</label><div class="inwrap" style="padding-left:10px"><input type="text" data-name="city" data-label="City"'+(f.req?' data-req="1"':'')+' autocomplete="address-level2"></div></div>'
+  +'<div class="fld"><label>State'+(f.req?' *':'')+'</label><div class="inwrap" style="padding-left:10px"><input type="text" data-name="state" data-label="State"'+(f.req?' data-req="1"':'')+' maxlength="2" placeholder="TX" autocomplete="address-level1" style="text-transform:uppercase"></div></div>'
+  +'<div class="fld"><label>ZIP'+(f.req?' *':'')+'</label><div class="inwrap" style="padding-left:10px"><input type="text" data-name="zip" data-label="ZIP" inputmode="numeric"'+(f.req?' data-req="1"':'')+' maxlength="10" autocomplete="postal-code"></div></div></div>';
+ }
+ if(f.t==='textarea') inner='<textarea rows="4"'+attrs+' style="width:100%;border:1.5px solid var(--line);border-radius:11px;margin-top:5px;background:#fff;padding:10px 12px;font-family:Inter;font-size:14.5px;outline:none;resize:vertical" placeholder="'+f.p+'"></textarea>';
+ else if(f.t==='file') inner='<div class="inwrap" style="padding:8px 12px"><input type="file"'+attrs+(f.multi?' multiple':'')+' accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" onchange="fileChk(this)" style="font-family:Inter;font-size:13px;font-weight:400;padding:2px 0"></div>';
+ else if(f.t==='money') inner='<div class="inwrap"><span>$</span><input inputmode="numeric"'+attrs+' data-money="1" placeholder="'+f.p+'" oninput="fmt(this)"></div>';
+ else if(f.t==='date') inner='<div class="inwrap" style="padding-left:10px"><input type="date"'+attrs+'></div>';
+ else if(f.t==='select'){inner='<div class="inwrap" style="padding-left:6px"><select '+(f.id?'id="'+f.id+'" ':'')+attrs+(f.b?' data-bool="1"':'')+' onchange="updDeps()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)">'+f.o.map(function(o){return '<option>'+o+'</option>'}).join('')+'</select></div>'}
+ else inner='<div class="inwrap" style="padding-left:10px"><input type="'+f.t+'"'+attrs+' placeholder="'+f.p+'"></div>';
+ return '<div class="fld"'+(f.dep?' data-dep="'+f.dep+'" style="display:none"':'')+'><label>'+f.l+(f.req?' *':'')+'</label>'+inner+'</div>';
 }
-function renderForm(t){
- var cfg=FORMS[t]||FORMS._default;
- var html='';
+function renderForm(t,fromCalc){
+ var cfg=FORMS[t];if(!cfg)return;
+ var html='<div id="formErr" style="display:none;background:#fdecec;color:#a02020;border-radius:12px;padding:12px 16px;font-size:13px;margin-top:14px;line-height:1.5"></div>'
+ +'<div id="formWarn" style="display:none;background:#fff2df;color:#8a5200;border-radius:12px;padding:14px 16px;font-size:13px;margin-top:14px;line-height:1.5"></div>';
  cfg.sections.forEach(function(s){
   html+='<div style="font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#8a887f;margin:20px 0 10px">'+s.h+'</div>';
   s.f.forEach(function(f){html+=fieldHTML(f)});
   if(s.note)html+='<p style="font-size:12.5px;color:#9a978d;margin-top:4px">'+s.note+'</p>';
  });
- if(t!=='affiliate'){html+='<div style="font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#8a887f;margin:20px 0 10px">Referral</div>'+fieldHTML(F('Referred by (affiliate name - optional)','text','Who sent you?'));}
- html+=CONSENT_HTML;
- html+='<button class="btn" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">Submit — same-day decisions on most deals</button>';
- html+='<p style="font-size:11px;color:#b3b0a6;margin-top:10px;text-align:center"><em>Demo — production form posts into HubSpot.</em></p>';
+ if(t!=='affiliate')html+=CONSENT_HTML;
+ html+='<button class="btn" id="subBtn" onclick="submitDeal(\''+t+'\')" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">'+(t==='affiliate'?'Apply to become an affiliate':'Submit — same-day decisions on most deals')+'</button>';
  document.getElementById('mform').innerHTML=html;
+ if(fromCalc){var ra=document.querySelector('#mform [data-name="requested_amount"]');
+  if(ra&&t==='morby'&&window.CALC_TF>0)ra.value=Math.round(window.CALC_TF).toLocaleString();
+  if(ra&&t==='echo'&&window.CALC_ECHO>0)ra.value=Math.round(window.CALC_ECHO).toLocaleString();
+  if(t==='morby'){var pp=document.querySelector('#mform [data-name="purchase_price"]'),scf=document.querySelector('#mform [data-name="seller_financed_amount"]');
+   if(pp&&num('s_pp'))pp.value=num('s_pp').toLocaleString();if(scf&&num('s_sc'))scf.value=num('s_sc').toLocaleString()}}
  updDeps();
+}
+function showErr(list){var d=document.getElementById('formErr');if(!d)return;d.style.display='block';d.innerHTML=(Array.isArray(list)?list:[list]).join('<br>');d.scrollIntoView({behavior:'smooth',block:'center'})}
+function hideErr(){var d=document.getElementById('formErr');if(d){d.style.display='none'}var w=document.getElementById('formWarn');if(w){w.style.display='none'}}
+function collect(t){
+ var fd=new FormData();var errs=[];var extra=[];var amount=0;
+ fd.append('deal_type',DEAL_TYPE[t]);
+ document.querySelectorAll('#mform [data-name]').forEach(function(el){
+  var fld=el.closest('.fld');if(fld&&fld.style.display==='none')return;
+  if(el.type==='file')return;
+  var name=el.getAttribute('data-name'),label=el.getAttribute('data-label'),v=(el.value||'').trim();
+  if(el.getAttribute('data-money')==='1')v=v.replace(/,/g,'');
+  if(el.getAttribute('data-bool')==='1')v=(v==='Yes')?'true':'false';
+  if(el.getAttribute('data-req')==='1'&&!v)errs.push(label+' is required');
+  if(name==='borrower_email'&&v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))errs.push('Please enter a valid email address');
+  if(name==='requested_amount')amount=+v||0;
+  if(name.charAt(0)==='_'){if(v&&!(el.getAttribute('data-bool')==='1'&&v==='false'))extra.push(label+': '+(el.getAttribute('data-money')==='1'?'$'+(+v).toLocaleString():v));return}
+  if(name==='deal_description')return;
+  if(v)fd.append(name,v);
+ });
+ var descEl=document.querySelector('#mform [data-name="deal_description"]');
+ var desc=descEl?(descEl.value||'').trim():'';
+ if(descEl&&descEl.getAttribute('data-req')==='1'&&!desc)errs.push('Deal description is required');
+ if(extra.length)desc=(desc?desc+'\n\n':'')+extra.join('\n');
+ if(desc)fd.append('deal_description',desc);
+ document.querySelectorAll('#mform input[type="file"][data-name]').forEach(function(el){
+  var name=el.getAttribute('data-name'),label=el.getAttribute('data-label');
+  if(el.getAttribute('data-req')==='1'&&!el.files.length)errs.push(label+' is required');
+  if(el.multiple&&el.files.length>10)errs.push(label+': maximum 10 files');
+  for(var i=0;i<el.files.length;i++){var m=fileBad(el.files[i]);if(m){errs.push(m)}else{fd.append(name,el.files[i])}}
+ });
+ var consent=document.getElementById('consentChk');
+ if(consent&&!consent.checked)errs.push('Please agree to the terms to submit');
+ fd.append('agree_to_terms','true');
+ return {fd:fd,errs:errs,amount:amount};
+}
+function btnState(busy){var b=document.getElementById('subBtn');if(b){b.disabled=busy;b.style.opacity=busy?'.6':'1';b.textContent=busy?'Submitting…':'Submit — same-day decisions on most deals'}}
+function showSuccess(title,msg,ref){document.getElementById('mform').innerHTML='<div style="text-align:center;padding:34px 8px"><div style="width:64px;height:64px;border-radius:50%;background:#e4f7eb;color:#0e7a3d;font-size:30px;line-height:64px;margin:0 auto 16px">✓</div><h3 style="font-family:var(--disp);font-size:22px">'+title+'</h3><p style="color:#54524b;font-size:14.5px;margin-top:10px;line-height:1.6">'+msg+'</p>'+(ref?'<p style="font-size:11px;color:#9a978d;margin-top:12px;font-family:var(--mono)">Reference: '+ref+'</p>':'')+'<button class="btn" style="margin-top:22px;border-radius:12px" onclick="closeModal()">Done</button></div>'}
+function submitDeal(t,ack){
+ if(SUBMITTING)return;
+ hideErr();
+ if(t==='affiliate'){showSuccess('Let\'s get you started','Affiliate onboarding happens inside our community right now. Join us at Funding Hub and our team will take it from there — VIP white-label setup included.','');
+  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub">Join the community →</a></div>');return}
+ var r=collect(t);
+ if(r.errs.length){showErr(r.errs);return}
+ var dt=DEAL_TYPE[t];
+ SUBMITTING=true;btnState(true);
+ fetchMins().then(function(){
+  var min=DEALMIN&&DEALMIN[dt];
+  if(!ack&&min&&r.amount>0&&r.amount<+min.threshold_amount){SUBMITTING=false;btnState(false);showMinWarn(t,min);return}
+  if(ack)r.fd.append('below_minimum_acknowledged','true');
+  return rcToken(RC_ACTION[dt]).then(function(tok){
+   if(tok){r.fd.append('recaptcha_token',tok);r.fd.append('recaptcha_action',RC_ACTION[dt])}
+   return fetch(API_BASE+'/api/submissions',{method:'POST',body:r.fd})
+  }).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+  .then(function(x){SUBMITTING=false;btnState(false);
+   if(x.s===201&&x.j.success){
+    if(x.j.unserviceable)showSuccess('Submission received',x.j.message||'Thank you for your submission.',x.j.submission_id);
+    else showSuccess('Deal submitted!',x.j.message||'We will review your submission and contact you soon.',x.j.submission_id);
+   }else if(x.j&&x.j.details){var msgs=[];for(var k in x.j.details)msgs.push(x.j.details[k]);showErr(msgs)}
+   else showErr((x.j&&(x.j.message||x.j.error))||'Something went wrong. Please try again.');
+  }).catch(function(){SUBMITTING=false;btnState(false);
+   showErr('We couldn\'t reach our submission system. Please try again in a moment — or submit your deal at <a href="https://txfhub.com" style="color:#a02020;text-decoration:underline">txfhub.com</a>.')});
+ });
+}
+function showMinWarn(t,min){var d=document.getElementById('formWarn');if(!d)return;
+ d.style.display='block';
+ d.innerHTML='<b>Heads up:</b> this request is below our current '+money(+min.threshold_amount)+' minimum for this deal type. You can submit it anyway and our team will review it, or just leave your contact info and we\'ll reach out.'
+ +'<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap"><button class="btn" style="border-radius:10px;padding:10px 18px;font-size:13.5px" onclick="submitDeal(\''+t+'\',true)">Submit anyway</button><button class="btn btn-ghost" style="border-radius:10px;padding:10px 18px;font-size:13.5px;color:#8a5200;border-color:#8a5200" onclick="partialLead(\''+t+'\')">Just send my info</button></div>';
+ d.scrollIntoView({behavior:'smooth',block:'center'})}
+function partialLead(t){
+ if(SUBMITTING)return;
+ var g=function(n){var el=document.querySelector('#mform [data-name="'+n+'"]');return el?(el.value||'').trim():''};
+ var body={deal_type:DEAL_TYPE[t],borrower_first_name:g('borrower_first_name'),borrower_last_name:g('borrower_last_name'),borrower_email:g('borrower_email'),borrower_phone:g('borrower_phone'),requested_amount:g('requested_amount').replace(/,/g,''),address:g('address'),city:g('city'),state:g('state'),zip:g('zip')};
+ SUBMITTING=true;btnState(true);
+ rcToken('PARTIAL_LEAD_SUBMISSION').then(function(tok){
+  if(tok){body.recaptcha_token=tok;body.recaptcha_action='PARTIAL_LEAD_SUBMISSION'}
+  return fetch(API_BASE+'/api/submissions/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+ }).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+ .then(function(x){SUBMITTING=false;btnState(false);
+  if(x.s===201&&x.j.success)showSuccess('Info received',x.j.message||'Your information has been received. Our team will be in touch soon.',x.j.partial_lead_id);
+  else showErr((x.j&&(x.j.message||x.j.error))||'Something went wrong. Please try again.');
+ }).catch(function(){SUBMITTING=false;btnState(false);
+  showErr('We couldn\'t reach our submission system. Please try again in a moment — or submit your deal at <a href="https://txfhub.com" style="color:#a02020;text-decoration:underline">txfhub.com</a>.')});
 }
 function updDeps(){document.querySelectorAll('#mform [data-dep]').forEach(function(el){var kv=el.getAttribute('data-dep').split('=');var src=document.getElementById(kv[0]);el.style.display=(src&&src.value===kv[1]&&src.closest('.fld').style.display!=='none')?'block':'none'});
  // second pass for chained deps
  document.querySelectorAll('#mform [data-dep]').forEach(function(el){var kv=el.getAttribute('data-dep').split('=');var src=document.getElementById(kv[0]);el.style.display=(src&&src.value===kv[1]&&src.closest('.fld').style.display!=='none')?'block':'none'});
 }
-function openModal(type){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';if(type){pick(type)}else{backStep()}}
+function openModal(type,fromCalc){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';ensureRC();fetchMins();if(type){pick(type,fromCalc)}else{backStep()}}
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
-function pick(t){document.getElementById('step1').classList.add('off');document.getElementById('step2').classList.add('on');document.getElementById('formTitle').textContent=NAMES[t]||'Funding Request';renderForm(t)}
+function pick(t,fromCalc){document.getElementById('step1').classList.add('off');document.getElementById('step2').classList.add('on');document.getElementById('formTitle').textContent=NAMES[t]||'Funding Request';renderForm(t,fromCalc)}
 function backStep(){document.getElementById('step1').classList.remove('off');document.getElementById('step2').classList.remove('on')}
 /* ---------- learn drawer ---------- */
 const LEARN={
