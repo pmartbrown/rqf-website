@@ -13,7 +13,8 @@ SCRIPT = SCRIPT.replace("function num(id){return +(document.getElementById(id).v
 SCRIPT = SCRIPT.replace("stack();echo();","if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();")
 FOOTER = re.search(r'(<footer>.*?</footer>)', idx, re.S).group(1)
 
-NAV = '''<nav><div class="wrap nav-in">
+NAV = '''<div style="background:var(--orange);color:#141311;text-align:center;padding:9px 16px;font-size:13.5px;font-weight:700">🚧 This site is under construction — to submit deals, please visit <a href="https://txfhub.com" style="text-decoration:underline;color:#141311">txfhub.com</a></div>
+<nav><div class="wrap nav-in">
   <a class="brand" href="/"><img src="/assets/lockup_dark.png" alt="RealQuick Funds"></a>
   <div class="nav-links"><a href="/#types">Funding</a><a href="/calculators/">Calculators</a><a href="/#types">Learn</a><a href="/affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Community</a></div>
   <button class="btn" onclick="openModal()">Get Funded</button>
@@ -164,11 +165,9 @@ for slug,d in DEALS.items():
          cta_label="Start a %s request" % d['name'])
 
 CALC_BODY = '''
-<div style="background:#fff3cd;border:2px solid #f0d48a;color:#7a5c00;border-radius:14px;padding:20px 24px;margin-bottom:36px;font-size:16px;font-weight:600;text-align:center">🚧 This page is under construction. Until it's complete, please use <a href="https://txfhub.com" style="text-decoration:underline;color:#7a5c00">txfhub.com</a> for calculators.</div>
 <h2>Two calculators. One question: can you do this deal?</h2>
 <p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some. Exact figures always come with your written terms - typically the same day.</p>
-<div class="duo2" style="position:relative">
-<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none"><span style="font-family:var(--disp);font-weight:900;font-size:clamp(26px,4.5vw,44px);color:rgba(224,127,0,.30);transform:rotate(-12deg);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap">Under Construction</span></div>
+<div class="duo2">
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Morby / Stack</button></div>
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
     <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
@@ -190,7 +189,7 @@ CALC_BODY = '''
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
 page('calculators','Deal Calculators - Morby & Echo | RealQuick Funds',
  'Free Morby Method and Echo Method deal calculators. See your estimated cash to close - or cash back - before you submit.',
- 'Deal Tools','Run your numbers.','This page is under construction - until it is complete, use txfhub.com. Two viability calculators built for creative finance are coming here, with more on the way.',CALC_BODY)
+ 'Deal Tools','Run your numbers.','Two viability calculators built for creative finance. Know whether the deal works before you talk to anyone.',CALC_BODY)
 
 AFF_BODY = '''
 <h2>Two ways to earn. One engine behind both.</h2>
