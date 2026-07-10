@@ -170,12 +170,18 @@ CALC_BODY = '''
 <div class="duo2">
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Morby / Stack</button></div>
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
-    <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
-    <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="80,000" oninput="fmt(this);stack()"></div></div>
-    <div class="fld"><label>Primary lender amount</label><div class="inwrap"><span>$</span><input id="s_pl" value="360,000" oninput="fmt(this);stack()"></div></div>
-    <div class="fld"><label>Est. closing costs</label><div class="inwrap"><span>$</span><input id="s_cc" value="12,000" oninput="fmt(this);stack()"></div></div>
-    <div class="fld"><label>Est. funding &amp; transaction fees <span class="hint">confirmed in quote</span></label><div class="inwrap"><span>$</span><input id="s_ff" value="8,000" oninput="fmt(this);stack()"></div></div>
-    <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div></div>
+    <div class="cgrid">
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="80,000" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="80" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Funding fee <span class="hint" id="s_fp_d"></span></label><div class="inwrap"><input class="pctin" id="s_fp" value="2.5" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>TC fee</label><div class="inwrap"><span>$</span><input id="s_tc" value="3,000" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
+    </div>
+    <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button></div>
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
     <div class="purpose">Buy like cash - your end loan repays us at the second closing.</div>
