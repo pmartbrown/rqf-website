@@ -43,6 +43,18 @@ EXTRA_CSS = '''
 .sched{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 .duo2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin-top:20px}
 @media(max-width:760px){.duo2{grid-template-columns:1fr}}
+.toolgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;max-width:1080px}
+@media(max-width:960px){.toolgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.toolgrid{grid-template-columns:1fr}}
+.tool{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px -30px rgba(21,20,18,.25);text-decoration:none;color:inherit;transition:.15s}
+a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,18,.35)}
+.tool .ic{width:44px;height:44px;border-radius:12px;background:#fff2df;color:var(--orange-d);display:flex;align-items:center;justify-content:center;font-size:20px}
+.tool h3{font-family:var(--disp);font-size:19px;font-weight:800}
+.tool p{font-size:13.5px;color:#54524b;line-height:1.55;flex:1;max-width:none}
+.tool .go{font-weight:800;color:var(--orange-d);font-size:14px}
+.tool .tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#eceef4;color:#3d4b66;border-radius:20px;padding:3px 10px;width:fit-content}
+.tool.soon{opacity:.8;border-style:dashed}
+.calcwrap{max-width:560px}
 '''
 
 def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None):
@@ -102,7 +114,7 @@ DEALS = {
 <h2>What the Morby Method is</h2>
 <p>The Morby Method is a creative-finance acquisition structure that combines a seller-carried note with a primary lender so the total capital stack covers - or exceeds - the purchase price and closing costs. You'll also hear it called the <b>Stack Method</b> - same structure, same math; the name comes from stacking funding sources on one deal. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
 <h2>When to use it</h2>
-''' + ul(['The seller is open to carrying part of the purchase price','You have a primary lender (DSCR, private, or hard money) covering most of the purchase','You want to preserve cash while still closing quickly','The numbers work - run them in the <a href="/calculators/">Morby Calculator</a> first']) + '''
+''' + ul(['The seller is open to carrying part of the purchase price','You have a primary lender (DSCR, private, or hard money) covering most of the purchase','You want to preserve cash while still closing quickly','The numbers work - run them in the <a href="/calculators/morby-stack/">Morby Calculator</a> first']) + '''
 <h2>How RealQuick Funds funds it</h2>
 ''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms — same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
@@ -115,7 +127,7 @@ DEALS = {
 <p>Echo is short-term funding for the end buyer's down payment on the back half of a double close. The end buyer closes with their primary lender plus our capital - and we're repaid out of the deal's spread on that same settlement statement. Funds in, funds out, one closing. That's the echo.</p>
 <p>Compare that to a gap loan: no recorded second-position note, no debt sitting on the deal for six to nine months. The funding is in and out of a single closing, and every party - seller, wholesaler, end buyer, lender - cashes out at the table.</p>
 <h2>When to use it</h2>
-''' + ul(["You wholesale, and good buyers keep stalling because they can't cover the down payment","You're the end buyer purchasing from a wholesaler and don't want second-position gap debt","The B-C price is supported by the appraisal - that's what sizes the primary loan and creates the spread",'Run the legs in the <a href="/calculators/">Echo Calculator</a> first - if the spread covers the funding, we can move fast']) + '''
+''' + ul(["You wholesale, and good buyers keep stalling because they can't cover the down payment","You're the end buyer purchasing from a wholesaler and don't want second-position gap debt","The B-C price is supported by the appraisal - that's what sizes the primary loan and creates the spread",'Run the legs in the <a href="/calculators/echo/">Echo Calculator</a> first - if the spread covers the funding, we can move fast']) + '''
 <h2>How RealQuick Funds funds it</h2>
 ''' + steps(["Submit both legs - A-B and B-C contracts, the end buyer's primary lender terms, and the closing date.",'We verify the spread covers the funding and issue written terms - same day on most submissions.','Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.']) + '''
 <h2>What you'll need</h2>
@@ -174,9 +186,16 @@ for slug,d in DEALS.items():
          cta_label="Start a %s request" % d['name'])
 
 CALC_BODY = '''
-<h2>Two calculators. One question: can you do this deal?</h2>
-<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some - then flip to the cash flow tab to see what the property earns as a rental. Exact figures always come with your written terms - typically the same day.</p>
-<div class="duo2">
+<h2>The deal tool library.</h2>
+<p>Built by the funder - not a blog. Run your structure, adjust the estimates for your market, and know whether the deal works before you talk to anyone. Every calculator feeds straight into a two-minute funding request.</p>
+<div class="toolgrid">
+  <a class="tool" href="/calculators/morby-stack/"><div class="ic">&#9672;</div><h3>Morby / Stack Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
+  <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
+  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, Hard Money, and DSCR calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
+</div>
+<p style="font-size:12.5px;color:#9a978d;margin-top:20px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
+MS_BODY = '''
+<div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">Morby / Stack</div>
     <div class="ctabs" id="mtabs"><button class="on" onclick="ctab2('pa',this)">Purchase analysis</button><button onclick="ctab2('cf',this)">Cash flow analysis</button></div>
     <div id="pane_pa">
@@ -231,6 +250,17 @@ CALC_BODY = '''
     <div class="result bring" id="cf_res"><div class="rl" id="cf_rl">Estimated monthly cash flow</div><div class="rv" id="cf_rv">$0</div><div class="rsub" id="cf_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div></div>
+</div>
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>
+<h2>What this calculator tells you</h2>
+<p>The Morby Method - also called the Stack Method - combines a seller-carried note with a primary lender so the capital stack covers the purchase. The purchase analysis tab answers the question that decides the deal: can you close this structure? It checks that the seller carry can repay the transactional funding and fees, caps the funding accordingly, and shows exactly what lands on you at the closing table - cash to bring, or cash back.</p>
+<p>Then flip to the cash flow analysis tab: a full monthly rental P&amp;L on the same numbers - vacancy, taxes, insurance, maintenance, CapEx, property management, both loan payments, the carry balloon, and your DSCR. Whether you can close it and whether you should keep it, on one card.</p>
+<h2>How to use it</h2>
+<ul><li>Enter the purchase price, the seller carry, and the primary lender's percentage - the dollar equivalents show beside each field.</li><li>The fee fields are pre-filled estimates and every one of them is editable - exact figures come with your written terms.</li><li>Watch the result flip between cash to close and cash back as you adjust the structure.</li><li>Flip to cash flow analysis to see the property as a rental - payments, balloon, and DSCR included.</li></ul>
+<p>Want the full mechanics? Read the <a href="/morby-method/">Morby Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the numbers work, hit Submit - the funding request pre-fills from your calculator inputs.</p>
+<p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
+ECHO_CALC_BODY = '''
+<div class="calcwrap">
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
     <div class="purpose">Does the spread cover the Echo? Run both legs of the deal.</div>
     <div class="cgrid">
@@ -245,10 +275,23 @@ CALC_BODY = '''
     <div class="result out" id="e_res"><div class="rl" id="e_rl">Spread covers the Echo</div><div class="rv" id="e_rv">$0</div><div class="rsub" id="e_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo',true)">Submit this deal</button></div>
 </div>
-<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
-page('calculators','Deal Calculators - Morby, Echo & Rental Cash Flow | RealQuick Funds',
- 'Free Morby Method and Echo Method deal calculators with full rental cash flow analysis - P&L, DSCR, and balloon planning before you submit.',
- 'Deal Tools','Run your numbers.','Viability calculators built for creative finance - purchase analysis and rental cash flow. Know whether the deal works before you talk to anyone.',CALC_BODY)
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>
+<h2>What this calculator tells you</h2>
+<p>Echo is short-term funding for the end buyer's down payment on the back half of a double close - repaid out of the deal's spread on the same settlement statement. This calculator runs the one check that decides every Echo: is the spread between the A-B price and the B-C price big enough to cover the funding plus the fee? If it is, you'll see what's left for the wholesaler. If it isn't, you'll see exactly how short it is - and the usual fix is raising the B-C price, appraisal permitting.</p>
+<p>The B-C price has to be supported by the appraisal - that's what sizes the primary loan and creates the spread in the first place.</p>
+<h2>How to use it</h2>
+<ul><li>Enter both legs: what the wholesaler is paying (A-B) and what the end buyer is paying (B-C).</li><li>Set the primary lender's percentage of the B-C price - the loan amount shows beside it.</li><li>The fee is a pre-filled estimate with a minimum floor - editable like everything else.</li><li>Slate result: the spread covers the funding. Orange: it comes up short, and by how much.</li></ul>
+<p>New to the structure? Read the <a href="/echo-method/">Echo Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the spread covers it, hit Submit - the funding request pre-fills the funded amount.</p>
+<p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
+page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
+ 'Free deal calculators built by a transactional funder - Morby/Stack purchase and rental cash flow analysis, Echo spread coverage, and more tools on the way.',
+ 'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
+page('calculators/morby-stack','Morby Method Calculator (Stack Method) - Free | RealQuick Funds',
+ 'Free Morby Method / Stack Method calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
+ 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request')
+page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
+ "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
+ 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request')
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>

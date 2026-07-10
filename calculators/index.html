@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deal Calculators - Morby, Echo & Rental Cash Flow | RealQuick Funds</title>
-<meta name="description" content="Free Morby Method and Echo Method deal calculators with full rental cash flow analysis - P&L, DSCR, and balloon planning before you submit.">
+<title>Deal Calculators for Creative Finance | RealQuick Funds</title>
+<meta name="description" content="Free deal calculators built by a transactional funder - Morby/Stack purchase and rental cash flow analysis, Echo spread coverage, and more tools on the way.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -215,6 +215,18 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 .sched{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 .duo2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin-top:20px}
 @media(max-width:760px){.duo2{grid-template-columns:1fr}}
+.toolgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;max-width:1080px}
+@media(max-width:960px){.toolgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.toolgrid{grid-template-columns:1fr}}
+.tool{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px -30px rgba(21,20,18,.25);text-decoration:none;color:inherit;transition:.15s}
+a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,18,.35)}
+.tool .ic{width:44px;height:44px;border-radius:12px;background:#fff2df;color:var(--orange-d);display:flex;align-items:center;justify-content:center;font-size:20px}
+.tool h3{font-family:var(--disp);font-size:19px;font-weight:800}
+.tool p{font-size:13.5px;color:#54524b;line-height:1.55;flex:1;max-width:none}
+.tool .go{font-weight:800;color:var(--orange-d);font-size:14px}
+.tool .tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#eceef4;color:#3d4b66;border-radius:20px;padding:3px 10px;width:fit-content}
+.tool.soon{opacity:.8;border-style:dashed}
+.calcwrap{max-width:560px}
 </style>
 </head>
 <body>
@@ -229,83 +241,19 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 <header class="pagehero"><div class="wrap">
   <div class="k" style="color:var(--orange)">Deal Tools</div>
   <h1>Run your numbers.</h1>
-  <p class="sub" style="max-width:640px">Viability calculators built for creative finance - purchase analysis and rental cash flow. Know whether the deal works before you talk to anyone.</p>
+  <p class="sub" style="max-width:640px">The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.</p>
   <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal()">Get Funded</button></div>
 </div></header>
 <div class="content"><div class="wrap">
 
-<h2>Two calculators. One question: can you do this deal?</h2>
-<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some - then flip to the cash flow tab to see what the property earns as a rental. Exact figures always come with your written terms - typically the same day.</p>
-<div class="duo2">
-  <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">Morby / Stack</div>
-    <div class="ctabs" id="mtabs"><button class="on" onclick="ctab2('pa',this)">Purchase analysis</button><button onclick="ctab2('cf',this)">Cash flow analysis</button></div>
-    <div id="pane_pa">
-    <div class="purpose">Will you bring cash to close - or walk away with some?</div>
-    <div class="cgrid">
-      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="80,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="80.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
-    </div>
-    <div class="cgrid3">
-      <div class="fld"><label>Funding fee <span class="hint" id="s_fp_d"></span></label><div class="inwrap"><input class="pctin" id="s_fp" value="2.5" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>TC fee</label><div class="inwrap"><span>$</span><input id="s_tc" value="3,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
-    </div>
-    <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
-    </div>
-    <div id="pane_cf" style="display:none">
-    <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
-    <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
-    <div class="cgrid">
-      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
-      <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="cf_tax" value="3,000" oninput="fmt(this);cashflow()"></div></div>
-      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="cf_ins" value="1,500" oninput="fmt(this);cashflow()"></div></div>
-      <div class="fld"><label>Primary rate <span class="hint" id="cf_r1_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r1" value="7.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Primary amort</label><div class="inwrap"><input class="pctin" id="cf_a1" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
-    </div>
-    <div class="cgrid3">
-      <div class="fld"><label>Carry rate <span class="hint" id="cf_r2_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r2" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Carry amort</label><div class="inwrap"><input class="pctin" id="cf_a2" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
-      <div class="fld"><label>Balloon</label><div class="inwrap"><input class="pctin" id="cf_by" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">yr</span></div></div>
-    </div>
-    <div class="cgrid3">
-      <div class="fld"><label>Maintenance</label><div class="inwrap"><input class="pctin" id="cf_mnt" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>CapEx</label><div class="inwrap"><input class="pctin" id="cf_cap" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Prop Mgmt</label><div class="inwrap"><input class="pctin" id="cf_mgm" value="10.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-    </div>
-    <div class="pnl">
-      <div class="prow"><span>Gross rent</span><b id="cf_gr"></b></div>
-      <div class="prow"><span>Vacancy</span><b id="cf_vc"></b></div>
-      <div class="prow tot"><span>Effective income</span><b id="cf_eg"></b></div>
-      <div class="prow"><span>Taxes + insurance</span><b id="cf_ti"></b></div>
-      <div class="prow"><span>Maintenance + CapEx</span><b id="cf_mc"></b></div>
-      <div class="prow"><span>Property management</span><b id="cf_mg"></b></div>
-      <div class="prow tot"><span>Net operating income</span><b id="cf_noi"></b></div>
-      <div class="prow"><span>Primary loan P&amp;I</span><b id="cf_p1"></b></div>
-      <div class="prow"><span>Seller carry P&amp;I</span><b id="cf_p2"></b></div>
-      <div class="prow tot" id="cf_blr" style="display:none"><span id="cf_bll">Carry balloon due</span><b id="cf_bl"></b></div>
-    </div>
-    <div class="result bring" id="cf_res"><div class="rl" id="cf_rl">Estimated monthly cash flow</div><div class="rv" id="cf_rv">$0</div><div class="rsub" id="cf_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
-    </div></div>
-  <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
-    <div class="purpose">Does the spread cover the Echo? Run both legs of the deal.</div>
-    <div class="cgrid">
-      <div class="fld"><label>A-B purchase price</label><div class="inwrap"><span>$</span><input id="e_ab" value="500,000" oninput="fmt(this);echo()"></div></div>
-      <div class="fld"><label>B-C sale price <span class="hint">must appraise</span></label><div class="inwrap"><span>$</span><input id="e_bc" value="725,000" oninput="fmt(this);echo()"></div></div>
-    </div>
-    <div class="cgrid3">
-      <div class="fld"><label>Primary lender <span class="hint" id="e_ln_d"></span></label><div class="inwrap"><input class="pctin" id="e_lv" value="75.0" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Closing costs <span class="hint" id="e_cc_d"></span></label><div class="inwrap"><input class="pctin" id="e_ccp" value="2.0" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Funding fee <span class="hint" id="e_ff_d"></span></label><div class="inwrap"><input class="pctin" id="e_fp" value="2.5" oninput="fmtp(this);echo()"><span class="sfx">%</span></div></div>
-    </div>
-    <div class="result out" id="e_res"><div class="rl" id="e_rl">Spread covers the Echo</div><div class="rv" id="e_rv">$0</div><div class="rsub" id="e_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo',true)">Submit this deal</button></div>
+<h2>The deal tool library.</h2>
+<p>Built by the funder - not a blog. Run your structure, adjust the estimates for your market, and know whether the deal works before you talk to anyone. Every calculator feeds straight into a two-minute funding request.</p>
+<div class="toolgrid">
+  <a class="tool" href="../calculators/morby-stack/"><div class="ic">&#9672;</div><h3>Morby / Stack Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
+  <a class="tool" href="../calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
+  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, Hard Money, and DSCR calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
 </div>
-<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>
+<p style="font-size:12.5px;color:#9a978d;margin-top:20px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>
 <div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
 <p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
 <button class="btn" onclick="openModal()">Get Funded</button></div>
@@ -315,7 +263,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
       <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">Morby Calculator</a><a href="../calculators/">Echo Calculator</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a></div>
       <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>

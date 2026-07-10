@@ -215,6 +215,18 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 .sched{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 .duo2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin-top:20px}
 @media(max-width:760px){.duo2{grid-template-columns:1fr}}
+.toolgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;max-width:1080px}
+@media(max-width:960px){.toolgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.toolgrid{grid-template-columns:1fr}}
+.tool{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px -30px rgba(21,20,18,.25);text-decoration:none;color:inherit;transition:.15s}
+a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,18,.35)}
+.tool .ic{width:44px;height:44px;border-radius:12px;background:#fff2df;color:var(--orange-d);display:flex;align-items:center;justify-content:center;font-size:20px}
+.tool h3{font-family:var(--disp);font-size:19px;font-weight:800}
+.tool p{font-size:13.5px;color:#54524b;line-height:1.55;flex:1;max-width:none}
+.tool .go{font-weight:800;color:var(--orange-d);font-size:14px}
+.tool .tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#eceef4;color:#3d4b66;border-radius:20px;padding:3px 10px;width:fit-content}
+.tool.soon{opacity:.8;border-style:dashed}
+.calcwrap{max-width:560px}
 </style>
 </head>
 <body>
@@ -272,7 +284,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
       <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">Morby Calculator</a><a href="../calculators/">Echo Calculator</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a></div>
       <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>

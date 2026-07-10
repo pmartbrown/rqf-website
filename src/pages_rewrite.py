@@ -1,5 +1,5 @@
 import os
-PAGES = ['calculators','affiliates','about','faq','privacy','terms','morby-method','echo-method','double-close','emd','hard-money','dscr']
+PAGES = ['calculators/morby-stack','calculators/echo','calculators','affiliates','about','faq','privacy','terms','morby-method','echo-method','double-close','emd','hard-money','dscr']
 def rewrite(fp, up):
     h = open(fp).read()
     for p in PAGES:
@@ -11,5 +11,6 @@ def rewrite(fp, up):
     open(fp,'w').write(h)
 rewrite('index.html','')
 for p in PAGES:
-    rewrite(os.path.join(p,'index.html'),'../')
+    up = '../' * (p.count('/') + 1)
+    rewrite(os.path.join(p,'index.html'), up)
 print('paths made relative for GitHub Pages project site')
