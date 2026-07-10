@@ -281,7 +281,7 @@ ABOUT_BODY = '''
 <h2>Talk to the team</h2>
 <p>Questions about a structure, a timeline, or the affiliate program? Grab time directly:</p>
 <div class="sched">
-  <a class="btn" href="#TODO-paul-scheduler">Schedule with Paul</a>
+  <a class="btn" href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a>
   <a class="btn btn-ghost" style="background:#fff;color:var(--ink);border:1px solid var(--line)" href="#TODO-justin-scheduler">Schedule with Justin</a>
 </div>'''
 page('about','About RealQuick Funds | 20 Years of Underwriting Discipline',
