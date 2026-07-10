@@ -45,8 +45,10 @@ EXTRA_CSS = '''
 @media(max-width:760px){.duo2{grid-template-columns:1fr}}
 '''
 
-def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded"):
+def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None):
     cta = "openModal('%s')" % cta_type if cta_type else "openModal()"
+    cta_btn = '<a class="btn" href="%s">%s</a>' % (cta_href, cta_label) if cta_href else '<button class="btn" onclick="%s">%s</button>' % (cta, cta_label)
+    band_h, band_p = band if band else ('Got a deal? Get funded. <span class="grad">Real quick.</span>', 'Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.')
     html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,13 +68,13 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
   <div class="k" style="color:var(--orange)">%s</div>
   <h1>%s</h1>
   <p class="sub" style="max-width:640px">%s</p>
-  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="%s">%s</button></div>
+  <div class="hero-ctas" style="margin-top:26px">%s</div>
 </div></header>
 <div class="content"><div class="wrap">
 %s
-<div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
-<p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
-<button class="btn" onclick="%s">%s</button></div>
+<div class="ctaband"><h2>%s</h2>
+<p>%s</p>
+%s</div>
 </div></div>
 %s
 </main>
@@ -81,7 +83,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="drawer" id="drawer"><div class="dr-head"><button class="x" onclick="closeDrawer()">&times;</button><div class="k" id="dr_k"></div><h3 id="dr_title"></h3></div><div class="dr-body" id="dr_body"></div></div>
 <script>%s</script>
 </body>
-</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta, cta_label, body, cta, cta_label, FOOTER, MODAL, SCRIPT)
+</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, body, band_h, band_p, cta_btn, FOOTER, MODAL, SCRIPT)
     os.makedirs(path, exist_ok=True)
     open(os.path.join(path,'index.html'),'w').write(html)
     print('built', path)
@@ -106,6 +108,7 @@ DEALS = {
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
  'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo',
+   desc='Echo Method funding - down-payment capital for the end buyer on the back half of a double close, repaid from the spread at one closing. All 50 states.',
    sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
    body='''
 <h2>What the Echo Method is</h2>
@@ -248,35 +251,40 @@ page('calculators','Deal Calculators - Morby, Echo & Rental Cash Flow | RealQuic
  'Deal Tools','Run your numbers.','Viability calculators built for creative finance - purchase analysis and rental cash flow. Know whether the deal works before you talk to anyone.',CALC_BODY)
 
 AFF_BODY = '''
-<h2>Two ways to earn. One engine behind both.</h2>
-<p>Every affiliate earns on every funded deal. The only question is how big you want to play: refer for free through realquickfunds.com, or go VIP and put the entire RealQuick Funds machine behind your own brand.</p>
+<h2>What an affiliate is here</h2>
+<p>An affiliate is anyone who brings us deals - a member of our <a href="https://www.skool.com/fundinghub">Funding Hub</a> community, or a non-member sending deals straight through this site. We prefer you come into the community first and learn how we do things, so your deals arrive in the right format with the right understanding - but it's not a requirement. Inside the community we call affiliates our acquisition team members. Same people, same pay.</p>
+<h2>Why the math is different here</h2>
+<p>On escrow-secured funding - EMD, Double Close, Morby/Stack, and Echo - we're the <b>direct lender</b>, not a broker. It's our capital, so there's no middleman taking a cut ahead of you: when a deal you bring funds, we split <b>actual profits 50/50</b>. You earn dollar for dollar alongside us. On the business we refer out - hard money and DSCR - we've negotiated a strong referral rate with our lending network, and <b>the majority of it goes to you</b>.</p>
+<h2>Two paths</h2>
 <div class="duo2">
   <div class="faqi"><h3>Free Affiliate <span style="font-family:var(--mono);font-size:11px;color:#9a978d;letter-spacing:.08em">START TODAY - $0</span></h3>
   <ul>
-   <li>Send investors to realquickfunds.com - every deal form on this site has a <b>"Referred by"</b> field, and your name on the application is all it takes to get paid</li>
-   <li>Earn on every deal that funds - we handle everything else</li>
-   <li>No cost, no tech to manage, no paperwork burden</li>
-   <li>Learn as you go in <a href="https://www.skool.com/fundinghub">The Funding Hub on Skool</a> - free section, plus a low-cost premium track for sharpening your deal-finding skills</li>
+   <li>Send deals straight through this site - you bring the deal, you're on it, and you earn when it funds</li>
+   <li>50/50 split of actual profits on deals we fund directly; the majority of the referral on placed lending</li>
+   <li>No application, no approval step, no cost</li>
+   <li>Want a head start? The free tier of the <a href="https://www.skool.com/fundinghub">Funding Hub</a> gets you oriented</li>
   </ul>
-  <p style="margin-top:14px;font-size:13.5px;color:#9a978d"><em>Best for agents, wholesalers, and community members making their first referrals.</em></p></div>
-  <div class="faqi" style="border:2px solid var(--orange)"><h3>VIP Affiliate <span style="font-family:var(--mono);font-size:11px;color:var(--orange-d);letter-spacing:.08em">MOST POPULAR</span></h3>
+  <p style="margin-top:14px;font-size:13.5px;color:#9a978d"><em>Best for agents, wholesalers, and investors bringing their first deals.</em></p></div>
+  <div class="faqi" style="border:2px solid var(--orange)"><h3>VIP Affiliate <span style="font-family:var(--mono);font-size:11px;color:var(--orange-d);letter-spacing:.08em">THE FULL MACHINE</span></h3>
   <ul>
-   <li>Your own <b>white-label funding website</b> - a web app you log into and customize whenever, however you choose, with your calendar links and contact info front and center</li>
-   <li>Covers the full product line under your brand - Morby/Stack, Echo, Double Close, and EMD, plus Hard Money and DSCR lending</li>
-   <li><b>Automated nurture campaigns</b> that warm your cold leads - the emails, sequences, and follow-up structure are already built and running</li>
+   <li>The complete education - full Morby/Stack and Echo playbooks, step-by-step deal SOPs, and every call replay</li>
+   <li>Your own <b>white-label funding website</b> covering the full product line under your brand, with <b>automated nurture campaigns</b> already built and running</li>
    <li><b>Proof-of-funds letters on demand</b>, whenever your buyers need them</li>
-   <li>Operations, transaction coordination, underwriting, and capital - all handled behind the scenes by RealQuick Funds</li>
+   <li>Underwriting, docs, transaction coordination, and capital - all handled behind the scenes by RealQuick Funds</li>
+   <li>No application here either - join VIP inside the community and go</li>
   </ul>
-  <p style="margin-top:14px;font-size:13.5px;color:#9a978d"><em>Best for coaches, community leaders, and operators ready to run funding as a business.</em></p></div>
+  <p style="margin-top:14px;font-size:13.5px;color:#9a978d"><em>Best for operators ready to run funding as a business under their own brand.</em></p></div>
 </div>
-<h2>What "everything handled" actually means</h2>
-<p>As a VIP, your job is the part you're already good at: relationships, audience, and deal flow. Ours is everything after the submit button - underwriting the deal, drafting the docs, coordinating the transaction, and wiring the capital. Your clients see your brand. You see the payout.</p>
 <h2>How it works</h2>
-''' + steps(['Apply and pick your lane - Free referrer or VIP white-label. Not sure? Pick "tell me more" and we will walk you through both.','Refer - send investors to realquickfunds.com with your name in the Referred by field, or run everything through your own white-label site.','Earn - get paid on every deal that funds. We handle underwriting, docs, TC, and capital.']) + '''
-<p style="margin-top:22px"><em>VIP pricing and full program terms provided during onboarding.</em></p>'''
+''' + steps(['Pick your door - join the Funding Hub (our recommended path), or send your first deal through this site today.','Bring the deal - inside the community you learn the exact structures and vocabulary that get deals funded fast.','Get paid when it funds - 50/50 on deals we fund directly, the majority of the referral on placed lending. We handle underwriting, docs, TC, and capital.']) + '''
+<h2>Ready?</h2>
+<p>Tier details and pricing live inside the community. And if you want to talk VIP through with Paul before you jump, grab a time - it's optional, not a gate.</p>
+<div class="sched"><a class="btn" href="https://www.skool.com/fundinghub">Join the Funding Hub →</a><a class="btn btn-dark" href="https://meetings-na2.hubspot.com/admin3005">Book an optional VIP call with Paul</a></div>'''
 page('affiliates','Become an Affiliate | RealQuick Funds',
- 'Two affiliate paths: refer free through realquickfunds.com, or go VIP with a complete white-label funding business. Earn on every funded deal.',
- 'Affiliate Program','Turn your network into funding revenue.','Two paths - one free, one fully white-labeled. Both pay you on every funded deal.',AFF_BODY,cta_type='affiliate',cta_label='Apply - Become an Affiliate')
+ 'Become a RealQuick Funds affiliate - bring deals as a community member or straight through this site. Direct-lender 50/50 profit splits on funded deals.',
+ 'Affiliate Program','Turn your network into funding revenue.','Bring us deals as a community member or straight through this site. We lend our own capital - so when your deal funds, we split actual profits with you 50/50.',AFF_BODY,
+ cta_label='Join the Funding Hub →',cta_href='https://www.skool.com/fundinghub',
+ band=('Bring the deal. <span class="grad">We bring the capital.</span>','Join the Funding Hub and learn the playbook - or send your first deal through this site today.'))
 
 ABOUT_BODY = '''
 <h2>Underwritten like an institution. Delivered like a friend in the business.</h2>
@@ -308,7 +316,7 @@ FAQS = [
  ("Do you fund 100% of a double close?","Yes - we fund 100% of the A-to-B purchase. Your B-to-C sale repays us through escrow the same day."),
  ("What is the Morby Method?","A creative-finance structure - also called the Stack Method - stacking seller carry with a primary lender so you close with little or no cash - sometimes with cash back. Morby Method and Stack Method are the same thing. See the full guide on our Morby Method page, and run your numbers in the calculator."),
  ("How does repayment work?","Repayment flows through licensed title/escrow at closing - funds never pass through personal accounts. Every transaction is escrow-secured and title-verified."),
- ("How do I become an affiliate?","Two paths. Free Affiliates refer investors to realquickfunds.com - every deal form has a Referred-by field, and your name on the application is all it takes to earn on funded deals. VIP Affiliates get a complete white-label funding business: a customizable website covering our full product line, automated nurture campaigns, and proof-of-funds letters on demand, with operations and capital handled by our team. Apply on the affiliates page and pick your lane."),
+ ("How do I become an affiliate?","Just bring a deal. Affiliates are Funding Hub community members - or non-members submitting straight through realquickfunds.com - who send us deals. We recommend joining the community first to learn how we fund, but it isn't required. Because we lend our own capital on escrow-secured funding, affiliates split actual profits 50/50 on deals we fund directly, and earn the majority of the referral on hard money and DSCR placed through our lending network. VIP adds the full playbooks and a white-label funding site - details and pricing inside the community."),
 ]
 faq_html = ''.join('<div class="faqi"><h3>%s</h3><p>%s</p></div>' % (q,a) for q,a in FAQS)
 import json
