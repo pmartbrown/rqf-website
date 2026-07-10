@@ -243,8 +243,8 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
       <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="80,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="80" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="80.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
     </div>
     <div class="cgrid3">
       <div class="fld"><label>Funding fee <span class="hint" id="s_fp_d"></span></label><div class="inwrap"><input class="pctin" id="s_fp" value="2.5" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
@@ -259,21 +259,21 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
     <div class="cgrid">
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
-      <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="cf_tax" value="3,000" oninput="fmt(this);cashflow()"></div></div>
       <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="cf_ins" value="1,500" oninput="fmt(this);cashflow()"></div></div>
-      <div class="fld"><label>Primary rate <span class="hint" id="cf_r1_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r1" value="7" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Primary rate <span class="hint" id="cf_r1_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r1" value="7.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Primary amort</label><div class="inwrap"><input class="pctin" id="cf_a1" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
     </div>
     <div class="cgrid3">
-      <div class="fld"><label>Carry rate <span class="hint" id="cf_r2_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r2" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Carry rate <span class="hint" id="cf_r2_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r2" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Carry amort</label><div class="inwrap"><input class="pctin" id="cf_a2" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
       <div class="fld"><label>Balloon</label><div class="inwrap"><input class="pctin" id="cf_by" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">yr</span></div></div>
     </div>
     <div class="cgrid3">
-      <div class="fld"><label>Maintenance</label><div class="inwrap"><input class="pctin" id="cf_mnt" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>CapEx</label><div class="inwrap"><input class="pctin" id="cf_cap" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
-      <div class="fld"><label>Mgmt</label><div class="inwrap"><input class="pctin" id="cf_mgm" value="10" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Maintenance</label><div class="inwrap"><input class="pctin" id="cf_mnt" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>CapEx</label><div class="inwrap"><input class="pctin" id="cf_cap" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Prop Mgmt</label><div class="inwrap"><input class="pctin" id="cf_mgm" value="10.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
     </div>
     <div class="pnl">
       <div class="prow"><span>Gross rent</span><b id="cf_gr"></b></div>
