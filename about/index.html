@@ -79,6 +79,10 @@ h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line
 .result.bring{background:#fff2df;color:#8a5200}
 .result.back{background:#e4f7eb;color:#0e7a3d}
 .result.out{background:#eceef4;color:#3d4b66}
+.pnl{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:8px}
+.prow{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:#54524b;padding:2.5px 0}
+.prow b{font-family:var(--mono);font-weight:600;color:var(--ink)}
+.prow.tot{border-top:1px solid var(--line);margin-top:4px;padding-top:6px;font-weight:700;color:var(--ink)}
 .calc .btn{width:100%;justify-content:center;margin-top:12px;border-radius:12px}
 .calc .note{font-size:11px;color:#9a978d;margin-top:10px;text-align:center}
 /* marquee */
@@ -313,17 +317,45 @@ function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s
     else setT('s_sub','RQF funds '+money(cap)+' (max your seller carry repays) — you bring the rest.')}
   else if(net>=-0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
     setT('s_sub','RQF funds the full '+money(Math.max(cash,0))+' gap — seller carry covers repayment ✓')}
-  else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash available to you at closing';
+  else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash back at closing';
     if(cash>0)setT('s_sub','Your seller carry supports up to '+money(cap)+' in funding — '+money(cash)+' covers your close and the rest can come out to you. Final structure set in your written terms.');
     else setT('s_sub','Your primary loan more than covers the close, and your carry supports up to '+money(cap)+' in funding on top. Final structure set in your written terms.')}}
 function echo(){const pp=num('e_pp'),ln=num('e_ln'),cc=num('e_cc'),ff=num('e_ff');const cash=pp+cc+ff-ln;
   const res=document.getElementById('e_res');document.getElementById('e_rv').textContent=money(cash);
-  if(cash<=0){res.className='result out';document.getElementById('e_rl').textContent='Estimated cash available to you at closing'}
+  if(cash<=0){res.className='result out';document.getElementById('e_rl').textContent='Estimated cash back at closing'}
   else{res.className='result bring';document.getElementById('e_rl').textContent='Estimated cash to close'}}
+function smoney(n){return (n<0?'−':'')+money(n)}
+function pmt(P,ar,yrs){var n=Math.round(yrs*12),r=ar/100/12;if(n<=0||P<=0)return 0;return r?P*r/(1-Math.pow(1+r,-n)):P/n}
+function loanbal(P,ar,yrs,k){var n=Math.round(yrs*12),r=ar/100/12,M=pmt(P,ar,yrs);k=Math.min(k,n);if(P<=0)return 0;return r?P*Math.pow(1+r,k)-M*(Math.pow(1+r,k)-1)/r:Math.max(P-M*k,0)}
+function cashflow(){if(!document.getElementById('cf_res'))return;
+  var pp=num('s_pp'),plp=pct('s_plp'),sc=num('s_sc');var loan=pp*plp/100;
+  var rent=num('cf_rent'),vac=pct('cf_vac'),tax=num('cf_tax'),ins=num('cf_ins');
+  var r1=pct('cf_r1'),a1=pct('cf_a1'),r2=pct('cf_r2'),a2=pct('cf_a2'),by=pct('cf_by');
+  var mnt=pct('cf_mnt'),cap=pct('cf_cap'),mgm=pct('cf_mgm');
+  var p1=pmt(loan,r1,a1),p2=pmt(sc,r2,a2),ds=p1+p2;
+  var egi=rent*(1-vac/100);
+  var opex=tax/12+ins/12+rent*(mnt+cap+mgm)/100;
+  var noi=egi-opex,cf=noi-ds,dscr=ds>0?noi/ds:0;
+  setT('cf_ctx','Using your purchase tab: primary loan '+money(loan)+' · seller carry '+money(sc));
+  setT('cf_r1_d','= '+money(p1)+'/mo');setT('cf_r2_d','= '+money(p2)+'/mo');
+  setT('cf_gr',money(rent));setT('cf_vc','− '+money(rent*vac/100));setT('cf_eg',money(egi));
+  setT('cf_ti','− '+money(tax/12+ins/12));setT('cf_mc','− '+money(rent*(mnt+cap)/100));setT('cf_mg','− '+money(rent*mgm/100));
+  setT('cf_noi',smoney(noi));setT('cf_p1','− '+money(p1));setT('cf_p2','− '+money(p2));
+  var res=document.getElementById('cf_res');res.className='result '+(cf>=0?'back':'bring');
+  document.getElementById('cf_rl').textContent=cf>=0?'Estimated monthly cash flow':'Estimated monthly shortfall';
+  document.getElementById('cf_rv').textContent=money(cf);
+  var tag=dscr>=1.25?' — strong':dscr>=1?' — tight':' — under 1.0';
+  setT('cf_sub',smoney(cf*12)+' per year · DSCR '+(ds>0?dscr.toFixed(2)+tag:'—'));
+  var bl=document.getElementById('cf_blr');
+  if(bl){if(by>0&&by<a2&&sc>0){bl.style.display='flex';document.getElementById('cf_bll').textContent='Carry balloon due (year '+by+')';setT('cf_bl',money(loanbal(sc,r2,a2,Math.round(by*12))))}else bl.style.display='none'}}
+function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
+  document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
+  if(which==='cf')cashflow()}
 function ctab(which,btn){document.querySelectorAll('.ctabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_morby').style.display=which==='morby'?'block':'none';
   document.getElementById('pane_echo').style.display=which==='echo'?'block':'none'}
-if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();
+if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();
 /* ---------- modal ---------- */
 const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
 function F(label,type,ph,extra){return {l:label,t:type||'text',p:ph||'',x:extra||''}}

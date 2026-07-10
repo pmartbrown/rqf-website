@@ -166,9 +166,11 @@ for slug,d in DEALS.items():
 
 CALC_BODY = '''
 <h2>Two calculators. One question: can you do this deal?</h2>
-<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some. Exact figures always come with your written terms - typically the same day.</p>
+<p>These are not price quotes - they are viability tools. Enter your structure, adjust the estimates for your market, and see whether you'll bring cash to closing or walk away with some - then flip to the cash flow tab to see what the property earns as a rental. Exact figures always come with your written terms - typically the same day.</p>
 <div class="duo2">
-  <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Morby / Stack</button></div>
+  <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">Morby / Stack</div>
+    <div class="ctabs" id="mtabs"><button class="on" onclick="ctab2('pa',this)">Purchase analysis</button><button onclick="ctab2('cf',this)">Cash flow analysis</button></div>
+    <div id="pane_pa">
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
@@ -182,7 +184,44 @@ CALC_BODY = '''
       <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
     </div>
     <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button>
+    </div>
+    <div id="pane_cf" style="display:none">
+    <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
+    <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
+    <div class="cgrid">
+      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
+      <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="cf_tax" value="3,000" oninput="fmt(this);cashflow()"></div></div>
+      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="cf_ins" value="1,500" oninput="fmt(this);cashflow()"></div></div>
+      <div class="fld"><label>Primary rate <span class="hint" id="cf_r1_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r1" value="7" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Primary amort</label><div class="inwrap"><input class="pctin" id="cf_a1" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Carry rate <span class="hint" id="cf_r2_d"></span></label><div class="inwrap"><input class="pctin" id="cf_r2" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Carry amort</label><div class="inwrap"><input class="pctin" id="cf_a2" value="30" oninput="fmtp(this);cashflow()"><span class="sfx">yrs</span></div></div>
+      <div class="fld"><label>Balloon</label><div class="inwrap"><input class="pctin" id="cf_by" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">yr</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Maintenance</label><div class="inwrap"><input class="pctin" id="cf_mnt" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>CapEx</label><div class="inwrap"><input class="pctin" id="cf_cap" value="5" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Mgmt</label><div class="inwrap"><input class="pctin" id="cf_mgm" value="10" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="pnl">
+      <div class="prow"><span>Gross rent</span><b id="cf_gr"></b></div>
+      <div class="prow"><span>Vacancy</span><b id="cf_vc"></b></div>
+      <div class="prow tot"><span>Effective income</span><b id="cf_eg"></b></div>
+      <div class="prow"><span>Taxes + insurance</span><b id="cf_ti"></b></div>
+      <div class="prow"><span>Maintenance + CapEx</span><b id="cf_mc"></b></div>
+      <div class="prow"><span>Property management</span><b id="cf_mg"></b></div>
+      <div class="prow tot"><span>Net operating income</span><b id="cf_noi"></b></div>
+      <div class="prow"><span>Primary loan P&amp;I</span><b id="cf_p1"></b></div>
+      <div class="prow"><span>Seller carry P&amp;I</span><b id="cf_p2"></b></div>
+      <div class="prow tot" id="cf_blr" style="display:none"><span id="cf_bll">Carry balloon due</span><b id="cf_bl"></b></div>
+    </div>
+    <div class="result bring" id="cf_res"><div class="rl" id="cf_rl">Estimated monthly cash flow</div><div class="rv" id="cf_rv">$0</div><div class="rsub" id="cf_sub"></div></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby')">Submit this deal</button>
+    </div></div>
   <div class="calc"><div class="ctabs" style="pointer-events:none"><button class="on">Echo</button></div>
     <div class="purpose">Buy like cash - your end loan repays us at the second closing.</div>
     <div class="fld"><label>Purchase price (cash buy)</label><div class="inwrap"><span>$</span><input id="e_pp" value="300,000" oninput="fmt(this);echo()"></div></div>
@@ -193,9 +232,9 @@ CALC_BODY = '''
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('echo')">Submit this deal</button></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
-page('calculators','Deal Calculators - Morby & Echo | RealQuick Funds',
- 'Free Morby Method and Echo Method deal calculators. See your estimated cash to close - or cash back - before you submit.',
- 'Deal Tools','Run your numbers.','Two viability calculators built for creative finance. Know whether the deal works before you talk to anyone.',CALC_BODY)
+page('calculators','Deal Calculators - Morby, Echo & Rental Cash Flow | RealQuick Funds',
+ 'Free Morby Method and Echo Method deal calculators with full rental cash flow analysis - P&L, DSCR, and balloon planning before you submit.',
+ 'Deal Tools','Run your numbers.','Viability calculators built for creative finance - purchase analysis and rental cash flow. Know whether the deal works before you talk to anyone.',CALC_BODY)
 
 AFF_BODY = '''
 <h2>Two ways to earn. One engine behind both.</h2>
