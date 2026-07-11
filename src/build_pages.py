@@ -35,7 +35,7 @@ EXTRA_CSS = '''
 .steps{display:grid;gap:12px;margin-top:18px;max-width:760px}
 .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
 .step b{font-family:var(--mono);color:var(--orange-d)}
-.ctaband{background:var(--deep);border-radius:24px;padding:56px;text-align:center;color:#fff;margin-top:64px}
+.ctaband{background:var(--deep);border-radius:24px;padding:56px;text-align:center;color:#fff;margin-top:64px;max-width:760px}
 .ctaband h2{color:#fff;margin:0 0 10px}
 .ctaband p{color:#b7b4ab;margin-bottom:26px;max-width:none}
 .faqi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:12px;max-width:820px}
@@ -241,7 +241,7 @@ DEALS = {
 <div class="faqi"><h3>Is a DSCR loan hard money?</h3><p>No - it's 30-year term financing for holds, not a short-term bridge.</p></div>
 <div class="faqi"><h3>How fast can it close?</h3><p>Weeks, not months - the appraisal is usually the long pole.</p></div>'''),
 }
-LEGAL = '<p style="margin-top:48px;font-size:16px;color:#9a978d;font-style:italic;max-width:none">Nothing on this website is legal advice. It reflects our opinions and our experience. For legal questions, consult your own counsel.</p>\n'
+LEGAL = '<p style="margin-top:48px;font-size:16px;color:#9a978d;font-style:italic">Nothing on this website is legal advice. It reflects our opinions and our experience. For legal questions, consult your own counsel.</p>\n'
 def meta_desc(s, n=155):
     if len(s) <= n: return s
     return s[:n].rsplit(' ', 1)[0].rstrip(' -,;:') + '…'
