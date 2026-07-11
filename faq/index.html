@@ -395,6 +395,8 @@ function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();
+/* ---------- community links open a new tab ---------- */
+document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[href*="skool.com"]'):null;if(a){a.target='_blank';a.rel='noopener'}},true);
 /* ---------- market rates (daily 5Y Treasury + premium band) ---------- */
 var MKT_PREM_LO=2.00,MKT_PREM_HI=3.55,MKT=null;
 function mktApply(){if(!MKT||!(MKT.dgs5>0))return;
