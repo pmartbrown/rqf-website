@@ -231,6 +231,8 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 .tool .tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#eceef4;color:#3d4b66;border-radius:20px;padding:3px 10px;width:fit-content}
 .tool.soon{opacity:.8;border-style:dashed}
 .calcwrap{max-width:560px}
+.pagehero .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:none}
+.pagehero .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 </style>
 </head>
 <body>
@@ -637,13 +639,13 @@ const LEARN={
   <h4>When to use it</h4><ul><li>The seller is open to carrying part of the price</li><li>You have a primary lender (DSCR, private, or hard money) covering most of the purchase</li><li>You want to preserve cash while still closing quickly</li></ul>
   <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
-  <h4>Run your numbers first</h4><p>Use the Morby Calculator to see your estimated cash to close — or cash back — before you submit.</p>`},
+  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/morby-stack/" style="color:var(--orange-d);font-weight:700">Morby Calculator →</a> to see your estimated cash to close — or cash back — before you submit.</p>`},
  echo:{k:'Creative Finance',t:'Echo Method',b:`
   <h4>What it is</h4><p>Echo is short-term funding for the end buyer’s down payment on the back half of a double close. Your buyer closes with their primary lender plus our capital — and we’re repaid out of the deal’s spread on that same settlement statement. Funds in, funds out, one closing. That’s the echo.</p>
   <h4>When to use it</h4><ul><li>You’re wholesaling and buyers keep stalling on down-payment money</li><li>You’re buying from a wholesaler and don’t want second-position gap debt sitting on the deal for months</li><li>The B-C price is supported by the appraisal and the spread can cover the funding</li></ul>
   <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit both legs — A-B and B-C contracts, your buyer’s primary lender terms, closing date.</span></div><div class="step"><b>02</b><span>We verify the spread covers the funding and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.</span></div></div>
   <h4>What you'll need</h4><ul><li>A-B and B-C purchase contracts</li><li>Your buyer’s primary lender term sheet or approval</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
-  <h4>Run your numbers first</h4><p>Use the Echo Calculator to see whether the spread covers the funding before you submit.</p>`},
+  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/echo/" style="color:var(--orange-d);font-weight:700">Echo Calculator →</a> to see whether the spread covers the funding before you submit.</p>`},
  dc:{k:'Transactional',t:'Double Close',b:`
   <h4>What it is</h4><p>Back-to-back closings where we fund 100% of your A-to-B purchase, and your B-to-C sale repays us the same day. Your end buyer never sees your contract price — your spread stays private.</p>
   <h4>When to use it</h4><ul><li>Assignments are restricted or you don't want your fee visible</li><li>Your end buyer is ready and funded</li><li>You need same-day in-and-out capital</li></ul>
@@ -663,7 +665,8 @@ const LEARN={
   <h4>What it is</h4><p>Banks qualify the borrower — DSCR qualifies the property. Long-term rental financing based on the property's rent covering its payment — the debt-service coverage ratio — not your W-2s or tax returns. The portfolio-builder's loan.</p>
   <h4>When to use it</h4><ul><li>Buying or refinancing rentals (LTR, STR, midterm)</li><li>Scaling past what personal-income underwriting allows</li><li>Echo Method end loans</li></ul>
   <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit property, rents (actual or market), and target loan.</span></div><div class="step"><b>02</b><span>Cash-flow-based qualification with clear written terms.</span></div><div class="step"><b>03</b><span>Close and hold — build the portfolio without the paperwork circus.</span></div></div>
-  <h4>What you'll need</h4><ul><li>Property address and rent documentation</li><li>Entity documents</li><li>Basic reserves verification</li></ul>`}
+  <h4>What you'll need</h4><ul><li>Property address and rent documentation</li><li>Entity documents</li><li>Basic reserves verification</li></ul>
+  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/dscr/" style="color:var(--orange-d);font-weight:700">DSCR Calculator →</a> to see whether the rent covers the payment before you submit.</p>`}
 };
 function openDrawer(t){const d=LEARN[t];if(!d)return;
   document.getElementById('dr_k').textContent=d.k;

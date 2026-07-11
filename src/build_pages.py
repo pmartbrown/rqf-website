@@ -55,6 +55,8 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 .tool .tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#eceef4;color:#3d4b66;border-radius:20px;padding:3px 10px;width:fit-content}
 .tool.soon{opacity:.8;border-style:dashed}
 .calcwrap{max-width:560px}
+.pagehero .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:none}
+.pagehero .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 '''
 
 def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None, cta2=None):
@@ -303,7 +305,6 @@ page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
 DSCR_TOOL_BODY = '''
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
-    <div class="purpose">Does the property qualify on its own rent? Gross rent &divide; PITIA - no tax returns, no W-2s.</div>
     <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="360,000" oninput="fmt(this);dscr()"></div></div>
