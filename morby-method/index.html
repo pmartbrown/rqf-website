@@ -252,7 +252,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
   <div class="k" style="color:var(--orange)">Creative Finance</div>
   <h1>Morby Method</h1>
   <p class="sub" style="max-width:640px">Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.</p>
-  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('morby')">Start a Morby request</button><a class="btn btn-ghost" href="../calculators/morby-stack/">Morby Calculator</a></div>
+  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('morby')">Start a Morby request</button><a class="btn btn-ghost" href="../calculators/morby-stack/">Stack Method Calculator</a></div>
 </div></header>
 <div class="content"><div class="wrap">
 
@@ -278,7 +278,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
  <div class="prow"><span>RQF funds</span><b>$140,000 - the full gap</b></div>
  <div class="prow tot"><span>Buyer brings</span><b>about $0</b></div>
 </div>
-<p>The carry is sized to repay our funding plus estimated fees at the secondary close. Push the carry higher and the same structure can put cash back in the buyer's pocket at closing. Shrink it and the buyer brings the difference. Estimates only - run your own numbers in the <a href="../calculators/morby-stack/">Morby Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
+<p>The carry is sized to repay our funding plus estimated fees at the secondary close. Push the carry higher and the same structure can put cash back in the buyer's pocket at closing. Shrink it and the buyer brings the difference. Estimates only - run your own numbers in the <a href="../calculators/morby-stack/">Stack Method Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
 <h2>The rule that decides every deal</h2>
 <p>One test separates a fundable Morby deal from a wish: <b>the seller's carryback has to be big enough to repay our funding, our fee, and the second-close costs.</b> If it is, the deal works. The <a href="../calculators/morby-stack/">calculator</a> caps our funding at exactly what the carry supports and shows you what lands on you at the table, whether that's cash to bring or cash back. If the carry can't cover it, it's not a Morby we can fund. Restructure the carry, adjust the price, or bring the difference in cash at the first closing. No exceptions, because this rule is what keeps every party in the deal whole, the seller included.</p>
 <h2>Done right: disclosure and structure</h2>
@@ -311,7 +311,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
     <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
       <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Stack Method Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
       <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>
@@ -493,7 +493,7 @@ const FORMS={
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea','',1)]}]},
  morby:{title:'Morby Method Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Deal information',f:[F('address','Subject property address','address','',1),F('close_of_escrow_date','Close date','date','',1),F('purchase_price','Purchase price','money','400,000',1),F('seller_financed_amount','Seller finance amount','money','140,000',1),F('_primary_needed','Estimated DSCR / primary loan amount','money','300,000'),F('requested_amount','Requested transactional funding','money','75,000',1)]},
+  {h:'Deal information',f:[F('address','Subject property address','address','',1),F('close_of_escrow_date','Close date','date','',1),F('purchase_price','Purchase price','money','500,000',1),F('seller_financed_amount','Seller finance amount','money','147,700',1),F('_primary_needed','Estimated DSCR / primary loan amount','money','375,000'),F('requested_amount','Requested transactional funding','money','75,000',1)]},
   {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement',1),FF('other_documents','Addendums or other documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  dc:{title:'Double Close Request',sections:[
@@ -662,7 +662,7 @@ const LEARN={
   <h4>When to use it</h4><ul><li>The seller is open to carrying part of the price</li><li>You have a primary lender (DSCR, private, or hard money) covering most of the purchase</li><li>You want to preserve cash while still closing quickly</li></ul>
   <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
-  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/morby-stack/" style="color:var(--orange-d);font-weight:700">Morby Calculator →</a> to see your estimated cash to close — or cash back — before you submit.</p>`},
+  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/morby-stack/" style="color:var(--orange-d);font-weight:700">Stack Method Calculator →</a> to see your estimated cash to close — or cash back — before you submit.</p>`},
  echo:{k:'Creative Finance',t:'Echo Method',b:`
   <h4>What it is</h4><p>Echo is short-term funding for the end buyer’s down payment on the back half of a double close. Your buyer closes with their primary lender plus our capital — and we’re repaid out of the deal’s spread on that same settlement statement. Funds in, funds out, one closing. That’s the echo.</p>
   <h4>When to use it</h4><ul><li>You’re wholesaling and buyers keep stalling on down-payment money</li><li>You’re buying from a wholesaler and don’t want second-position gap debt sitting on the deal for months</li><li>The B-C price is supported by the appraisal and the spread can cover the funding</li></ul>

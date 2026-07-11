@@ -110,7 +110,7 @@ def ul(items):
     return '<ul>' + ''.join('<li>%s</li>' % x for x in items) + '</ul>'
 
 DEALS = {
- 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', req='Start a Morby request', calc=('Morby Calculator','/calculators/morby-stack/'),
+ 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', req='Start a Morby request', calc=('Stack Method Calculator','/calculators/morby-stack/'),
    title='Morby Method (Stack Method) Funding | RealQuick Funds',
    desc='Morby Method (Stack Method) funding - seller carry + primary lender stacked into one creative close. All 50 states. Same-day decisions on most deals.',
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
@@ -137,7 +137,7 @@ DEALS = {
  <div class="prow"><span>RQF funds</span><b>$140,000 - the full gap</b></div>
  <div class="prow tot"><span>Buyer brings</span><b>about $0</b></div>
 </div>
-<p>The carry is sized to repay our funding plus estimated fees at the secondary close. Push the carry higher and the same structure can put cash back in the buyer's pocket at closing. Shrink it and the buyer brings the difference. Estimates only - run your own numbers in the <a href="/calculators/morby-stack/">Morby Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
+<p>The carry is sized to repay our funding plus estimated fees at the secondary close. Push the carry higher and the same structure can put cash back in the buyer's pocket at closing. Shrink it and the buyer brings the difference. Estimates only - run your own numbers in the <a href="/calculators/morby-stack/">Stack Method Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
 <h2>The rule that decides every deal</h2>
 <p>One test separates a fundable Morby deal from a wish: <b>the seller's carryback has to be big enough to repay our funding, our fee, and the second-close costs.</b> If it is, the deal works. The <a href="/calculators/morby-stack/">calculator</a> caps our funding at exactly what the carry supports and shows you what lands on you at the table, whether that's cash to bring or cash back. If the carry can't cover it, it's not a Morby we can fund. Restructure the carry, adjust the price, or bring the difference in cash at the first closing. No exceptions, because this rule is what keeps every party in the deal whole, the seller included.</p>
 <h2>Done right: disclosure and structure</h2>
@@ -228,7 +228,7 @@ DEALS = {
 <h2>Short-term rentals</h2>
 <p>Airbnb income can qualify, but lenders count it conservatively - the appraiser's estimate, a 12-month revenue history, or market data, usually with a haircut. Verify your city allows STRs before you tie up the property; underwriters check.</p>
 <h2>Where DSCR fits in a creative deal</h2>
-<p>In most <a href="/morby-method/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo-method/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
+<p>In most <a href="/morby-method/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo-method/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/morby-stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
 <h2>How it works with us</h2>
 ''' + steps(['Submit the property and rents (actual or market) through the two-minute form.','We route your scenario across our DSCR lender network - including options below 1.0, down to 0.75.','Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.']) + '''
 <h2>DSCR questions, answered</h2>
@@ -254,7 +254,7 @@ CALC_BODY = '''
 <h2>The deal tool library.</h2>
 <p>Built by the funder - not a blog. Run your structure, adjust the estimates for your market, and know whether the deal works before you talk to anyone. Every calculator feeds straight into a two-minute funding request.</p>
 <div class="toolgrid">
-  <a class="tool" href="/calculators/morby-stack/"><div class="ic">&#9672;</div><h3>Morby / Stack Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
+  <a class="tool" href="/calculators/morby-stack/"><div class="ic">&#9672;</div><h3>Stack Method Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, max loan at your target DSCR, and the rent you'd need. Some of our lenders fund down to 0.75.</p><div class="go">Open calculator &rarr;</div></a>
   <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, and Hard Money calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
@@ -267,8 +267,8 @@ MS_BODY = '''
     <div id="pane_pa">
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
     <div class="cgrid">
-      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="400,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="140,000" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="500,000" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="147,700" oninput="fmt(this);stack()"></div></div>
       <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="75.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
     </div>
@@ -353,9 +353,9 @@ ECHO_CALC_BODY = '''
 page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Free deal calculators built by a transactional funder - Morby/Stack purchase and rental cash flow analysis, Echo spread coverage, and more tools on the way.',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
-page('calculators/morby-stack','Morby Method Calculator (Stack Method) - Free | RealQuick Funds',
+page('calculators/morby-stack','Stack Method Calculator (Morby Method) - Free | RealQuick Funds',
  'Free Morby Method / Stack Method calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method?','/morby-method/'))
+ 'Deal Tools','Stack Method Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method?','/morby-method/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
  'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo-method/'))
@@ -402,7 +402,7 @@ DSCR_TOOL_BODY = '''
 <ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - not dead. We have lender options down to 0.75 - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
 <h2>How to use this calculator</h2>
 <ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
-<p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
+<p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/morby-stack/">Stack Method Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
