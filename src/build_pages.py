@@ -191,7 +191,8 @@ CALC_BODY = '''
 <div class="toolgrid">
   <a class="tool" href="/calculators/morby-stack/"><div class="ic">&#9672;</div><h3>Morby / Stack Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
-  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, Hard Money, and DSCR calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
+  <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, max loan at your target DSCR, and the rent you'd need. Some of our lenders fund down to 0.75.</p><div class="go">Open calculator &rarr;</div></a>
+  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, and Hard Money calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:20px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
 MS_BODY = '''
@@ -292,6 +293,55 @@ page('calculators/morby-stack','Morby Method Calculator (Stack Method) - Free | 
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
  'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request')
+DSCR_TOOL_BODY = '''
+<div class="calcwrap">
+  <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
+    <div class="purpose">Does the property qualify on its own rent? Gross rent &divide; PITIA - no tax returns, no W-2s.</div>
+    <div class="cgrid">
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="310,000" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,500" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Down payment <span class="hint" id="d_dp_d"></span></label><div class="inwrap"><input class="pctin" id="d_dp" value="20.0" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Interest rate <span class="hint" id="d_rt_d"></span></label><div class="inwrap"><input class="pctin" id="d_rt" value="7.25" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Term</label><div class="inwrap"><input class="pctin" id="d_tm" value="30" oninput="fmtp(this);dscr()"><span class="sfx">yrs</span></div></div>
+      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="d_tax" value="1,800" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="d_ins" value="1,800" oninput="fmt(this);dscr()"></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>HOA /mo</label><div class="inwrap"><span>$</span><input id="d_hoa" value="0" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Interest-only?</label><div class="inwrap" style="padding-left:6px"><select id="d_io" onchange="dscr()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)"><option>No</option><option>Yes</option></select></div></div>
+      <div class="fld"><label>Target DSCR</label><div class="inwrap"><input class="pctin" id="d_tg" value="1.25" oninput="fmtp(this);dscr()"><span class="sfx">&nbsp;</span></div></div>
+    </div>
+    <div class="pnl">
+      <div class="prow"><span>Principal &amp; interest</span><b id="ds_pi"></b></div>
+      <div class="prow"><span>Taxes + insurance</span><b id="ds_ti"></b></div>
+      <div class="prow"><span>HOA</span><b id="ds_hoa"></b></div>
+      <div class="prow tot"><span>PITIA - what lenders divide by</span><b id="ds_tot"></b></div>
+    </div>
+    <div class="result back" id="ds_res" style="margin-top:10px"><div class="rl" id="ds_rl">DSCR</div><div class="rv" id="ds_rv">-</div><div class="rsub" id="ds_sub"></div></div>
+    <div class="solves">
+      <div class="solve"><div class="sl" id="ds_mll">Max loan at DSCR 1.25</div><div class="sv" id="ds_ml">-</div></div>
+      <div class="solve"><div class="sl" id="ds_rnl">Rent needed at 1.25</div><div class="sv" id="ds_rn">-</div></div>
+    </div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button></div>
+</div>
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario. Exact figures arrive with your written terms.</p>
+<h2>How lenders actually calculate DSCR</h2>
+<p><b>Step one - rent.</b> Your gross rental income comes from either your current rents or the appraiser's comparable rent schedule, known as Form 1007. That's the number on top.</p>
+<p><b>Step two - debt.</b> Your debt for qualification purposes is the total principal, interest, taxes, insurance, and HOA - PITIA. Lenders do <b>not</b> count expenses like management, maintenance, utilities, vacancy, or repairs. That's the number on the bottom.</p>
+<p><b>Step three - divide.</b> DSCR = gross rental income &divide; PITIA. Most free calculators online get this wrong by using net operating income - this one computes it the way DSCR lenders actually underwrite.</p>
+<h2>A worked example</h2>
+<p>Say the property rents for $2,500 a month. The principal and interest payment is $1,700, property taxes are $150, insurance is $150, and there's no HOA - so the total monthly debt is $2,000. Divide $2,500 by $2,000 and you get a DSCR of <b>1.25</b> - the property generates 25% more income than what's needed to repay the loan. That's positive cash flow in the lender's eyes.</p>
+<h2>What your number means</h2>
+<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - still can be done. Some of our lenders go down to a 0.75 DSCR.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
+<h2>How to use this calculator</h2>
+<ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
+<p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
+<p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
+page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
+ 'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
+ 'Deal Tools','DSCR Calculator','Does the property qualify on its own rent? Gross rent / PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request')
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>

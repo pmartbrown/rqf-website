@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy | RealQuick Funds</title>
-<meta name="description" content="How Real Quick Funds, LLC collects, uses, and protects your personal information.">
+<title>DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds</title>
+<meta name="description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -140,7 +140,7 @@ h2{font-family:var(--disp);font-size:clamp(28px,3.6vw,44px);font-weight:800;lett
 .pcard.affiliate .mono{color:var(--orange)}
 /* founder strip */
 .fstrip{background:#fff;border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:280px 1fr;gap:0;overflow:hidden;box-shadow:0 4px 20px -12px rgba(21,20,18,.1)}
-.fstrip .ph{background:#e7e6e2 url('../assets/paul.jpg') top center/cover no-repeat;min-height:320px}
+.fstrip .ph{background:#e7e6e2 url('../../assets/paul.jpg') top center/cover no-repeat;min-height:320px}
 .fstrip .fx{padding:44px 48px;align-self:center}
 .fstrip blockquote{font-family:var(--disp);font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.45;color:#2b2a26}
 .fstrip .who{margin-top:16px;font-size:14px;color:var(--mut)}
@@ -238,48 +238,78 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 <main>
 <div style="background:var(--orange);color:#141311;text-align:center;padding:20px 16px;font-size:clamp(18px,2.8vw,26px);font-weight:800;line-height:1.35">🚧 This site is under construction — to submit deals, please visit <a href="https://txfhub.com" style="text-decoration:underline;color:#141311">txfhub.com</a></div>
 <nav><div class="wrap nav-in">
-  <a class="brand" href="../"><img src="../assets/lockup_dark.png" alt="RealQuick Funds"></a>
-  <div class="nav-links"><a href="../#types">Funding</a><a href="../calculators/">Calculators</a><a href="../#types">Learn</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Community</a></div>
+  <a class="brand" href="../../"><img src="../../assets/lockup_dark.png" alt="RealQuick Funds"></a>
+  <div class="nav-links"><a href="../../#types">Funding</a><a href="../../calculators/">Calculators</a><a href="../../#types">Learn</a><a href="../../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Community</a></div>
   <button class="btn" onclick="openModal()">Get Funded</button>
 </div></nav>
 <header class="pagehero"><div class="wrap">
-  <div class="k" style="color:var(--orange)">Legal</div>
-  <h1>Privacy Policy</h1>
-  <p class="sub" style="max-width:640px">How we collect, use, and protect your information.</p>
-  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal()">Get Funded</button></div>
+  <div class="k" style="color:var(--orange)">Deal Tools</div>
+  <h1>DSCR Calculator</h1>
+  <p class="sub" style="max-width:640px">Does the property qualify on its own rent? Gross rent / PITIA - with the max-loan and rent-needed answers no other calculator gives you.</p>
+  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('dscr')">Start a DSCR request</button></div>
 </div></header>
 <div class="content"><div class="wrap">
 
-<p style="font-size:13px;color:#9a978d">Last updated: July 9, 2026 &middot; <em>Draft pending final legal review.</em></p>
-<h2>Who we are</h2>
-<p>Real Quick Funds, LLC ("RQF," "we," "us") is a transactional funding company based in Lehi, Utah, providing capital solutions to real estate investors in all 50 states. This policy explains what personal information we collect through realquickfunds.com, how we use it, and the choices you have.</p>
-<h2>Information we collect</h2>
-<ul><li>Contact details you submit through our forms - name, email address, phone number</li><li>Deal information you provide - property addresses, transaction amounts, dates, and documents you upload</li><li>Usage data - pages visited, approximate location, device and browser information, collected via analytics cookies</li></ul>
-<h2>How we use your information</h2>
-<ul><li>To administer your account and provide the products and services you request from us</li><li>To underwrite and process funding requests you submit</li><li>To contact you about our products, services, and content that may interest you - you can unsubscribe from these communications at any time</li><li>To improve our website and services</li></ul>
-<h2>How we share it</h2>
-<p>We do not sell your personal information. We share it only with service providers who help us operate (for example, our CRM and escrow/title partners involved in your transaction), and where required by law.</p>
-<h2>Your choices</h2>
-<ul><li>Unsubscribe from marketing at any time via the link in any email or by contacting us</li><li>Request access to, correction of, or deletion of your personal information by emailing <a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></li></ul>
-<h2>Data retention & security</h2>
-<p>We retain personal information only as long as needed for the purposes described above and protect it with commercially reasonable safeguards. Transaction documents are handled through licensed title and escrow.</p>
-<h2>Contact</h2>
-<p>Questions about this policy: <a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a>, Real Quick Funds, LLC, Lehi, Utah.</p>
+<div class="calcwrap">
+  <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
+    <div class="purpose">Does the property qualify on its own rent? Gross rent &divide; PITIA - no tax returns, no W-2s.</div>
+    <div class="cgrid">
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="310,000" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,500" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Down payment <span class="hint" id="d_dp_d"></span></label><div class="inwrap"><input class="pctin" id="d_dp" value="20.0" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Interest rate <span class="hint" id="d_rt_d"></span></label><div class="inwrap"><input class="pctin" id="d_rt" value="7.25" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Term</label><div class="inwrap"><input class="pctin" id="d_tm" value="30" oninput="fmtp(this);dscr()"><span class="sfx">yrs</span></div></div>
+      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="d_tax" value="1,800" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="d_ins" value="1,800" oninput="fmt(this);dscr()"></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>HOA /mo</label><div class="inwrap"><span>$</span><input id="d_hoa" value="0" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Interest-only?</label><div class="inwrap" style="padding-left:6px"><select id="d_io" onchange="dscr()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)"><option>No</option><option>Yes</option></select></div></div>
+      <div class="fld"><label>Target DSCR</label><div class="inwrap"><input class="pctin" id="d_tg" value="1.25" oninput="fmtp(this);dscr()"><span class="sfx">&nbsp;</span></div></div>
+    </div>
+    <div class="pnl">
+      <div class="prow"><span>Principal &amp; interest</span><b id="ds_pi"></b></div>
+      <div class="prow"><span>Taxes + insurance</span><b id="ds_ti"></b></div>
+      <div class="prow"><span>HOA</span><b id="ds_hoa"></b></div>
+      <div class="prow tot"><span>PITIA - what lenders divide by</span><b id="ds_tot"></b></div>
+    </div>
+    <div class="result back" id="ds_res" style="margin-top:10px"><div class="rl" id="ds_rl">DSCR</div><div class="rv" id="ds_rv">-</div><div class="rsub" id="ds_sub"></div></div>
+    <div class="solves">
+      <div class="solve"><div class="sl" id="ds_mll">Max loan at DSCR 1.25</div><div class="sv" id="ds_ml">-</div></div>
+      <div class="solve"><div class="sl" id="ds_rnl">Rent needed at 1.25</div><div class="sv" id="ds_rn">-</div></div>
+    </div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button></div>
+</div>
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario. Exact figures arrive with your written terms.</p>
+<h2>How lenders actually calculate DSCR</h2>
+<p><b>Step one - rent.</b> Your gross rental income comes from either your current rents or the appraiser's comparable rent schedule, known as Form 1007. That's the number on top.</p>
+<p><b>Step two - debt.</b> Your debt for qualification purposes is the total principal, interest, taxes, insurance, and HOA - PITIA. Lenders do <b>not</b> count expenses like management, maintenance, utilities, vacancy, or repairs. That's the number on the bottom.</p>
+<p><b>Step three - divide.</b> DSCR = gross rental income &divide; PITIA. Most free calculators online get this wrong by using net operating income - this one computes it the way DSCR lenders actually underwrite.</p>
+<h2>A worked example</h2>
+<p>Say the property rents for $2,500 a month. The principal and interest payment is $1,700, property taxes are $150, insurance is $150, and there's no HOA - so the total monthly debt is $2,000. Divide $2,500 by $2,000 and you get a DSCR of <b>1.25</b> - the property generates 25% more income than what's needed to repay the loan. That's positive cash flow in the lender's eyes.</p>
+<h2>What your number means</h2>
+<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - still can be done. Some of our lenders go down to a 0.75 DSCR.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
+<h2>How to use this calculator</h2>
+<ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
+<p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="../../calculators/morby-stack/">Morby / Stack Calculator</a>, or read the <a href="../../dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
+<p style="margin-top:18px"><a href="../../calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>
 <div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
 <p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
-<button class="btn" onclick="openModal()">Get Funded</button></div>
+<button class="btn" onclick="openModal('dscr')">Start a DSCR request</button></div>
 </div></div>
 <footer><div class="wrap">
   <div class="f-in">
-    <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
+    <img src="../../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
-      <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
-      <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
+      <div class="fcol"><b>Funding</b><a href="../../morby-method/">Morby Method</a><a href="../../echo-method/">Echo Method</a><a href="../../double-close/">Double Close</a><a href="../../emd/">EMD</a><a href="../../hard-money/">Hard Money</a><a href="../../dscr/">DSCR</a></div>
+      <div class="fcol"><b>Tools</b><a href="../../calculators/">All Calculators</a><a href="../../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../../calculators/echo/">Echo Calculator</a><a href="../../calculators/dscr/">DSCR Calculator</a></div>
+      <div class="fcol"><b>Company</b><a href="../../about/">About</a><a href="../../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>
   </div>
-  <div class="f-legal">© 2026 Real Quick Funds, LLC · Lehi, Utah · Funding in all 50 states · Transactional funding for real estate investors. Not a consumer lender.<br><span style="display:inline-block;margin-top:8px"><a href="../privacy/" style="text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="../terms/" style="text-decoration:underline">Terms of Use</a></span></div>
+  <div class="f-legal">© 2026 Real Quick Funds, LLC · Lehi, Utah · Funding in all 50 states · Transactional funding for real estate investors. Not a consumer lender.<br><span style="display:inline-block;margin-top:8px"><a href="../../privacy/" style="text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="../../terms/" style="text-decoration:underline">Terms of Use</a></span></div>
 </div></footer>
 </main>
 <!-- GET FUNDED MODAL -->
@@ -418,7 +448,7 @@ function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
 function ensureRC(){if(document.getElementById('rcs'))return;var s=document.createElement('script');s.id='rcs';s.async=true;s.defer=true;s.src='https://www.google.com/recaptcha/enterprise.js?render='+RC_KEY;document.head.appendChild(s)}
 function rcToken(action){return new Promise(function(res){if(!(window.grecaptcha&&window.grecaptcha.enterprise)){res('');return}
  try{grecaptcha.enterprise.ready(function(){grecaptcha.enterprise.execute(RC_KEY,{action:action}).then(res).catch(function(){res('')})})}catch(e){res('')}})}
-const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" id="consentChk" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
+const CONSENT_HTML='<div class="consent"><label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#54524b;cursor:pointer"><input type="checkbox" id="consentChk" required style="margin-top:3px;accent-color:var(--orange)"><span>I agree to the terms and conditions above.</span></label><p style="font-size:11.5px;color:#9a978d;margin-top:10px;line-height:1.55">Real Quick Funds, LLC is committed to protecting and respecting your privacy, and we will only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. You can unsubscribe from these communications at any time. For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="../../privacy/" style="color:var(--orange-d);text-decoration:underline">Privacy Policy</a>. By clicking submit below, you consent to allow Real Quick Funds, LLC to store and process the personal information submitted above to provide you the content requested.</p></div>';
 function F(name,label,type,ph,req){return {n:name,l:label,t:type||'text',p:ph||'',req:!!req}}
 function FS(name,label,id,options,bool){return {n:name,l:label,t:'select',id:id,o:options,b:!!bool}}
 function FF(name,label,req,multi){return {n:name,l:label,t:'file',req:!!req,multi:!!multi}}

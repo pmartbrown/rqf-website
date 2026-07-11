@@ -74,6 +74,10 @@ h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line
 .cgrid3 .fld label{white-space:nowrap;overflow:hidden}
 .cgrid3 .fld label .hint{font-size:10px;letter-spacing:0}
 .result .rsub{font-size:11px;margin-top:5px;opacity:.78;line-height:1.45}
+.solves{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.solve{background:#eceef4;color:#3d4b66;border-radius:12px;padding:10px 14px;text-align:center}
+.solve .sl{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;opacity:.75}
+.solve .sv{font-family:var(--mono);font-size:17px;font-weight:600;margin-top:2px}
 .result{border-radius:14px;padding:14px 16px;margin-top:14px;text-align:center;transition:.2s}
 .result .rl{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;opacity:.8}
 .result .rv{font-family:var(--mono);font-size:28px;font-weight:600;margin-top:2px}
@@ -268,7 +272,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
     <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
       <div class="fcol"><b>Funding</b><a href="../morby-method/">Morby Method</a><a href="../echo-method/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Morby / Stack Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
       <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>
@@ -368,11 +372,39 @@ function cashflow(){if(!document.getElementById('cf_res'))return;
   setT('cf_sub',smoney(cf*12)+' per year · DSCR '+(ds>0?dscr.toFixed(2)+tag:'—'));
   var bl=document.getElementById('cf_blr');
   if(bl){if(by>0&&by<a2&&sc>0){bl.style.display='flex';document.getElementById('cf_bll').textContent='Carry balloon due (year '+by+')';setT('cf_bl',money(loanbal(sc,r2,a2,Math.round(by*12))))}else bl.style.display='none'}}
+function dscr(){if(!document.getElementById('ds_res'))return;
+  var pp=num('d_pp'),rent=num('d_rent'),dp=pct('d_dp'),rt=pct('d_rt'),tm=pct('d_tm'),tax=num('d_tax'),ins=num('d_ins'),hoa=num('d_hoa'),tg=pct('d_tg')||1.25;
+  var ioEl=document.getElementById('d_io');var io=ioEl&&ioEl.value==='Yes';
+  var loan=pp*(1-dp/100);
+  var pi=pmt(loan,rt,tm),iopay=loan*rt/100/12;
+  var tia=tax/12+ins/12+hoa;
+  var pay=(io?iopay:pi),pitia=pay+tia;
+  var d=pitia>0?rent/pitia:0,dIO=(iopay+tia)>0?rent/(iopay+tia):0;
+  setT('d_dp_d',money(pp*dp/100)+' \u00b7 loan '+money(loan));
+  setT('d_rt_d',money(pay)+'/mo '+(io?'IO':'P&I'));
+  setT('ds_pi',money(pay));setT('ds_ti',money(tax/12+ins/12));setT('ds_hoa',money(hoa));setT('ds_tot',money(pitia));
+  var res=document.getElementById('ds_res'),rl=document.getElementById('ds_rl');
+  document.getElementById('ds_rv').textContent=d?d.toFixed(2):'\u2014';
+  if(d>=1.25){res.className='result back';rl.textContent='DSCR \u2014 strong \u00b7 best pricing tier'}
+  else if(d>=1){res.className='result back';rl.textContent='DSCR \u2014 qualifies \u00b7 better terms above 1.0'}
+  else if(d>=0.75){res.className='result out';rl.textContent='DSCR below 1.0 \u2014 some of our lenders go to 0.75'}
+  else{res.className='result bring';rl.textContent='DSCR under 0.75 \u2014 restructure the deal'}
+  var sub;
+  if(d>=1)sub=money(rent)+' rent \u00f7 '+money(pitia)+' PITIA \u2014 the property generates '+Math.round((d-1)*100)+'% more income than needed to repay the loan.';
+  else sub=money(rent)+' rent covers only '+Math.round(d*100)+'% of the '+money(pitia)+' payment.';
+  if(!io&&dIO>d+0.005)sub+=' Switch to interest-only and this deal scores '+dIO.toFixed(2)+'.';
+  setT('ds_sub',sub);
+  var maxPitia=rent/tg,piBudget=Math.max(maxPitia-tia,0);
+  var pf=pmt(1,rt,tm);
+  var maxLoan=io?(rt>0?piBudget*12*100/rt:0):(pf>0?piBudget/pf:0);
+  setT('ds_mll','Max loan at DSCR '+tg.toFixed(2));setT('ds_ml',money(Math.max(maxLoan,0)));
+  setT('ds_rnl','Rent needed at '+tg.toFixed(2));setT('ds_rn',money(tg*pitia)+'/mo');
+  window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;}
 function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
-if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();
+if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();
 /* ---------- modal ---------- */
 const API_BASE='https://api.txfhub.com';
 const RC_KEY='6Lf4iS8sAAAAAKxk_0dkpPQpuUZlLf6coT_YhDLY';
@@ -468,6 +500,8 @@ function renderForm(t,fromCalc){
  if(fromCalc){var ra=document.querySelector('#mform [data-name="requested_amount"]');
   if(ra&&t==='morby'&&window.CALC_TF>0)ra.value=Math.round(window.CALC_TF).toLocaleString();
   if(ra&&t==='echo'&&window.CALC_ECHO>0)ra.value=Math.round(window.CALC_ECHO).toLocaleString();
+  if(ra&&t==='dscr'&&window.CALC_DSCR>0)ra.value=Math.round(window.CALC_DSCR).toLocaleString();
+  if(t==='dscr'&&window.CALC_DSCR_RENT>0){var mr=document.querySelector('#mform [data-name="monthly_rent"]');if(mr)mr.value=Math.round(window.CALC_DSCR_RENT).toLocaleString()}
   if(t==='morby'){var pp=document.querySelector('#mform [data-name="purchase_price"]'),scf=document.querySelector('#mform [data-name="seller_financed_amount"]');
    if(pp&&num('s_pp'))pp.value=num('s_pp').toLocaleString();if(scf&&num('s_sc'))scf.value=num('s_sc').toLocaleString()}}
  updDeps();
