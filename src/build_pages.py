@@ -60,7 +60,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 .pagehero .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 '''
 
-def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None, cta2=None):
+def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None, cta2=None, foot=''):
     cta = "openModal('%s')" % cta_type if cta_type else "openModal()"
     cta_btn = '<a class="btn" href="%s">%s</a>' % (cta_href, cta_label) if cta_href else '<button class="btn" onclick="%s">%s</button>' % (cta, cta_label)
     cta2_btn = '<a class="btn btn-ghost" href="%s">%s</a>' % (cta2[1], cta2[0]) if cta2 else ''
@@ -91,7 +91,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="ctaband"><h2>%s</h2>
 <p>%s</p>
 %s</div>
-</div></div>
+%s</div></div>
 %s
 </main>
 %s
@@ -99,7 +99,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="drawer" id="drawer"><div class="dr-head"><button class="x" onclick="closeDrawer()">&times;</button><div class="k" id="dr_k"></div><h3 id="dr_title"></h3></div><div class="dr-body" id="dr_body"></div></div>
 <script>%s</script>
 </body>
-</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, cta2_btn, body, band_h, band_p, cta_btn, FOOTER, MODAL, SCRIPT)
+</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, cta2_btn, body, band_h, band_p, cta_btn, foot, FOOTER, MODAL, SCRIPT)
     os.makedirs(path, exist_ok=True)
     open(os.path.join(path,'index.html'),'w').write(html)
     print('built', path)
@@ -116,13 +116,50 @@ DEALS = {
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
    body='''
 <h2>What the Morby Method is</h2>
-<p>The Morby Method is a creative-finance acquisition structure that combines a seller-carried note with a primary lender so the total capital stack covers - or exceeds - the purchase price and closing costs. You'll also hear it called the <b>Stack Method</b> - same structure, same math; the name comes from stacking funding sources on one deal. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
-<h2>When to use it</h2>
-''' + ul(['The seller is open to carrying part of the purchase price','You have a primary lender (DSCR, private, or hard money) covering most of the purchase','You want to preserve cash while still closing quickly','The numbers work - run them in the <a href="/calculators/morby-stack/">Morby Calculator</a> first']) + '''
+<p>The Morby Method is a creative-finance structure that combines a seller-carried note with a primary lender so the total capital stack covers the purchase price and closing costs, and sometimes more than covers it. You'll also hear it called the <b>Stack Method</b>. Same structure, same math. The name comes from stacking funding sources on one deal. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
+<h2>Who it's for</h2>
+<p>The classic Morby buyer is an investor who wants the property but doesn't want the down payment tied up in it. Maybe you're building a portfolio and would rather spread your capital across three acquisitions than sink all of it into one. Maybe you've found a motivated seller who's open to carrying part of the price, but real cash still has to show up at the table for the deal to close. If the seller is willing to stay in the deal and the numbers support it, this structure turns "I can't cover the down payment" into a closing date.</p>
+<h2>The three stacked pieces</h2>
+<p>A Morby deal layers three funding sources. Each one has a single job.</p>
+''' + steps(['<b>The senior loan.</b> A primary lender covers the big chunk of the purchase. Usually that is a DSCR loan if the buyer is keeping it as a rental, or hard money if it is a flip. First position. The heavy lifter.','<b>The seller&rsquo;s reinvestment.</b> The seller helps cover the rest, most often by carrying back a second-position note for part of the price. A preferred equity position gets to the same place when a deal calls for it. Either way, the seller is staying in the deal instead of cashing all the way out, and that reinvestment is what makes the whole structure work.','<b>Our cash to close.</b> Even with the senior loan and the seller&rsquo;s piece on paper, real cash still has to hit the closing table. That is where we come in. RealQuick Funds wires the cash to close into escrow, the deal records, and the seller&rsquo;s reinvestment repays us. Typically the same day.']) + '''
+<h2>How the money actually moves</h2>
+<p>A Morby deal is really two closings wearing one contract.</p>
+<p><b>The primary close is cash going in.</b> The senior lender's funds and our cash to close land at title. The seller gets paid, the deed records, the buyer owns the property.</p>
+<p><b>The secondary close is cash coming out.</b> Think of it as an instant refinance of our short-term funding into the seller's note. The carryback gets documented, and the held funds disburse: seller proceeds, our repayment, the closing fees, and any cash back to the buyer the structure supports.</p>
+<p>The whole thing turns on the escrow disbursement instructions. Our funds sit at title and release the moment the deal records. We lock those instructions down with the title company before a dollar moves, which is exactly why our money goes out and comes back the same day with zero drama.</p>
+<h2>See the math on a $500K deal</h2>
+<div class="pnl" style="max-width:560px">
+ <div class="prow"><span>Purchase price</span><b>$500,000</b></div>
+ <div class="prow"><span>Est. closing costs (3%)</span><b>$15,000</b></div>
+ <div class="prow"><span>Senior loan (75%)</span><b>$375,000</b></div>
+ <div class="prow tot"><span>Cash needed to close</span><b>$140,000</b></div>
+ <div class="prow"><span>Seller carryback (2nd position)</span><b>$147,700</b></div>
+ <div class="prow"><span>RQF funds</span><b>$140,000 - the full gap</b></div>
+ <div class="prow tot"><span>Buyer brings</span><b>about $0</b></div>
+</div>
+<p>The carry is sized to repay our funding plus estimated fees at the secondary close. Push the carry higher and the same structure can put cash back in the buyer's pocket at closing. Shrink it and the buyer brings the difference. Estimates only - run your own numbers in the <a href="/calculators/morby-stack/">Morby Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
+<h2>The rule that decides every deal</h2>
+<p>One test separates a fundable Morby deal from a wish: <b>the seller's carryback has to be big enough to repay our funding, our fee, and the second-close costs.</b> If it is, the deal works. The <a href="/calculators/morby-stack/">calculator</a> caps our funding at exactly what the carry supports and shows you what lands on you at the table, whether that's cash to bring or cash back. If the carry can't cover it, it's not a Morby we can fund. Restructure the carry, adjust the price, or bring the difference in cash at the first closing. No exceptions, because this rule is what keeps every party in the deal whole, the seller included.</p>
+<h2>Done right: disclosure and structure</h2>
+<p>The Morby Method has a reputation problem it doesn't deserve, caused by people doing it wrong. Done right, it's clean:</p>
+''' + ul(['<b>The primary lender sees the whole structure.</b> The seller carry and the source of the cash to close are disclosed to your senior lender, and we confirm the lender&rsquo;s seasoning and sourcing rules before funding, not after. If a lender&rsquo;s guidelines can&rsquo;t accommodate the structure, the answer is a different lender.','<b>The carry lives in its own addendum,</b> not buried in the purchase contract. Clean paper for the senior lender&rsquo;s underwriting.','<b>Everything settles through licensed title and escrow.</b> Both settlement statements, airtight disbursement instructions, and funds that never touch personal accounts.','<b>Government-backed primaries are off the table.</b> FHA and VA loans do not permit this structure. Morby deals run on investor financing: DSCR, private money, or hard money.']) + '''
+<h2>When it's not a Morby</h2>
+''' + ul(['<b>The seller wants every dollar at closing.</b> No reinvestment, no Morby. But if there is a wholesaler&rsquo;s spread in the deal, look at the <a href="/echo-method/">Echo Method</a> instead. Same down-payment funding, repaid from the spread rather than the carry.','<b>The carry is too small to repay the funding.</b> See the rule above. Restructure or bring cash.','<b>The senior lender requires seasoned funds</b> and will not work with an alternative. We check this at intake. It is one of the first questions we ask.','<b>The numbers only work at an inflated price.</b> If the deal needs a make-believe value to pencil, it does not pencil.']) + '''
 <h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms — same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
+''' + steps(['Submit your structure: purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms, same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
-''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
+''' + ul(['Executed purchase contract','Seller carry terms in a separate addendum','Primary lender term sheet or approval','Title/escrow contact','A transaction coordinator experienced with two-part closings. The TC is required on Morby deals, and if you don&rsquo;t have one, we&rsquo;ll connect you.']) + '''
+<h2>Morby questions, answered</h2>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the Morby Method legal?", "acceptedAnswer": {"@type": "Answer", "text": "When it&#39;s structured with full disclosure, this is a well-worn path: the seller carry is documented in an addendum, the primary lender underwrites with the structure in view, and everything settles through licensed title and escrow. That&#39;s the only way we fund them.*"}}, {"@type": "Question", "name": "Do I need my own cash?", "acceptedAnswer": {"@type": "Answer", "text": "Often little to none. Whether you bring cash, bring nothing, or walk away with cash depends on one thing: how the seller carry compares to the funding it has to repay. The calculator shows you which side of the line your deal is on."}}, {"@type": "Question", "name": "What if the seller carry is too small?", "acceptedAnswer": {"@type": "Answer", "text": "Then the structure doesn&#39;t self-fund. Your options are to negotiate a larger carry, lower the price, or bring the shortfall in cash at the first closing. We&#39;ll tell you the exact number in your written terms."}}, {"@type": "Question", "name": "Morby vs. Echo: which is my deal?", "acceptedAnswer": {"@type": "Answer", "text": "Both fund a down payment short-term. The difference is who pays us back. In a Morby, the seller repays us by staying in the deal, which fits end buyers keeping the property. In an Echo, the deal&#39;s spread repays us on a double close, which fits wholesalers, and everyone cashes out. Seller staying in? Morby. Everyone out? Echo."}}, {"@type": "Question", "name": "What does the seller get out of it?", "acceptedAnswer": {"@type": "Answer", "text": "Most of their price in cash at closing, plus a note that pays them over time, often at better effective terms than a price cut. The carry is their money, secured by the property they know best. The seller signs acknowledgments and their instructions govern the escrow, so the same structure that repays us protects them."}}, {"@type": "Question", "name": "How fast does it move?", "acceptedAnswer": {"@type": "Answer", "text": "Written terms same day on most submissions. The closing timeline is set by your senior lender and title. Our capital is ready when they are."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you&#39;ll have exact written terms, same day on most submissions. The calculator&#39;s fee fields are editable estimates."}}, {"@type": "Question", "name": "Why do I need a transaction coordinator?", "acceptedAnswer": {"@type": "Answer", "text": "Because a Morby closing has two parts, and the paperwork between them decides everything. An experienced TC keeps the addendum, the disbursement instructions, and both settlement statements airtight. If you don&#39;t have one, we&#39;ll introduce you to one who&#39;s done these."}}]}</script>
+<div class="faqi"><h3>Is the Morby Method legal?</h3><p>When it's structured with full disclosure, this is a well-worn path: the seller carry is documented in an addendum, the primary lender underwrites with the structure in view, and everything settles through licensed title and escrow. That's the only way we fund them.*</p></div>
+<div class="faqi"><h3>Do I need my own cash?</h3><p>Often little to none. Whether you bring cash, bring nothing, or walk away with cash depends on one thing: how the seller carry compares to the funding it has to repay. The calculator shows you which side of the line your deal is on.</p></div>
+<div class="faqi"><h3>What if the seller carry is too small?</h3><p>Then the structure doesn't self-fund. Your options are to negotiate a larger carry, lower the price, or bring the shortfall in cash at the first closing. We'll tell you the exact number in your written terms.</p></div>
+<div class="faqi"><h3>Morby vs. Echo: which is my deal?</h3><p>Both fund a down payment short-term. The difference is who pays us back. In a Morby, the seller repays us by staying in the deal, which fits end buyers keeping the property. In an Echo, the deal's spread repays us on a double close, which fits wholesalers, and everyone cashes out. Seller staying in? Morby. Everyone out? Echo.</p></div>
+<div class="faqi"><h3>What does the seller get out of it?</h3><p>Most of their price in cash at closing, plus a note that pays them over time, often at better effective terms than a price cut. The carry is their money, secured by the property they know best. The seller signs acknowledgments and their instructions govern the escrow, so the same structure that repays us protects them.</p></div>
+<div class="faqi"><h3>How fast does it move?</h3><p>Written terms same day on most submissions. The closing timeline is set by your senior lender and title. Our capital is ready when they are.</p></div>
+<div class="faqi"><h3>What does it cost?</h3><p>Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you'll have exact written terms, same day on most submissions. The calculator's fee fields are editable estimates.</p></div>
+<div class="faqi"><h3>Why do I need a transaction coordinator?</h3><p>Because a Morby closing has two parts, and the paperwork between them decides everything. An experienced TC keeps the addendum, the disbursement instructions, and both settlement statements airtight. If you don't have one, we'll introduce you to one who's done these.</p></div>
+'''),
  'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo', req='Start an Echo request', calc=('Echo Calculator','/calculators/echo/'),
    desc='Echo Method funding - down-payment capital for the end buyer on the back half of a double close, repaid from the spread at one closing. All 50 states.',
    sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
@@ -204,13 +241,14 @@ DEALS = {
 <div class="faqi"><h3>Is a DSCR loan hard money?</h3><p>No - it's 30-year term financing for holds, not a short-term bridge.</p></div>
 <div class="faqi"><h3>How fast can it close?</h3><p>Weeks, not months - the appraisal is usually the long pole.</p></div>'''),
 }
+LEGAL = '<p style="margin-top:48px;font-size:12px;color:#9a978d;font-style:italic;max-width:none">Nothing on this website is legal advice. It reflects our opinions and our experience. For legal questions, consult your own counsel.</p>\n'
 def meta_desc(s, n=155):
     if len(s) <= n: return s
     return s[:n].rsplit(' ', 1)[0].rstrip(' -,;:') + '…'
 for slug,d in DEALS.items():
     page(slug, d.get('title', "%s Funding | RealQuick Funds" % d['name']), meta_desc(d.get('desc', d['sub'])),
          d['kicker'], d['name'], d['sub'], d['body'], cta_type=d['cta'],
-         cta_label=d.get('req', "Start a %s request" % d['name']), cta2=d.get('calc'))
+         cta_label=d.get('req', "Start a %s request" % d['name']), cta2=d.get('calc'), foot=LEGAL)
 
 CALC_BODY = '''
 <h2>The deal tool library.</h2>
