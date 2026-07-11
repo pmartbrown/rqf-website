@@ -304,15 +304,15 @@ DSCR_TOOL_BODY = '''
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
     <div class="purpose">Does the property qualify on its own rent? Gross rent &divide; PITIA - no tax returns, no W-2s.</div>
     <div class="cgrid">
-      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="310,000" oninput="fmt(this);dscr()"></div></div>
-      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,500" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="360,000" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,800" oninput="fmt(this);dscr()"></div></div>
       <div class="fld"><label>Down payment <span class="hint" id="d_dp_d"></span></label><div class="inwrap"><input class="pctin" id="d_dp" value="20.0" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Interest rate <span class="hint" id="d_rt_d"></span></label><div class="inwrap"><input class="pctin" id="d_rt" value="7.25" oninput="fmtp(this);dscr()"><span class="sfx">%</span></div></div>
     </div>
     <div class="cgrid3">
       <div class="fld"><label>Term</label><div class="inwrap"><input class="pctin" id="d_tm" value="30" oninput="fmtp(this);dscr()"><span class="sfx">yrs</span></div></div>
-      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="d_tax" value="1,800" oninput="fmt(this);dscr()"></div></div>
-      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="d_ins" value="1,800" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="d_tax" value="3,000" oninput="fmt(this);dscr()"></div></div>
+      <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="d_ins" value="1,380" oninput="fmt(this);dscr()"></div></div>
     </div>
     <div class="cgrid3">
       <div class="fld"><label>HOA /mo</label><div class="inwrap"><span>$</span><input id="d_hoa" value="0" oninput="fmt(this);dscr()"></div></div>
@@ -333,14 +333,13 @@ DSCR_TOOL_BODY = '''
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario. Exact figures arrive with your written terms.</p>
-<h2>How lenders actually calculate DSCR</h2>
-<p><b>Step one - rent.</b> Your gross rental income comes from either your current rents or the appraiser's comparable rent schedule, known as Form 1007. That's the number on top.</p>
-<p><b>Step two - debt.</b> Your debt for qualification purposes is the total principal, interest, taxes, insurance, and HOA - PITIA. Lenders do <b>not</b> count expenses like management, maintenance, utilities, vacancy, or repairs. That's the number on the bottom.</p>
-<p><b>Step three - divide.</b> DSCR = gross rental income &divide; PITIA. Most free calculators online get this wrong by using net operating income - this one computes it the way DSCR lenders actually underwrite.</p>
-<h2>A worked example</h2>
-<p>Say the property rents for $2,500 a month. The principal and interest payment is $1,700, property taxes are $150, insurance is $150, and there's no HOA - so the total monthly debt is $2,000. Divide $2,500 by $2,000 and you get a DSCR of <b>1.25</b> - the property generates 25% more income than what's needed to repay the loan. That's positive cash flow in the lender's eyes.</p>
+<h2>What DSCR actually is</h2>
+<p>One fraction. Rent on top, payment on the bottom. DSCR = monthly rent &divide; the full monthly payment - principal, interest, taxes, insurance, and any HOA (PITIA). The rent figure comes from your lease or the appraiser's market-rent schedule. Repairs, management, utilities, and vacancy never enter the math - lenders qualify the payment, not your operating budget.</p>
+<p>Most free calculators get this wrong by subtracting operating expenses first. This one runs the same fraction the lender runs.</p>
+<h2>Run one in your head</h2>
+<p>A property rents for $2,800. The all-in payment is $2,330 - that's $1,965 of principal and interest, $250 of taxes, $115 of insurance, no HOA. 2,800 &divide; 2,330 = <b>1.20</b>. The rent clears the payment with room to spare - a deal most DSCR lenders will look at.</p>
 <h2>What your number means</h2>
-<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - still can be done. Some of our lenders go down to a 0.75 DSCR - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
+<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - not dead. We have lender options down to 0.75 - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
 <h2>How to use this calculator</h2>
 <ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
 <p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>

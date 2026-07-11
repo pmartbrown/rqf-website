@@ -390,10 +390,10 @@ function dscr(){if(!document.getElementById('ds_res'))return;
   document.getElementById('ds_rv').textContent=d?d.toFixed(2):'\u2014';
   if(d>=1.25){res.className='result back';rl.textContent='DSCR \u2014 strong \u00b7 best pricing tier'}
   else if(d>=1){res.className='result back';rl.textContent='DSCR \u2014 qualifies \u00b7 better terms above 1.0'}
-  else if(d>=0.75){res.className='result out';rl.textContent='DSCR below 1.0 \u2014 some of our lenders go to 0.75'}
+  else if(d>=0.75){res.className='result out';rl.textContent='DSCR below 1.0 \u2014 we have options down to 0.75'}
   else{res.className='result bring';rl.textContent='DSCR under 0.75 \u2014 restructure the deal'}
   var sub;
-  if(d>=1)sub=money(rent)+' rent \u00f7 '+money(pitia)+' PITIA \u2014 the property generates '+Math.round((d-1)*100)+'% more income than needed to repay the loan.';
+  if(d>=1)sub=money(rent)+' rent \u00f7 '+money(pitia)+' PITIA \u2014 the rent clears the payment with '+Math.round((d-1)*100)+'% to spare.';
   else sub=money(rent)+' rent covers only '+Math.round(d*100)+'% of the '+money(pitia)+' payment.';
   if(!io&&dIO>d+0.005)sub+=' Switch to interest-only and this deal scores '+dIO.toFixed(2)+'.';
   setT('ds_sub',sub);
