@@ -57,9 +57,10 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 .calcwrap{max-width:560px}
 '''
 
-def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None):
+def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None, cta2=None):
     cta = "openModal('%s')" % cta_type if cta_type else "openModal()"
     cta_btn = '<a class="btn" href="%s">%s</a>' % (cta_href, cta_label) if cta_href else '<button class="btn" onclick="%s">%s</button>' % (cta, cta_label)
+    cta2_btn = '<a class="btn btn-ghost" href="%s">%s</a>' % (cta2[1], cta2[0]) if cta2 else ''
     band_h, band_p = band if band else ('Got a deal? Get funded. <span class="grad">Real quick.</span>', 'Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.')
     html = '''<!DOCTYPE html>
 <html lang="en">
@@ -80,7 +81,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
   <div class="k" style="color:var(--orange)">%s</div>
   <h1>%s</h1>
   <p class="sub" style="max-width:640px">%s</p>
-  <div class="hero-ctas" style="margin-top:26px">%s</div>
+  <div class="hero-ctas" style="margin-top:26px">%s%s</div>
 </div></header>
 <div class="content"><div class="wrap">
 %s
@@ -95,7 +96,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="drawer" id="drawer"><div class="dr-head"><button class="x" onclick="closeDrawer()">&times;</button><div class="k" id="dr_k"></div><h3 id="dr_title"></h3></div><div class="dr-body" id="dr_body"></div></div>
 <script>%s</script>
 </body>
-</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, body, band_h, band_p, cta_btn, FOOTER, MODAL, SCRIPT)
+</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, cta2_btn, body, band_h, band_p, cta_btn, FOOTER, MODAL, SCRIPT)
     os.makedirs(path, exist_ok=True)
     open(os.path.join(path,'index.html'),'w').write(html)
     print('built', path)
@@ -106,7 +107,7 @@ def ul(items):
     return '<ul>' + ''.join('<li>%s</li>' % x for x in items) + '</ul>'
 
 DEALS = {
- 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby',
+ 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', calc=('Run your numbers - Morby Calculator','/calculators/morby-stack/'),
    title='Morby Method (Stack Method) Funding | RealQuick Funds',
    desc='Morby Method (Stack Method) funding - seller carry + primary lender stacked into one creative close. All 50 states. Same-day decisions on most deals.',
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
@@ -119,7 +120,7 @@ DEALS = {
 ''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms — same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
- 'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo',
+ 'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo', calc=('Run your numbers - Echo Calculator','/calculators/echo/'),
    desc='Echo Method funding - down-payment capital for the end buyer on the back half of a double close, repaid from the spread at one closing. All 50 states.',
    sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
    body='''
@@ -165,7 +166,7 @@ DEALS = {
 ''' + steps(['Submit property, purchase price, rehab budget, and exit plan.','Deal-first underwriting with clear terms in writing.','Fund at closing; draws structured to your project.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Purchase contract and rehab scope/budget','Exit strategy (sale or refinance)','Entity documents'])),
- 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr',
+ 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr', calc=('Run your numbers - DSCR Calculator','/calculators/dscr/'),
    sub="Banks qualify the borrower - DSCR qualifies the property. Long-term rental financing on the rent, not your W-2s or tax returns. The portfolio-builder's loan.",
    body='''
 <h2>What a DSCR loan is</h2>
@@ -188,7 +189,7 @@ def meta_desc(s, n=155):
 for slug,d in DEALS.items():
     page(slug, d.get('title', "%s Funding | RealQuick Funds" % d['name']), meta_desc(d.get('desc', d['sub'])),
          d['kicker'], d['name'], d['sub'], d['body'], cta_type=d['cta'],
-         cta_label="Start a %s request" % d['name'])
+         cta_label="Start a %s request" % d['name'], cta2=d.get('calc'))
 
 CALC_BODY = '''
 <h2>The deal tool library.</h2>
@@ -295,14 +296,15 @@ page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
 page('calculators/morby-stack','Morby Method Calculator (Stack Method) - Free | RealQuick Funds',
  'Free Morby Method / Stack Method calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request')
+ 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method? Learn more','/morby-method/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
- 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request')
+ 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method? Learn more','/echo-method/'))
 DSCR_TOOL_BODY = '''
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
     <div class="purpose">Does the property qualify on its own rent? Gross rent &divide; PITIA - no tax returns, no W-2s.</div>
+    <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="360,000" oninput="fmt(this);dscr()"></div></div>
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,800" oninput="fmt(this);dscr()"></div></div>
@@ -346,7 +348,7 @@ DSCR_TOOL_BODY = '''
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
- 'Deal Tools','DSCR Calculator','Banks qualify the borrower - DSCR qualifies the property. Run the rent against PITIA, with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request')
+ 'Deal Tools','DSCR Calculator','Banks qualify the borrower - DSCR qualifies the property. Run the rent against PITIA, with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR? Learn more','/dscr/'))
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>
