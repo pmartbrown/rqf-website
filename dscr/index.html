@@ -280,7 +280,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 <h2>Short-term rentals</h2>
 <p>Airbnb income can qualify, but lenders count it conservatively - the appraiser's estimate, a 12-month revenue history, or market data, usually with a haircut. Verify your city allows STRs before you tie up the property; underwriters check.</p>
 <h2>Where DSCR fits in a creative deal</h2>
-<p>In most <a href="../stack/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="../echo/">Echo Method</a> structure. Run the whole structure in the <a href="../calculators/morby-stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="../calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
+<p>In most <a href="../stack/">Stack Method</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="../echo/">Echo Method</a> structure. Run the whole structure in the <a href="../calculators/stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="../calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
 <h2>How it works with us</h2>
 <div class="steps"><div class="step"><b>01</b><span>Submit the property and rents (actual or market) through the two-minute form.</span></div><div class="step"><b>02</b><span>We route your scenario across our DSCR lender network - including options below 1.0, down to 0.75.</span></div><div class="step"><b>03</b><span>Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.</span></div></div>
 <h2>DSCR questions, answered</h2>
@@ -301,8 +301,8 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
   <div class="f-in">
     <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
     <div class="fcols">
-      <div class="fcol"><b>Funding</b><a href="../stack/">Morby Method</a><a href="../echo/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
-      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/morby-stack/">Stack Method Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
+      <div class="fcol"><b>Funding</b><a href="../stack/">Stack Method</a><a href="../echo/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
+      <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/stack/">Stack Method Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
       <div class="fcol"><b>Company</b><a href="../about/">About</a><a href="../affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Skool Community</a><a href="../faq/">FAQ</a></div>
       <div class="fcol"><b>Contact</b><a href="https://meetings-na2.hubspot.com/admin3005" target="_blank" rel="noopener">Schedule with Paul</a><a href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a><a href="mailto:admin@realquickfunds.com">admin@realquickfunds.com</a></div>
     </div>
@@ -318,7 +318,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
       <h3>What are you funding?</h3>
       <div class="msub">Pick your deal type — we'll take you to a two-minute form built for it.</div>
       <div class="opts">
-        <div class="opt" onclick="pick('morby')"><h4>Morby Method</h4><p>Seller carry + primary lender stack</p></div>
+        <div class="opt" onclick="pick('morby')"><h4>Stack Method</h4><p>Seller carry + primary lender stack</p></div>
         <div class="opt" onclick="pick('echo')"><h4>Echo Method</h4><p>End-buyer down payment funded from the spread</p></div>
         <div class="opt" onclick="pick('dc')"><h4>Double Close</h4><p>100% A-to-B transactional funding</p></div>
         <div class="opt" onclick="pick('emd')"><h4>EMD</h4><p>Earnest money deposit funding</p></div>
@@ -485,7 +485,7 @@ const FORMS={
   {h:'Deal information',f:[F('address','Subject property address','address','',1),F('requested_amount','Requested funding amount','money','300,000',1),F('close_of_escrow_date','Close of escrow date','date','',1),F('ab_leg_purchase_price','A-B leg purchase price','money','300,000',1),F('bc_leg_sale_price','B-C leg sell price','money','340,000',1)]},
   {h:'Documents',f:[FF('ab_contract','A-B purchase and sale agreement',1),FF('bc_contract','B-C purchase and sale agreement'),FF('other_documents','Other relevant files',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea','',1)]}]},
- morby:{title:'Morby Method Request',sections:[
+ morby:{title:'Stack Method Request',sections:[
   {h:'Borrower information',f:BORROWER},
   {h:'Deal information',f:[F('address','Subject property address','address','',1),F('close_of_escrow_date','Close date','date','',1),F('purchase_price','Purchase price','money','500,000',1),F('seller_financed_amount','Seller finance amount','money','147,700',1),F('_primary_needed','Estimated DSCR / primary loan amount','money','375,000'),F('requested_amount','Requested transactional funding','money','75,000',1)]},
   {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement',1),FF('other_documents','Addendums or other documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
@@ -497,13 +497,13 @@ const FORMS={
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  hml:{title:'Hard Money Loan Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','250,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','hml_purpose',['Fix and flip','Morby / Stack deal','Other'])]},
+  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','250,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','hml_purpose',['Fix and flip','Stack Method deal','Other'])]},
   {h:'Property information',f:[F('address','Property address','address','',1),FS('is_renovation','Is this a renovation?','hml_reno',['No','Yes'],1),DEP(FS('needs_rehab_funds','Are renovation funds also needed?','hml_renofunds',['No','Yes'],1),'hml_reno','Yes'),DEP(F('estimated_rehab_budget','Estimated rehab budget','money','60,000'),'hml_renofunds','Yes'),FS('is_rental','Will the property be used as a rental?','hml_rental',['No','Yes'],1)]},
   {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement'),FF('other_documents','Other relevant documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
  dscr:{title:'DSCR Loan Request',sections:[
   {h:'Borrower information',f:BORROWER},
-  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','300,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','dscr_purpose',['Purchase to rent','Refinance','Morby / Stack deal'])]},
+  {h:'Loan information',f:[F('requested_amount','Estimated funding needed','money','300,000',1),F('close_of_escrow_date','When is funding needed?','date','',1),F('estimated_credit_score','Estimated credit score','text','e.g. 700',1),FS('loan_purpose','Loan purpose','dscr_purpose',['Purchase to rent','Refinance','Stack Method deal'])]},
   {h:'Property information',f:[F('address','Property address','address','',1),FS('is_rental','Will the property be used as a rental?','dscr_rental',['Yes','No'],1),F('monthly_rent','Current or projected monthly rent','money','2,400'),FS('_rent_type','Is that current rent or projected rent?','dscr_renttype',['Current','Projected']),FS('has_lease','Is a lease currently in place?','dscr_lease',['No','Yes'],1),FS('is_short_term_rental','Is it a short-term rental?','dscr_str',['No','Yes'],1),FS('is_renovation','Is any renovation being done?','dscr_reno',['No','Yes'],1)]},
   {h:'Documents',f:[FF('purchase_agreement','Purchase and sale agreement'),FF('other_documents','Other relevant documents',0,1)],note:'PDF, PNG, or JPG - up to 5MB per file. Have more documents? You can send additional files after submitting.'},
   {h:'Deal description',f:[F('deal_description','Please share everything that could be helpful for us to understand the deal.','textarea')]}]},
@@ -512,7 +512,7 @@ const FORMS={
   {h:'Your path',f:[FS('aff_tier','Which affiliate path interests you?','aff_tier_sel',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
   {h:'About your network',f:[F('aff_company','Company / community name'),F('aff_size','Audience or network size','text','e.g. 2,500 members'),F('aff_how','How would you refer deals to us?','textarea')]}]}
 };
-const NAMES={morby:'Morby Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
+const NAMES={morby:'Stack Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
 const FILE_OK=['application/pdf','image/png','image/jpeg'];
 function fileBad(file){if(file.size>5*1024*1024)return file.name+' is over the 5MB limit';
  if(FILE_OK.indexOf(file.type)<0&&!/\.(pdf|png|jpe?g)$/i.test(file.name))return file.name+' must be a PDF, PNG, or JPG';return null}
@@ -651,12 +651,12 @@ function pick(t,fromCalc){document.getElementById('step1').classList.add('off');
 function backStep(){document.getElementById('step1').classList.remove('off');document.getElementById('step2').classList.remove('on')}
 /* ---------- learn drawer ---------- */
 const LEARN={
- morby:{k:'Creative Finance',t:'Morby Method',b:`
-  <h4>What it is</h4><p>A creative-finance structure that stacks seller carry with a primary lender so you can acquire property with little — sometimes zero — of your own cash. Also called the <b>Stack Method</b> — same structure, same math. In the right structure, you can even receive cash back at closing.</p>
+ morby:{k:'Creative Finance',t:'Stack Method',b:`
+  <h4>What it is</h4><p>A creative-finance structure that stacks seller carry with a primary lender so you can acquire property with little — sometimes zero — of your own cash. Also called the <b>Morby Method</b> — same structure, same math. In the right structure, you can even receive cash back at closing.</p>
   <h4>When to use it</h4><ul><li>The seller is open to carrying part of the price</li><li>You have a primary lender (DSCR, private, or hard money) covering most of the purchase</li><li>You want to preserve cash while still closing quickly</li></ul>
   <h4>How RQF funds it</h4><div class="steps"><div class="step"><b>01</b><span>Submit your structure — purchase price, seller carry, primary lender amount, closing date.</span></div><div class="step"><b>02</b><span>We verify the stack and issue written terms — same day on most submissions.</span></div><div class="step"><b>03</b><span>Capital wires to title for closing. Escrow repays us per the structure.</span></div></div>
   <h4>What you'll need</h4><ul><li>Executed purchase contract</li><li>Seller carry terms (amount, position)</li><li>Primary lender term sheet or approval</li><li>Title/escrow contact</li></ul>
-  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/morby-stack/" style="color:var(--orange-d);font-weight:700">Stack Method Calculator →</a> to see your estimated cash to close — or cash back — before you submit.</p>`},
+  <h4>Run your numbers first</h4><p>Use the <a href="../calculators/stack/" style="color:var(--orange-d);font-weight:700">Stack Method Calculator →</a> to see your estimated cash to close — or cash back — before you submit.</p>`},
  echo:{k:'Creative Finance',t:'Echo Method',b:`
   <h4>What it is</h4><p>Echo is short-term funding for the end buyer’s down payment on the back half of a double close. Your buyer closes with their primary lender plus our capital — and we’re repaid out of the deal’s spread on that same settlement statement. Funds in, funds out, one closing. That’s the echo.</p>
   <h4>When to use it</h4><ul><li>You’re wholesaling and buyers keep stalling on down-payment money</li><li>You’re buying from a wholesaler and don’t want second-position gap debt sitting on the deal for months</li><li>The B-C price is supported by the appraisal and the spread can cover the funding</li></ul>
@@ -688,8 +688,8 @@ const LEARN={
 function openDrawer(t){const d=LEARN[t];if(!d)return;
   document.getElementById('dr_k').textContent=d.k;
   document.getElementById('dr_title').textContent=d.t;
-  const REQL={morby:'Start a Morby request',echo:'Start an Echo request',dc:'Start a Double Close request',emd:'Start an EMD request',hml:'Start a Hard Money request',dscr:'Start a DSCR request'};
-  const GUIDE={morby:'<a href="../stack/" style="color:var(--orange-d);font-weight:700">Read the full Morby Method guide →</a>',echo:'<a href="../echo/" style="color:var(--orange-d);font-weight:700">Read the full Echo Method guide →</a>',dc:'<a href="../double-close/" style="color:var(--orange-d);font-weight:700">Read the full Double Close guide →</a>',emd:'<a href="../emd/" style="color:var(--orange-d);font-weight:700">Read the full EMD guide →</a>',hml:'<a href="../hard-money/" style="color:var(--orange-d);font-weight:700">Read the full Hard Money guide →</a>',dscr:'<a href="../dscr/" style="color:var(--orange-d);font-weight:700">Read the full DSCR guide →</a>'};
+  const REQL={morby:'Start a Stack request',echo:'Start an Echo request',dc:'Start a Double Close request',emd:'Start an EMD request',hml:'Start a Hard Money request',dscr:'Start a DSCR request'};
+  const GUIDE={morby:'<a href="../stack/" style="color:var(--orange-d);font-weight:700">Read the full Stack Method guide →</a>',echo:'<a href="../echo/" style="color:var(--orange-d);font-weight:700">Read the full Echo Method guide →</a>',dc:'<a href="../double-close/" style="color:var(--orange-d);font-weight:700">Read the full Double Close guide →</a>',emd:'<a href="../emd/" style="color:var(--orange-d);font-weight:700">Read the full EMD guide →</a>',hml:'<a href="../hard-money/" style="color:var(--orange-d);font-weight:700">Read the full Hard Money guide →</a>',dscr:'<a href="../dscr/" style="color:var(--orange-d);font-weight:700">Read the full DSCR guide →</a>'};
   document.getElementById('dr_body').innerHTML=d.b+(GUIDE[t]?`<p style="margin-top:14px">${GUIDE[t]}</p>`:'')+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">${REQL[t]||('Start a '+d.t+' request')} →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
   document.getElementById('drawer').classList.add('open');document.getElementById('doverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('doverlay').classList.remove('open');document.body.style.overflow=''}

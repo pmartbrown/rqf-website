@@ -1,5 +1,5 @@
 import os
-PAGES = ['calculators/morby-stack','calculators/echo','calculators/dscr','calculators','affiliates','about','faq','privacy','terms','stack','echo','double-close','emd','hard-money','dscr']
+PAGES = ['calculators/stack','calculators/echo','calculators/dscr','calculators','affiliates','about','faq','privacy','terms','stack','echo','double-close','emd','hard-money','dscr']
 def rewrite(fp, up):
     h = open(fp).read()
     for p in PAGES:
