@@ -378,6 +378,25 @@ function echo(){const ab=num('e_ab'),bc=num('e_bc'),lv=pct('e_lv'),ccp=pct('e_cc
     setT('e_sub','RQF funds '+money(ctc)+' of end-buyer cash to close · repaid '+money(repay)+' from the spread on the same settlement · end buyer brings $0 down.')}
   else{res.className='result bring';document.getElementById('e_rl').textContent='Spread comes up short by';
     setT('e_sub','The '+money(spread)+' spread can’t cover '+money(repay)+' in funding + fee. Raise the B-C price (appraisal permitting) or reduce the funded amount.')}}
+function hml(){const pp=num('h_pp'),rb=num('h_rb'),arv=num('h_arv'),pf=pct('h_pf'),rf=pct('h_rf'),ac=pct('h_ac'),rt=pct('h_rt'),pts=pct('h_pts'),mo=pct('h_mo'),sc=pct('h_sc');
+  const costLoan=pp*pf/100+rb*rf/100,capLoan=arv*ac/100;
+  const loan=Math.max(Math.min(costLoan,capLoan),0),bindCap=capLoan<costLoan;
+  const cash=Math.max(pp+rb-loan,0),ptsD=loan*pts/100,mIO=loan*rt/100/12,interest=mIO*mo,coc=ptsD+interest;
+  const sell=arv*sc/100,profit=arv-pp-rb-coc-sell,cashIn=cash+coc,roi=cashIn>0?profit/cashIn*100:0;
+  window.CALC_HML=loan;
+  setT('h_ac_d',money(capLoan));setT('h_pts_d',money(ptsD));setT('h_sc_d',money(sell));
+  setT('hm_loan',money(loan));setT('hm_cash',money(cash));setT('hm_pi',money(mIO)+'/mo');setT('hm_coc',money(coc));
+  setT('hm_bind',bindCap?'The ARV cap is your ceiling - this loan is sized by '+ac+'% of ARV, not your costs.':'Your cost basis is the ceiling - the ARV supports more loan than you need.');
+  const res=document.getElementById('hm_res');document.getElementById('hm_rv').textContent=smoney(profit);
+  if(profit>0&&roi>=30){res.className='result back';document.getElementById('hm_rl').textContent='Estimated net profit';
+    setT('hm_sub','Strong flip - about '+Math.round(roi)+'% return on your cash over '+mo+' months. Estimates only.')}
+  else if(profit>0){res.className='result out';document.getElementById('hm_rl').textContent='Estimated net profit';
+    setT('hm_sub','Profitable but thin - about '+Math.round(roi)+'% on your cash. Tighten the purchase or rehab to build margin.')}
+  else{res.className='result bring';document.getElementById('hm_rl').textContent='Estimated loss';
+    setT('hm_sub','This deal loses money as structured. Lower the purchase price, trim the rehab, or walk.')}
+  setT('hm_mao',money(Math.max(capLoan-rb,0)));
+  let be=arv-rb-sell-coc;for(let i=0;i<4;i++){const l2=Math.max(Math.min(be*pf/100+rb*rf/100,capLoan),0);const c2=l2*pts/100+l2*rt/100/12*mo;be=arv-rb-sell-c2}
+  setT('hm_be',money(Math.max(be,0)));}
 function smoney(n){return (n<0?'−':'')+money(n)}
 function pmt(P,ar,yrs){var n=Math.round(yrs*12),r=ar/100/12;if(n<=0||P<=0)return 0;return r?P*r/(1-Math.pow(1+r,-n)):P/n}
 function loanbal(P,ar,yrs,k){var n=Math.round(yrs*12),r=ar/100/12,M=pmt(P,ar,yrs);k=Math.min(k,n);if(P<=0)return 0;return r?P*Math.pow(1+r,k)-M*(Math.pow(1+r,k)-1)/r:Math.max(P-M*k,0)}
@@ -434,7 +453,7 @@ function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
-if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();
+if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();if(document.getElementById('hm_res'))hml();
 /* ---------- mobile nav ---------- */
 function toggleNav(){document.querySelector('nav').classList.toggle('nav-open')}
 document.addEventListener('click',function(e){if(e.target&&e.target.closest&&e.target.closest('.nav-links a')){var n=document.querySelector('nav');if(n)n.classList.remove('nav-open')}});
@@ -553,6 +572,7 @@ function renderForm(t,fromCalc){
   if(ra&&t==='morby'&&window.CALC_TF>0)ra.value=Math.round(window.CALC_TF).toLocaleString();
   if(ra&&t==='echo'&&window.CALC_ECHO>0)ra.value=Math.round(window.CALC_ECHO).toLocaleString();
   if(ra&&t==='dscr'&&window.CALC_DSCR>0)ra.value=Math.round(window.CALC_DSCR).toLocaleString();
+  if(ra&&t==='hml'&&window.CALC_HML>0)ra.value=Math.round(window.CALC_HML).toLocaleString();
   if(t==='dscr'&&window.CALC_DSCR_RENT>0){var mr=document.querySelector('#mform [data-name="monthly_rent"]');if(mr)mr.value=Math.round(window.CALC_DSCR_RENT).toLocaleString()}
   if(t==='morby'){var pp=document.querySelector('#mform [data-name="purchase_price"]'),scf=document.querySelector('#mform [data-name="seller_financed_amount"]');
    if(pp&&num('s_pp'))pp.value=num('s_pp').toLocaleString();if(scf&&num('s_sc'))scf.value=num('s_sc').toLocaleString()}}

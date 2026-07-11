@@ -299,7 +299,8 @@ CALC_BODY = '''
   <a class="tool" href="/calculators/stack/"><div class="ic">&#9672;</div><h3>Stack Method Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, max loan at your target DSCR, and the rent you'd need. Some of our lenders fund down to 0.75.</p><div class="go">Open calculator &rarr;</div></a>
-  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>Double Close, EMD, and Hard Money calculators are in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
+  <a class="tool" href="/calculators/hard-money/"><div class="ic">&#9874;</div><h3>Hard Money Calculator</h3><span class="tag">Flip profit + max offer</span><p>Loan sizing that names your binding constraint, the true cost of capital over your hold, your flip P&amp;L - and the most you can pay for the house.</p><div class="go">Open calculator &rarr;</div></a>
+  <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>A Double Close calculator is in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:20px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
 MS_BODY = '''
@@ -449,6 +450,55 @@ DSCR_TOOL_BODY = '''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
  'Deal Tools','DSCR Calculator','If it rents, it funds. Run the rent against PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR?','/dscr/'))
+
+HML_TOOL_BODY = '''
+<div class="calcwrap">
+  <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">Hard Money Calculator</div>
+    <div class="purpose">Does the flip pencil - and what's the most you can pay?</div>
+    <div class="cgrid">
+      <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="h_pp" value="300,000" oninput="fmt(this);hml()"></div></div>
+      <div class="fld"><label>Rehab budget</label><div class="inwrap"><span>$</span><input id="h_rb" value="60,000" oninput="fmt(this);hml()"></div></div>
+      <div class="fld"><label>After-repair value (ARV)</label><div class="inwrap"><span>$</span><input id="h_arv" value="460,000" oninput="fmt(this);hml()"></div></div>
+      <div class="fld"><label>Months held</label><div class="inwrap"><input class="pctin" id="h_mo" value="6" oninput="fmtp(this);hml()"><span class="sfx">mo</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Purchase financed</label><div class="inwrap"><input class="pctin" id="h_pf" value="90.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Rehab financed</label><div class="inwrap"><input class="pctin" id="h_rf" value="100.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>ARV cap <span class="hint" id="h_ac_d"></span></label><div class="inwrap"><input class="pctin" id="h_ac" value="70.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="cgrid3">
+      <div class="fld"><label>Rate (interest-only)</label><div class="inwrap"><input class="pctin" id="h_rt" value="11.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Points <span class="hint" id="h_pts_d"></span></label><div class="inwrap"><input class="pctin" id="h_pts" value="2.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Selling costs <span class="hint" id="h_sc_d"></span></label><div class="inwrap"><input class="pctin" id="h_sc" value="7.0" oninput="fmtp(this);hml()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="pnl">
+      <div class="prow"><span>Your loan</span><b id="hm_loan"></b></div>
+      <div class="prow"><span>Cash to the deal</span><b id="hm_cash"></b></div>
+      <div class="prow"><span>Monthly payment (interest-only)</span><b id="hm_pi"></b></div>
+      <div class="prow tot"><span>True cost of capital - points + interest</span><b id="hm_coc"></b></div>
+    </div>
+    <p id="hm_bind" style="font-size:12px;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin-top:10px"></p>
+    <div class="result out" id="hm_res" style="margin-top:10px"><div class="rl" id="hm_rl">Estimated net profit</div><div class="rv" id="hm_rv">-</div><div class="rsub" id="hm_sub"></div></div>
+    <div class="solves">
+      <div class="solve"><div class="sl">Max offer inside your financing</div><div class="sv" id="hm_mao">-</div></div>
+      <div class="solve"><div class="sl">Breakeven purchase price</div><div class="sv" id="hm_be">-</div></div>
+    </div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('hml',true)">Submit this deal</button></div>
+</div>
+<p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario and market. Exact figures arrive with your written terms.</p>
+<h2>How hard money loans are sized</h2>
+<p>Two numbers compete, and the smaller one wins. The cost-based number is your purchase price times the financed percentage, plus the funded rehab. The value-based number is the ARV cap - a percentage of what the property will be worth finished. Your loan is the lesser of the two, and this calculator tells you which one is limiting you. When the ARV cap is the ceiling, a better purchase price doesn't buy you a bigger loan - it buys you a smaller gap to cover in cash.</p>
+<h2>What it really costs</h2>
+<p>The rate is the headline; the hold is the story. Hard money cost is points up front plus interest-only payments for every month you own it - so a two-month delay on your rehab or resale costs real money even when nothing goes wrong. That's why the calculator prices the whole hold, not the annual rate, and why the fastest way to raise your profit is usually to shorten the timeline, not to shop half a point of rate.</p>
+<h2>The number to memorize</h2>
+<p>The max-offer box is the classic 70% rule computed with your actual numbers instead of folklore: the ARV cap minus your rehab is the most you can pay and still finance the deal your way. The breakeven box is your absolute ceiling - the purchase price where profit hits zero. Between those two numbers is your negotiating room.</p>
+<h2>Where it fits</h2>
+<p>Hard money is the workhorse of creative finance: it's the primary lender on most <a href="/echo/">Echo Method</a> B-C closings and plenty of <a href="/calculators/stack/">Stack Method</a> structures. New to the product? Read the <a href="/hard-money/">hard money deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
+<p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
+page('calculators/hard-money','Hard Money Loan Calculator - Flip Profit and Max Offer | RealQuick Funds',
+ 'Free hard money calculator: loan sizing with the binding constraint named, true cost of capital over your hold, flip profit and ROI, plus the max offer your financing supports.',
+ 'Deal Tools','Hard Money Calculator','Loan sizing, true cost of capital, and your flip P&L - plus the max-offer answer no other calculator gives you.',HML_TOOL_BODY, cta_type='hml', cta_label='Start a Hard Money request', cta2=('What is hard money?','/hard-money/'))
+
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>
