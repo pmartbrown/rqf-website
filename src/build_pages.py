@@ -118,7 +118,7 @@ def ul(items):
     return '<ul>' + ''.join('<li>%s</li>' % x for x in items) + '</ul>'
 
 DEALS = {
- 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', req='Start a Morby request', calc=('Stack Method Calculator','/calculators/morby-stack/'),
+ 'stack': dict(kicker='Creative Finance', name='Morby Method', cta='morby', req='Start a Morby request', calc=('Stack Method Calculator','/calculators/morby-stack/'),
    title='Morby Method (Stack Method) Funding | RealQuick Funds',
    desc='Morby Method (Stack Method) funding - seller carry + primary lender stacked into one creative close. All 50 states. Same-day decisions on most deals.',
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
@@ -152,7 +152,7 @@ DEALS = {
 <p>The Morby Method has a reputation problem it doesn't deserve, caused by people doing it wrong. Done right, it's clean:</p>
 ''' + ul(['<b>The primary lender sees the whole structure.</b> The seller carry and the source of the cash to close are disclosed to your senior lender, and we confirm the lender&rsquo;s seasoning and sourcing rules before funding, not after. If a lender&rsquo;s guidelines can&rsquo;t accommodate the structure, the answer is a different lender.','<b>The carry lives in its own addendum,</b> not buried in the purchase contract. Clean paper for the senior lender&rsquo;s underwriting.','<b>Everything settles through licensed title and escrow.</b> Both settlement statements, airtight disbursement instructions, and funds that never touch personal accounts.','<b>Government-backed primaries are off the table.</b> FHA and VA loans do not permit this structure. Morby deals run on investor financing: DSCR, private money, or hard money.']) + '''
 <h2>When it's not a Morby</h2>
-''' + ul(['<b>The seller wants every dollar at closing.</b> No reinvestment, no Morby. But if there is a wholesaler&rsquo;s spread in the deal, look at the <a href="/echo-method/">Echo Method</a> instead. Same down-payment funding, repaid from the spread rather than the carry.','<b>The carry is too small to repay the funding.</b> See the rule above. Restructure or bring cash.','<b>The senior lender requires seasoned funds</b> and will not work with an alternative. We check this at intake. It is one of the first questions we ask.','<b>The numbers only work at an inflated price.</b> If the deal needs a make-believe value to pencil, it does not pencil.']) + '''
+''' + ul(['<b>The seller wants every dollar at closing.</b> No reinvestment, no Morby. But if there is a wholesaler&rsquo;s spread in the deal, look at the <a href="/echo/">Echo Method</a> instead. Same down-payment funding, repaid from the spread rather than the carry.','<b>The carry is too small to repay the funding.</b> See the rule above. Restructure or bring cash.','<b>The senior lender requires seasoned funds</b> and will not work with an alternative. We check this at intake. It is one of the first questions we ask.','<b>The numbers only work at an inflated price.</b> If the deal needs a make-believe value to pencil, it does not pencil.']) + '''
 <h2>How RealQuick Funds funds it</h2>
 ''' + steps(['Submit your structure: purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms, same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
@@ -168,19 +168,53 @@ DEALS = {
 <div class="faqi"><h3>What does it cost?</h3><p>Every deal is priced individually based on structure, timeline, and risk. Submit your deal and you'll have exact written terms, same day on most submissions. The calculator's fee fields are editable estimates.</p></div>
 <div class="faqi"><h3>Why do I need a transaction coordinator?</h3><p>Because a Morby closing has two parts, and the paperwork between them decides everything. An experienced TC keeps the addendum, the disbursement instructions, and both settlement statements airtight. If you don't have one, we'll introduce you to one who's done these.</p></div>
 '''),
- 'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo', req='Start an Echo request', calc=('Echo Calculator','/calculators/echo/'),
+ 'echo': dict(kicker='Creative Finance', name='Echo Method', cta='echo', req='Start an Echo request', calc=('Echo Calculator','/calculators/echo/'),
+   title='Echo Method Funding - Down Payment Capital for Double Closes | RealQuick Funds',
    desc='Echo Method funding - down-payment capital for the end buyer on the back half of a double close, repaid from the spread at one closing. All 50 states.',
    sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
    body='''
 <h2>What the Echo Method is</h2>
 <p>Echo is short-term funding for the end buyer's down payment on the back half of a double close. The end buyer closes with their primary lender plus our capital - and we're repaid out of the deal's spread on that same settlement statement. Funds in, funds out, one closing. That's the echo.</p>
-<p>Compare that to a gap loan: no recorded second-position note, no debt sitting on the deal for six to nine months. The funding is in and out of a single closing, and every party - seller, wholesaler, end buyer, lender - cashes out at the table.</p>
-<h2>When to use it</h2>
-''' + ul(["You wholesale, and good buyers keep stalling because they can't cover the down payment","You're the end buyer purchasing from a wholesaler and don't want second-position gap debt","The B-C price is supported by the appraisal - that's what sizes the primary loan and creates the spread",'Run the legs in the <a href="/calculators/echo/">Echo Calculator</a> first - if the spread covers the funding, we can move fast']) + '''
+<p>Compare that to a gap loan: no recorded second-position note, no debt sitting on the deal for six to nine months. The money is in and out of a single closing, and every party - seller, wholesaler, end buyer, lender - cashes out at the table.</p>
+<h2>Who it's for</h2>
+<p>Two people meet in every Echo, and it solves a problem for both. <b>The wholesaler</b> with a real spread and a buyer who keeps stalling because they can't cover the down payment - Echo turns "my buyer needs three more weeks to raise cash" into a closing date. <b>The end buyer</b> - usually a fix-and-flipper buying from a wholesaler - who has the primary lender lined up but doesn't want to drain reserves or take on second-position gap debt to cover the cash to close. And there's a third profile: the investor wearing both hats, wholesaling a deal to their own buying entity, where Echo covers the down payment on the back leg.</p>
+<h2>The two legs and the three players</h2>
+<p>A double close is two purchases back to back: the A-B leg, where the wholesaler buys from the seller, and the B-C leg, where the end buyer purchases from the wholesaler at a higher price. Three funding pieces make the B-C leg close: the <b>primary lender</b> (usually hard money, sized as a percentage of the appraisal-supported B-C price) brings the biggest piece; <b>RealQuick Funds</b> wires the end buyer's down payment and closing-cost gap; and the difference between the two legs - <b>the spread</b> - is the wholesaler's profit line on the settlement statement. That spread is what repays us.</p>
+<h2>How the money actually moves</h2>
+<p>Everything runs through licensed title and escrow, in a strict order. The primary lender's funds land at title first and are confirmed - our capital never leads. We then wire the down payment directly to title, never to a person. The B-C closing records, and on that same settlement statement, title disburses the wholesaler's spread with our repayment carved out and wired back per disbursement instructions locked in before a dollar moves. One settlement statement. Money in and money out on the same paper - which is exactly why our capital can move in a day or two with zero drama.</p>
+<h2>See the math on a $725K flip</h2>
+<div class="pnl" style="max-width:560px">
+ <div class="prow"><span>A-B price (wholesaler buys)</span><b>$500,000</b></div>
+ <div class="prow"><span>B-C price (end buyer pays - appraisal-supported)</span><b>$725,000</b></div>
+ <div class="prow"><span>Primary lender (75% of B-C)</span><b>$543,750</b></div>
+ <div class="prow tot"><span>RQF funds - down payment + est. closing costs (2%)</span><b>$195,750</b></div>
+ <div class="prow"><span>Repayment to RQF (funding + est. fee)</span><b>$200,644</b></div>
+ <div class="prow"><span>Spread (B-C minus A-B)</span><b>$225,000</b></div>
+ <div class="prow tot"><span>Wholesaler keeps after repaying the Echo</span><b>$24,356</b></div>
+ <div class="prow tot"><span>End buyer brings</span><b>about $0 down</b></div>
+</div>
+<p>The end buyer closes a $725,000 purchase without draining reserves, the wholesaler banks the remaining spread at the table, and the seller was cashed out on the A-B leg. Estimates only - run your own legs in the <a href="/calculators/echo/">Echo Calculator</a>, every field is editable, and exact figures always arrive with your written terms.</p>
+<h2>The rule that decides every deal</h2>
+<p>One test separates a fundable Echo from a wish: <b>the spread has to cover our funding plus our fee.</b> Morby exits through the seller carry; Echo exits through the spread. If the spread covers repayment, everybody cashes out at one table. If it doesn't, it's not an Echo we can fund - period. Raise the B-C price (only if the appraisal supports it), shrink the funded amount, or restructure. And that's the second gate: <b>the B-C price must appraise</b>, because the appraisal sizes the primary loan, and the primary loan sizes everything else.</p>
+<h2>Done right: title discipline</h2>
+<p>Echo's safety lives in the sequencing, and we don't improvise it:</p>
+''' + ul(['<b>Senior funds land first.</b> The primary lender&rsquo;s money is confirmed at title before ours moves.','<b>Our wire goes to title, never to a person.</b> No exceptions.','<b>Repayment comes off the settlement statement</b> per disbursement instructions locked in before funding - not from anyone&rsquo;s promise afterward.','<b>The title company has to be comfortable with back-to-back closings.</b> We can tell within one phone call whether they are.']) + '''
+<h2>When it's not an Echo</h2>
+<p>Buying directly from the seller with seller carry in the structure? That's a <a href="/stack/">Stack</a>, not an Echo - run it through the <a href="/calculators/morby-stack/">Stack Method Calculator</a> instead. Spread too thin to cover the funding? Not an Echo - restructure before you submit. Need capital that stays in the deal for months? That's gap funding, and it's a different risk animal - Echo is in and out of one settlement. B-C price the appraisal won't support? No primary loan, no Echo.</p>
 <h2>How RealQuick Funds funds it</h2>
 ''' + steps(["Submit both legs - A-B and B-C contracts, the end buyer's primary lender terms, and the closing date.",'We verify the spread covers the funding and issue written terms - same day on most submissions.','Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.']) + '''
 <h2>What you'll need</h2>
-''' + ul(['A-B and B-C purchase contracts',"The end buyer's primary lender term sheet or approval",'Title/escrow contact comfortable with back-to-back closings'])),
+''' + ul(['A-B and B-C purchase contracts',"The end buyer's primary lender term sheet or approval",'Title/escrow contact comfortable with back-to-back closings']) + '''
+<h2>Echo questions, answered</h2>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Who actually repays RealQuick Funds?", "acceptedAnswer": {"@type": "Answer", "text": "The deal does. Title wires our repayment out of the wholesaler&#39;s spread on the same settlement where we funded. Nobody writes us a check afterward."}}, {"@type": "Question", "name": "Is this a loan to the end buyer?", "acceptedAnswer": {"@type": "Answer", "text": "It&#39;s transactional funding into the closing - not a recorded second mortgage, not gap debt that sits on the property."}}, {"@type": "Question", "name": "Echo vs. Double Close funding: what is the difference?", "acceptedAnswer": {"@type": "Answer", "text": "Double Close funding pays for the A-B purchase and is repaid when the B-C closes. Echo funds the down payment on the B-C itself and is repaid on that same settlement. Nine out of ten Echos ride on a double close - we often fund both legs."}}, {"@type": "Question", "name": "Echo vs. a gap lender?", "acceptedAnswer": {"@type": "Answer", "text": "A gap lender records a note and lives in the deal for months. Echo is in and out of one closing - no lien on the flip, no second payment eating the rehab budget."}}, {"@type": "Question", "name": "Does the B-C price have to appraise?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The appraisal sizes the primary loan, and the primary loan is what makes the spread real. No appraisal support, no Echo."}}, {"@type": "Question", "name": "How fast does it move?", "acceptedAnswer": {"@type": "Answer", "text": "Written terms typically same day; money out typically in a day or two. Repayment happens the moment the closing records."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Every deal is priced individually based on structure, timeline, and risk - starting at a minimum fee quoted in your written terms. The calculator&#39;s fee fields are editable estimates, and it shows you whether the spread supports the deal before you ever submit."}}, {"@type": "Question", "name": "Do you pull my credit?", "acceptedAnswer": {"@type": "Answer", "text": "No - like all our transactional funding, Echo is underwritten on the deal, not your W-2 or credit score."}}]}</script>
+<div class="faqi"><h3>Who actually repays RealQuick Funds?</h3><p>The deal does. Title wires our repayment out of the wholesaler's spread on the same settlement where we funded. Nobody writes us a check afterward.</p></div>
+<div class="faqi"><h3>Is this a loan to the end buyer?</h3><p>It's transactional funding into the closing - not a recorded second mortgage, not gap debt that sits on the property.</p></div>
+<div class="faqi"><h3>Echo vs. Double Close funding: what's the difference?</h3><p>Double Close funding pays for the A-B purchase and is repaid when the B-C closes. Echo funds the down payment <i>on</i> the B-C itself and is repaid on that same settlement. Nine out of ten Echos ride on a double close - we often fund both legs.</p></div>
+<div class="faqi"><h3>Echo vs. a gap lender?</h3><p>A gap lender records a note and lives in the deal for months. Echo is in and out of one closing - no lien on the flip, no second payment eating the rehab budget.</p></div>
+<div class="faqi"><h3>Does the B-C price have to appraise?</h3><p>Yes. The appraisal sizes the primary loan, and the primary loan is what makes the spread real. No appraisal support, no Echo.</p></div>
+<div class="faqi"><h3>How fast does it move?</h3><p>Written terms typically same day; money out typically in a day or two. Repayment happens the moment the closing records.</p></div>
+<div class="faqi"><h3>What does it cost?</h3><p>Every deal is priced individually based on structure, timeline, and risk - starting at a minimum fee quoted in your written terms. The calculator's fee fields are editable estimates, and it shows you whether the spread supports the deal before you ever submit.</p></div>
+<div class="faqi"><h3>Do you pull my credit?</h3><p>No - like all our transactional funding, Echo is underwritten on the deal, not your W-2 or credit score.</p></div>'''),
  'double-close': dict(kicker='Transactional Funding', name='Double Close', cta='dc', req='Start a Double Close request',
    sub='100% A-to-B funding for back-to-back closings. Your end buyer never sees your contract price - your spread stays private.',
    body='''
@@ -236,7 +270,7 @@ DEALS = {
 <h2>Short-term rentals</h2>
 <p>Airbnb income can qualify, but lenders count it conservatively - the appraiser's estimate, a 12-month revenue history, or market data, usually with a haircut. Verify your city allows STRs before you tie up the property; underwriters check.</p>
 <h2>Where DSCR fits in a creative deal</h2>
-<p>In most <a href="/morby-method/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo-method/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/morby-stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
+<p>In most <a href="/stack/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/morby-stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
 <h2>How it works with us</h2>
 ''' + steps(['Submit the property and rents (actual or market) through the two-minute form.','We route your scenario across our DSCR lender network - including options below 1.0, down to 0.75.','Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.']) + '''
 <h2>DSCR questions, answered</h2>
@@ -332,7 +366,7 @@ MS_BODY = '''
 <p>Then flip to the cash flow analysis tab: a full monthly rental P&amp;L on the same numbers - vacancy, taxes, insurance, maintenance, CapEx, property management, both loan payments, the carry balloon, and your DSCR. Whether you can close it and whether you should keep it, on one card.</p>
 <h2>How to use it</h2>
 <ul><li>Enter the purchase price, the seller carry, and the primary lender's percentage - the dollar equivalents show beside each field.</li><li>The fee fields are pre-filled estimates and every one of them is editable - exact figures come with your written terms.</li><li>Watch the result flip between cash to close and cash back as you adjust the structure.</li><li>Flip to cash flow analysis to see the property as a rental - payments, balloon, and DSCR included.</li></ul>
-<p>Want the full mechanics? Read the <a href="/morby-method/">Morby Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the numbers work, hit Submit - the funding request pre-fills from your calculator inputs.</p>
+<p>Want the full mechanics? Read the <a href="/stack/">Morby Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the numbers work, hit Submit - the funding request pre-fills from your calculator inputs.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 ECHO_CALC_BODY = '''
 <div class="calcwrap">
@@ -356,17 +390,17 @@ ECHO_CALC_BODY = '''
 <p>The B-C price has to be supported by the appraisal - that's what sizes the primary loan and creates the spread in the first place.</p>
 <h2>How to use it</h2>
 <ul><li>Enter both legs: what the wholesaler is paying (A-B) and what the end buyer is paying (B-C).</li><li>Set the primary lender's percentage of the B-C price - the loan amount shows beside it.</li><li>The fee is a pre-filled estimate with a minimum floor - editable like everything else.</li><li>Slate result: the spread covers the funding. Orange: it comes up short, and by how much.</li></ul>
-<p>New to the structure? Read the <a href="/echo-method/">Echo Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the spread covers it, hit Submit - the funding request pre-fills the funded amount.</p>
+<p>New to the structure? Read the <a href="/echo/">Echo Method deep dive</a> or ask in <a href="https://www.skool.com/fundinghub">the community</a>. When the spread covers it, hit Submit - the funding request pre-fills the funded amount.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Free deal calculators built by a transactional funder - Morby/Stack purchase and rental cash flow analysis, Echo spread coverage, and more tools on the way.',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
 page('calculators/morby-stack','Stack Method Calculator (Morby Method) - Free | RealQuick Funds',
  'Free Morby Method / Stack Method calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Stack Method Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method?','/morby-method/'))
+ 'Deal Tools','Stack Method Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method?','/stack/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
- 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo-method/'))
+ 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo/'))
 DSCR_TOOL_BODY = '''
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
