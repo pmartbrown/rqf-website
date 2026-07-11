@@ -514,7 +514,7 @@ function submitDeal(t,ack){
  if(SUBMITTING)return;
  hideErr();
  if(t==='affiliate'){showSuccess('Let\'s get you started','Affiliate onboarding happens inside our community right now. Join us at Funding Hub and our team will take it from there — VIP white-label setup included.','');
-  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub">Join the community →</a></div>');return}
+  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub/about">Join the community →</a></div>');return}
  var r=collect(t);
  if(r.errs.length){showErr(r.errs);return}
  var dt=DEAL_TYPE[t];

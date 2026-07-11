@@ -322,11 +322,11 @@ AFF_BODY = '''
 ''' + steps(['Pick your door - join the Funding Hub (our recommended path), or send your first deal through this site today.','Bring the deal - inside the community you learn the exact structures and vocabulary that get deals funded fast.','Get paid when it funds - 50/50 on deals we fund directly, the majority of the referral on placed lending. We handle underwriting, docs, TC, and capital.']) + '''
 <h2>Ready?</h2>
 <p>Tier details and pricing live inside the community. And if you want to talk VIP through with Paul before you jump, grab a time - it's optional, not a gate.</p>
-<div class="sched"><a class="btn" href="https://www.skool.com/fundinghub">Join the Funding Hub →</a><a class="btn btn-dark" href="https://meetings-na2.hubspot.com/admin3005">Book an optional VIP call with Paul</a></div>'''
+<div class="sched"><a class="btn" href="https://www.skool.com/fundinghub/about">Join the Funding Hub →</a><a class="btn btn-dark" href="https://meetings-na2.hubspot.com/realquickfunds/skoolcall">Book an optional call with Paul about joining</a></div>'''
 page('affiliates','Become an Affiliate | RealQuick Funds',
  'Become a RealQuick Funds affiliate - bring deals as a community member or straight through this site. Direct-lender 50/50 profit splits on funded deals.',
  'Affiliate Program','Turn your network into funding revenue.','Bring us deals as a community member or straight through this site. We lend our own capital - so when your deal funds, we split actual profits with you 50/50.',AFF_BODY,
- cta_label='Join the Funding Hub →',cta_href='https://www.skool.com/fundinghub',
+ cta_label='Join the Funding Hub →',cta_href='https://www.skool.com/fundinghub/about',
  band=('Bring the deal. <span class="grad">We bring the capital.</span>','Join the Funding Hub and learn the playbook - or send your first deal through this site today.'))
 
 ABOUT_BODY = '''
