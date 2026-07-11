@@ -166,7 +166,7 @@ DEALS = {
 <h2>What you'll need</h2>
 ''' + ul(['Purchase contract and rehab scope/budget','Exit strategy (sale or refinance)','Entity documents'])),
  'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr',
-   sub="Long-term rental financing qualified on property cash flow - not your personal income. The portfolio-builder's loan.",
+   sub="Banks qualify the borrower - DSCR qualifies the property. Long-term rental financing on the rent, not your W-2s or tax returns. The portfolio-builder's loan.",
    body='''
 <h2>What a DSCR loan is</h2>
 <p>DSCR (debt-service coverage ratio) loans qualify on the property's cash flow - does the rent cover the payment? - instead of your personal tax returns and W-2s. That makes them the go-to financing for investors scaling a rental portfolio past what personal-income underwriting allows.</p>
@@ -334,14 +334,14 @@ DSCR_TOOL_BODY = '''
 <h2>A worked example</h2>
 <p>Say the property rents for $2,500 a month. The principal and interest payment is $1,700, property taxes are $150, insurance is $150, and there's no HOA - so the total monthly debt is $2,000. Divide $2,500 by $2,000 and you get a DSCR of <b>1.25</b> - the property generates 25% more income than what's needed to repay the loan. That's positive cash flow in the lender's eyes.</p>
 <h2>What your number means</h2>
-<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - still can be done. Some of our lenders go down to a 0.75 DSCR.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
+<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - still can be done. Some of our lenders go down to a 0.75 DSCR - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
 <h2>How to use this calculator</h2>
 <ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
 <p>Running a Morby / Stack deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
- 'Deal Tools','DSCR Calculator','Does the property qualify on its own rent? Gross rent / PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request')
+ 'Deal Tools','DSCR Calculator','Banks qualify the borrower - DSCR qualifies the property. Run the rent against PITIA, with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request')
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>
