@@ -458,7 +458,7 @@ HML_TOOL_BODY = '''
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="h_pp" value="300,000" oninput="fmt(this);hml()"></div></div>
       <div class="fld"><label>Rehab budget</label><div class="inwrap"><span>$</span><input id="h_rb" value="60,000" oninput="fmt(this);hml()"></div></div>
-      <div class="fld"><label>After-repair value (ARV)</label><div class="inwrap"><span>$</span><input id="h_arv" value="460,000" oninput="fmt(this);hml()"></div></div>
+      <div class="fld"><label>After-repair value (ARV)</label><div class="inwrap"><span>$</span><input id="h_arv" value="425,000" oninput="fmt(this);hml()"></div></div>
       <div class="fld"><label>Months held</label><div class="inwrap"><input class="pctin" id="h_mo" value="6" oninput="fmtp(this);hml()"><span class="sfx">mo</span></div></div>
     </div>
     <div class="cgrid3">
