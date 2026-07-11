@@ -27,9 +27,10 @@ EXTRA_CSS = '''
 .pagehero h1{color:#fff;font-size:clamp(34px,4.6vw,56px)}
 .pagehero .sub{color:#b3b1a9}
 .content{padding:72px 0}
-.content h2{font-size:clamp(24px,3vw,34px);margin-top:48px}
+.content h2{font-size:clamp(24px,3vw,34px);margin:48px 0 16px;line-height:1.15}
 .content h2:first-child{margin-top:0}
 .content p,.content li{font-size:16px;color:#54524b;max-width:760px}
+.content .wrap>p{margin-top:14px}
 .content ul{padding-left:22px;display:grid;gap:8px;margin-top:10px}
 .steps{display:grid;gap:12px;margin-top:18px;max-width:760px}
 .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}

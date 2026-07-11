@@ -101,12 +101,15 @@ h2{font-family:var(--disp);font-size:clamp(28px,3.6vw,44px);font-weight:800;lett
 .sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
 .sechead p{color:var(--mut);max-width:440px;margin-top:12px}
 /* bento */
-.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:16px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:150px;gap:16px}
 .b{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:.2s;box-shadow:0 4px 20px -12px rgba(21,20,18,.1)}
 .b:hover{transform:translateY(-3px);box-shadow:0 20px 40px -18px rgba(21,20,18,.18)}
 .b .n{font-family:var(--disp);font-size:clamp(30px,3vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--ink)}
 .b .n em{font-style:normal;color:var(--orange-d)}
 .b .l{font-size:13px;color:var(--mut);margin-top:4px;font-weight:500}
+.b .chk{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin-top:12px}
+.b .chk span{font-size:13.5px;font-weight:600;color:var(--mut)}
+.b .chk em{font-style:normal;color:var(--orange-d);font-weight:800;margin-right:6px}
 .b.wide{grid-column:span 2}
 .b.tall{grid-row:span 2}
 .b.orange{background:linear-gradient(140deg,var(--orange),#ffb54d);border:none;color:#141311}
@@ -194,7 +197,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 .dr-body .step b{font-family:var(--mono);color:var(--orange-d)}
 .dr-cta{margin-top:32px;display:flex;gap:12px}
 @media(max-width:960px){.hero-grid,.split,.duo{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.b{min-height:130px}.b.tall{grid-row:auto}.b .ai{font-size:80px}.types{grid-template-columns:1fr}.nav-links{display:none}.fstrip{grid-template-columns:1fr}.fstrip .ph{min-height:280px}}
-@media(max-width:640px){.bento{grid-template-columns:1fr}.b.wide{grid-column:auto}.b{min-height:0;padding:22px}}
+@media(max-width:640px){.bento{grid-template-columns:1fr 1fr;grid-auto-flow:dense}.b{min-height:0;padding:20px;grid-column:span 2}.b.stat{grid-column:span 1}.b .chk{grid-template-columns:1fr}}
 @media(max-width:560px){.calc{padding:22px 18px}.cgrid,.cgrid3{gap:0 8px}.cgrid .fld label,.cgrid3 .fld label{font-size:10px;white-space:normal;overflow:visible;min-height:27px;align-items:flex-end}.fld .inwrap span{padding-left:8px}.fld input{font-size:16px;padding:9px 8px 9px 3px}.fld input.pctin{padding:9px 3px 9px 8px}.fld .inwrap span.sfx{padding-right:8px}}
 </style>
 </head>
@@ -291,14 +294,11 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
   </div></div>
   <div class="bento">
     <div class="b wide orange"><div class="n" data-count="20" data-prefix="$" data-suffix="M+">$20M+</div><div class="l">Capital deployed for real estate investors</div></div>
-    <div class="b"><div class="n" data-count="800" data-suffix="+">800+</div><div class="l">Deals managed</div></div>
-    <div class="b"><div class="n" data-count="50">50</div><div class="l">States funded</div></div>
+    <div class="b stat"><div class="n" data-count="800" data-suffix="+">800+</div><div class="l">Deals managed</div></div>
     <div class="b tall dark"><div class="ai">AI</div><div class="n">Agentic AI</div><div class="l" style="margin-top:10px">AI agents work every file — faster funding and a smoother borrower experience, with a 20-year Chief Underwriting Officer making the final call.</div></div>
-    <div class="b"><div class="n" style="font-size:26px">Same-day decisions.</div><div class="l">Submit by early afternoon, hear back today — never more than one business day.</div></div>
+    <div class="b stat"><div class="n" data-count="50">50</div><div class="l">States funded</div></div>
     <div class="b"><div class="n"><em>0</em></div><div class="l">Credit checks on transactional funding</div></div>
-    <div class="b"><div class="n" style="font-size:26px">24/7</div><div class="l">Submit deals any time — underwriting starts next business hour</div></div>
-    <div class="b wide"><div class="n" style="font-size:26px">Escrow-secured. Title-verified.</div><div class="l">Funds never leave escrow — keeping investor risk low and every closing clean.</div></div>
-    <div class="b"><div class="n" style="font-size:26px">1<em>:</em>1</div><div class="l">A real underwriter on every file — no committees, no black box</div></div>
+    <div class="b wide"><div class="n" style="font-size:26px">The RQF standard.</div><div class="chk"><span><em>✓</em>Same-day decisions</span><span><em>✓</em>24/7 deal intake</span><span><em>✓</em>Escrow-secured, title-verified</span><span><em>✓</em>A real underwriter on every file</span></div></div>
   </div>
 </div></section>
 
