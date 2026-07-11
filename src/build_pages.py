@@ -17,7 +17,7 @@ NAV = '''<div style="background:var(--orange);color:#141311;text-align:center;pa
 <nav><div class="wrap nav-in">
   <a class="brand" href="/"><img src="/assets/lockup_dark.png" alt="RealQuick Funds"></a>
   <div class="nav-links"><a href="/#types">Funding</a><a href="/calculators/">Calculators</a><a href="/#types">Learn</a><a href="/affiliates/">Become an Affiliate</a><a href="https://www.skool.com/fundinghub">Community</a></div>
-  <button class="btn" onclick="openModal()">Get Funded</button>
+  <div style="display:flex;align-items:center;gap:2px"><button class="btn" onclick="openModal()">Get Funded ⚡</button><button class="nav-burger" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button></div>
 </div></nav>'''
 
 EXTRA_CSS = '''
@@ -60,7 +60,10 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 .pagehero .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 '''
 
+SITE_URL = 'https://realquickfunds.com'
+OG_IMG = 'https://pmartbrown.github.io/rqf-website/assets/og-image.png'
 def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get Funded", cta_href=None, band=None, cta2=None, foot=''):
+    canon = SITE_URL + '/' + path + '/'
     cta = "openModal('%s')" % cta_type if cta_type else "openModal()"
     cta_btn = '<a class="btn" href="%s">%s</a>' % (cta_href, cta_label) if cta_href else '<button class="btn" onclick="%s">%s</button>' % (cta, cta_label)
     cta2_btn = '<a class="btn btn-ghost" href="%s">%s</a>' % (cta2[1], cta2[0]) if cta2 else ''
@@ -72,6 +75,11 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>%s</title>
 <meta name="description" content="%s">
+<link rel="icon" type="image/png" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="canonical" href="%s">
+<meta property="og:type" content="website"><meta property="og:site_name" content="RealQuick Funds"><meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%s"><meta property="og:image" content="%s">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s"><meta name="twitter:image" content="%s">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>%s%s</style>
@@ -99,7 +107,7 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <div class="drawer" id="drawer"><div class="dr-head"><button class="x" onclick="closeDrawer()">&times;</button><div class="k" id="dr_k"></div><h3 id="dr_title"></h3></div><div class="dr-body" id="dr_body"></div></div>
 <script>%s</script>
 </body>
-</html>''' % (title, desc, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, cta2_btn, body, band_h, band_p, cta_btn, foot, FOOTER, MODAL, SCRIPT)
+</html>''' % (title, desc, canon, title, desc, canon, OG_IMG, title, desc, OG_IMG, CSS, EXTRA_CSS, NAV, kicker, h1, sub, cta_btn, cta2_btn, body, band_h, band_p, cta_btn, foot, FOOTER, MODAL, SCRIPT)
     os.makedirs(path, exist_ok=True)
     open(os.path.join(path,'index.html'),'w').write(html)
     print('built', path)
@@ -184,7 +192,7 @@ DEALS = {
 ''' + steps(['Submit both contracts and the closing date.','Written terms same day on most submissions. No credit pull.','We fund A-to-B; escrow repays us from your B-to-C proceeds.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['A-to-B and B-to-C contracts','End buyer proof of funds or loan approval','One title/escrow office handling both legs (preferred)'])),
- 'emd': dict(kicker='Transactional Funding', name='EMD Funding', cta='emd', req='Start an EMD request',
+ 'emd': dict(kicker='Transactional Funding', name='EMD Funding', cta='emd', req='Start an EMD request', title='EMD Funding | RealQuick Funds',
    sub='Earnest money wired before your deadline. Never lose a contract waiting on capital.',
    body='''
 <h2>What EMD funding is</h2>
@@ -195,7 +203,7 @@ DEALS = {
 ''' + steps(['Submit the contract, EMD amount, and escrow details.','Fast verification and written terms - typically same business day.','EMD wires to escrow; repayment per the agreement at closing or termination.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Escrow/title wiring instructions','Clear EMD refundability terms'])),
- 'hard-money': dict(kicker='Leverage', name='Hard Money Loans', cta='hml', req='Start a Hard Money request',
+ 'hard-money': dict(kicker='Leverage', name='Hard Money Loans', cta='hml', req='Start a Hard Money request', title='Hard Money Loans | RealQuick Funds',
    sub='Asset-based loans for flips and value-add projects - underwritten on the property and the plan, not your W-2.',
    body='''
 <h2>What hard money is</h2>

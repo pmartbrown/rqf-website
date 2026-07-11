@@ -7,6 +7,7 @@ def rewrite(fp, up):
     h = h.replace('href="/#', 'href="%s#' % ('./' if up=='' else up))
     h = h.replace('href="/"', 'href="%s"' % ('./' if up=='' else up))
     h = h.replace('src="/assets/', 'src="%sassets/' % up)
+    h = h.replace('href="/assets/', 'href="%sassets/' % up)
     h = h.replace("url('/assets/", "url('%sassets/" % up)
     open(fp,'w').write(h)
 rewrite('index.html','')
