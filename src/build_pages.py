@@ -170,6 +170,11 @@ DEALS = {
    body='''
 <h2>What a DSCR loan is</h2>
 <p>DSCR (debt-service coverage ratio) loans qualify on the property's cash flow - does the rent cover the payment? - instead of your personal tax returns and W-2s. That makes them the go-to financing for investors scaling a rental portfolio past what personal-income underwriting allows.</p>
+<h2>How DSCR rates are set</h2>
+<p>DSCR pricing isn't pulled from thin air. It starts with a market index - most lenders price off the <b>5-year U.S. Treasury</b> - and adds a <b>risk premium</b>. That premium isn't one number: it moves with the asset type and condition, your credit score, the property's DSCR ratio, leverage, prepayment terms, and more. A strong file can price <b>better</b> than the range shown below; a tougher file prices worse. The index moves daily, so the range does too.</p>
+<div class="faqi" style="border:2px solid var(--orange);max-width:760px"><h3>Estimated current market rates</h3>
+<p style="font-family:var(--mono);font-size:16px;margin-top:10px">5-yr Treasury <b id="mk_t5">&mdash;</b> <span id="mk_asof" style="color:#9a978d;font-size:12px"></span> &nbsp;+&nbsp; risk premium &nbsp;=&nbsp; <b id="mk_lo">&mdash;</b> to <b id="mk_hi">&mdash;</b></p>
+<p style="font-size:13px;color:#9a978d;margin-top:8px">Updated each business day from the U.S. Treasury's published par yield curve. Estimates only - your exact rate comes with your written terms, and it can fall outside this range in either direction.</p></div>
 <h2>When to use it</h2>
 ''' + ul(['Buying or refinancing rentals - long-term, short-term, or midterm','Scaling past what personal-income underwriting allows','As the end loan in an <a href="/echo-method/">Echo Method</a> structure']) + '''
 <h2>How RealQuick Funds funds it</h2>
@@ -218,6 +223,7 @@ MS_BODY = '''
     <div id="pane_cf" style="display:none">
     <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
     <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
+    <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
     <div class="cgrid">
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
       <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>

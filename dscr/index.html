@@ -252,6 +252,11 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 
 <h2>What a DSCR loan is</h2>
 <p>DSCR (debt-service coverage ratio) loans qualify on the property's cash flow - does the rent cover the payment? - instead of your personal tax returns and W-2s. That makes them the go-to financing for investors scaling a rental portfolio past what personal-income underwriting allows.</p>
+<h2>How DSCR rates are set</h2>
+<p>DSCR pricing isn't pulled from thin air. It starts with a market index - most lenders price off the <b>5-year U.S. Treasury</b> - and adds a <b>risk premium</b>. That premium isn't one number: it moves with the asset type and condition, your credit score, the property's DSCR ratio, leverage, prepayment terms, and more. A strong file can price <b>better</b> than the range shown below; a tougher file prices worse. The index moves daily, so the range does too.</p>
+<div class="faqi" style="border:2px solid var(--orange);max-width:760px"><h3>Estimated current market rates</h3>
+<p style="font-family:var(--mono);font-size:16px;margin-top:10px">5-yr Treasury <b id="mk_t5">&mdash;</b> <span id="mk_asof" style="color:#9a978d;font-size:12px"></span> &nbsp;+&nbsp; risk premium &nbsp;=&nbsp; <b id="mk_lo">&mdash;</b> to <b id="mk_hi">&mdash;</b></p>
+<p style="font-size:13px;color:#9a978d;margin-top:8px">Updated each business day from the U.S. Treasury's published par yield curve. Estimates only - your exact rate comes with your written terms, and it can fall outside this range in either direction.</p></div>
 <h2>When to use it</h2>
 <ul><li>Buying or refinancing rentals - long-term, short-term, or midterm</li><li>Scaling past what personal-income underwriting allows</li><li>As the end loan in an <a href="../echo-method/">Echo Method</a> structure</li></ul>
 <h2>How RealQuick Funds funds it</h2>
@@ -400,6 +405,21 @@ function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();
+/* ---------- market rates (daily 5Y Treasury + premium band) ---------- */
+var MKT_PREM_LO=3.00,MKT_PREM_HI=3.75,MKT=null;
+function mktApply(){if(!MKT||!(MKT.dgs5>0))return;
+  var lo=MKT.dgs5+MKT_PREM_LO,hi=MKT.dgs5+MKT_PREM_HI,mid=(lo+hi)/2;
+  var f=function(n){return n.toFixed(2)+'%'},ds='';
+  if(MKT.as_of){var dp=MKT.as_of.split('-');if(dp.length===3){var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];ds=MO[+dp[1]-1]+' '+(+dp[2])}}
+  document.querySelectorAll('.mkline').forEach(function(el){el.style.display='block';
+    el.innerHTML='<b>Est. current market rate for the primary DSCR loan: '+f(lo)+'&ndash;'+f(hi)+'</b> &middot; 5-yr Treasury '+f(MKT.dgs5)+(ds?' (as of '+ds+')':'')+' + risk premium. Your rate may price better or worse &mdash; the rate field below is prefilled with the midpoint and fully editable.'});
+  setT('mk_t5',f(MKT.dgs5));setT('mk_lo',f(lo));setT('mk_hi',f(hi));setT('mk_asof',ds?'(as of '+ds+')':'');
+  var r=document.getElementById('cf_r1');
+  if(r&&r.value==='7.0'){r.value=mid.toFixed(2);if(document.getElementById('cf_res'))cashflow()}}
+(function(){try{var b=document.querySelector('.brand img');
+  var u=b?b.getAttribute('src').replace(/lockup_[^\/]*$/,'rates.json'):'/assets/rates.json';
+  fetch(u,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    if(j&&+j.dgs5>0){MKT={dgs5:+j.dgs5,as_of:j.as_of||''};mktApply()}}).catch(function(){})}catch(e){}})();
 /* ---------- modal ---------- */
 const API_BASE='https://api.txfhub.com';
 const RC_KEY='6Lf4iS8sAAAAAKxk_0dkpPQpuUZlLf6coT_YhDLY';

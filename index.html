@@ -241,6 +241,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <div id="pane_cf" style="display:none">
     <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
     <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
+    <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
     <div class="cgrid">
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
       <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
@@ -509,6 +510,21 @@ function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();
+/* ---------- market rates (daily 5Y Treasury + premium band) ---------- */
+var MKT_PREM_LO=3.00,MKT_PREM_HI=3.75,MKT=null;
+function mktApply(){if(!MKT||!(MKT.dgs5>0))return;
+  var lo=MKT.dgs5+MKT_PREM_LO,hi=MKT.dgs5+MKT_PREM_HI,mid=(lo+hi)/2;
+  var f=function(n){return n.toFixed(2)+'%'},ds='';
+  if(MKT.as_of){var dp=MKT.as_of.split('-');if(dp.length===3){var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];ds=MO[+dp[1]-1]+' '+(+dp[2])}}
+  document.querySelectorAll('.mkline').forEach(function(el){el.style.display='block';
+    el.innerHTML='<b>Est. current market rate for the primary DSCR loan: '+f(lo)+'&ndash;'+f(hi)+'</b> &middot; 5-yr Treasury '+f(MKT.dgs5)+(ds?' (as of '+ds+')':'')+' + risk premium. Your rate may price better or worse &mdash; the rate field below is prefilled with the midpoint and fully editable.'});
+  setT('mk_t5',f(MKT.dgs5));setT('mk_lo',f(lo));setT('mk_hi',f(hi));setT('mk_asof',ds?'(as of '+ds+')':'');
+  var r=document.getElementById('cf_r1');
+  if(r&&r.value==='7.0'){r.value=mid.toFixed(2);if(document.getElementById('cf_res'))cashflow()}}
+(function(){try{var b=document.querySelector('.brand img');
+  var u=b?b.getAttribute('src').replace(/lockup_[^\/]*$/,'rates.json'):'/assets/rates.json';
+  fetch(u,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    if(j&&+j.dgs5>0){MKT={dgs5:+j.dgs5,as_of:j.as_of||''};mktApply()}}).catch(function(){})}catch(e){}})();
 /* ---------- modal ---------- */
 const API_BASE='https://api.txfhub.com';
 const RC_KEY='6Lf4iS8sAAAAAKxk_0dkpPQpuUZlLf6coT_YhDLY';
