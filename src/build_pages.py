@@ -109,7 +109,7 @@ def ul(items):
     return '<ul>' + ''.join('<li>%s</li>' % x for x in items) + '</ul>'
 
 DEALS = {
- 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', calc=('Run your numbers - Morby Calculator','/calculators/morby-stack/'),
+ 'morby-method': dict(kicker='Creative Finance', name='Morby Method', cta='morby', req='Start a Morby request', calc=('Morby Calculator','/calculators/morby-stack/'),
    title='Morby Method (Stack Method) Funding | RealQuick Funds',
    desc='Morby Method (Stack Method) funding - seller carry + primary lender stacked into one creative close. All 50 states. Same-day decisions on most deals.',
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
@@ -122,7 +122,7 @@ DEALS = {
 ''' + steps(['Submit your structure - purchase price, seller carry, primary lender amount, closing date.','We verify the stack and issue written terms — same day on most submissions.','Capital wires to title for closing. Escrow repays us per the structure.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Seller carry terms (amount and position)','Primary lender term sheet or approval','Title/escrow contact'])),
- 'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo', calc=('Run your numbers - Echo Calculator','/calculators/echo/'),
+ 'echo-method': dict(kicker='Creative Finance', name='Echo Method', cta='echo', req='Start an Echo request', calc=('Echo Calculator','/calculators/echo/'),
    desc='Echo Method funding - down-payment capital for the end buyer on the back half of a double close, repaid from the spread at one closing. All 50 states.',
    sub="Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.",
    body='''
@@ -135,7 +135,7 @@ DEALS = {
 ''' + steps(["Submit both legs - A-B and B-C contracts, the end buyer's primary lender terms, and the closing date.",'We verify the spread covers the funding and issue written terms - same day on most submissions.','Primary lender funds land at title first; we wire the down payment; title repays us from the spread on the same settlement.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['A-B and B-C purchase contracts',"The end buyer's primary lender term sheet or approval",'Title/escrow contact comfortable with back-to-back closings'])),
- 'double-close': dict(kicker='Transactional Funding', name='Double Close', cta='dc',
+ 'double-close': dict(kicker='Transactional Funding', name='Double Close', cta='dc', req='Start a Double Close request',
    sub='100% A-to-B funding for back-to-back closings. Your end buyer never sees your contract price - your spread stays private.',
    body='''
 <h2>What a double close is</h2>
@@ -146,7 +146,7 @@ DEALS = {
 ''' + steps(['Submit both contracts and the closing date.','Written terms same day on most submissions. No credit pull.','We fund A-to-B; escrow repays us from your B-to-C proceeds.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['A-to-B and B-to-C contracts','End buyer proof of funds or loan approval','One title/escrow office handling both legs (preferred)'])),
- 'emd': dict(kicker='Transactional Funding', name='EMD Funding', cta='emd',
+ 'emd': dict(kicker='Transactional Funding', name='EMD Funding', cta='emd', req='Start an EMD request',
    sub='Earnest money wired before your deadline. Never lose a contract waiting on capital.',
    body='''
 <h2>What EMD funding is</h2>
@@ -157,7 +157,7 @@ DEALS = {
 ''' + steps(['Submit the contract, EMD amount, and escrow details.','Fast verification and written terms - typically same business day.','EMD wires to escrow; repayment per the agreement at closing or termination.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Escrow/title wiring instructions','Clear EMD refundability terms'])),
- 'hard-money': dict(kicker='Leverage', name='Hard Money Loans', cta='hml',
+ 'hard-money': dict(kicker='Leverage', name='Hard Money Loans', cta='hml', req='Start a Hard Money request',
    sub='Asset-based loans for flips and value-add projects - underwritten on the property and the plan, not your W-2.',
    body='''
 <h2>What hard money is</h2>
@@ -168,7 +168,7 @@ DEALS = {
 ''' + steps(['Submit property, purchase price, rehab budget, and exit plan.','Deal-first underwriting with clear terms in writing.','Fund at closing; draws structured to your project.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Purchase contract and rehab scope/budget','Exit strategy (sale or refinance)','Entity documents'])),
- 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr',
+ 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr', req='Start a DSCR request', calc=('DSCR Calculator','/calculators/dscr/'),
    title='DSCR Loans - If It Rents, It Funds | RealQuick Funds',
    desc="What a DSCR loan is, who it's for, and how rates are actually determined - a live market index plus the five dials lenders price from. Options down to a 0.75 DSCR.",
    sub='If it rents, it funds. The property qualifies on its own rent - no W-2s, no tax returns, no paperwork circus.',
@@ -209,7 +209,7 @@ def meta_desc(s, n=155):
 for slug,d in DEALS.items():
     page(slug, d.get('title', "%s Funding | RealQuick Funds" % d['name']), meta_desc(d.get('desc', d['sub'])),
          d['kicker'], d['name'], d['sub'], d['body'], cta_type=d['cta'],
-         cta_label="Start a %s request" % d['name'], cta2=d.get('calc'))
+         cta_label=d.get('req', "Start a %s request" % d['name']), cta2=d.get('calc'))
 
 CALC_BODY = '''
 <h2>The deal tool library.</h2>
@@ -316,10 +316,10 @@ page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
 page('calculators/morby-stack','Morby Method Calculator (Stack Method) - Free | RealQuick Funds',
  'Free Morby Method / Stack Method calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method? Learn more','/morby-method/'))
+ 'Deal Tools','Morby / Stack Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Morby request', cta2=('What is the Morby Method?','/morby-method/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
- 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method? Learn more','/echo-method/'))
+ 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo-method/'))
 DSCR_TOOL_BODY = '''
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
@@ -367,7 +367,7 @@ DSCR_TOOL_BODY = '''
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
- 'Deal Tools','DSCR Calculator','If it rents, it funds. Run the rent against PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR? Learn more','/dscr/'))
+ 'Deal Tools','DSCR Calculator','If it rents, it funds. Run the rent against PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR?','/dscr/'))
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>

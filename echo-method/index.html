@@ -248,7 +248,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
   <div class="k" style="color:var(--orange)">Creative Finance</div>
   <h1>Echo Method</h1>
   <p class="sub" style="max-width:640px">Down-payment funding for your end buyer on the back half of a double close - repaid from the deal's spread on the same settlement. One closing. Everybody cashes out.</p>
-  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('echo')">Start a Echo Method request</button><a class="btn btn-ghost" href="../calculators/echo/">Run your numbers - Echo Calculator</a></div>
+  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('echo')">Start an Echo request</button><a class="btn btn-ghost" href="../calculators/echo/">Echo Calculator</a></div>
 </div></header>
 <div class="content"><div class="wrap">
 
@@ -263,7 +263,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 <ul><li>A-B and B-C purchase contracts</li><li>The end buyer's primary lender term sheet or approval</li><li>Title/escrow contact comfortable with back-to-back closings</li></ul>
 <div class="ctaband"><h2>Got a deal? Get funded. <span class="grad">Real quick.</span></h2>
 <p>Two-minute form &middot; same-day decisions on most deals &middot; all 50 states.</p>
-<button class="btn" onclick="openModal('echo')">Start a Echo Method request</button></div>
+<button class="btn" onclick="openModal('echo')">Start an Echo request</button></div>
 </div></div>
 <footer><div class="wrap">
   <div class="f-in">
@@ -651,7 +651,9 @@ const LEARN={
 function openDrawer(t){const d=LEARN[t];if(!d)return;
   document.getElementById('dr_k').textContent=d.k;
   document.getElementById('dr_title').textContent=d.t;
-  document.getElementById('dr_body').innerHTML=d.b+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">Start a ${d.t} request →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
+  const REQL={morby:'Start a Morby request',echo:'Start an Echo request',dc:'Start a Double Close request',emd:'Start an EMD request',hml:'Start a Hard Money request',dscr:'Start a DSCR request'};
+  const GUIDE={morby:'<a href="../morby-method/" style="color:var(--orange-d);font-weight:700">Read the full Morby Method guide →</a>',echo:'<a href="../echo-method/" style="color:var(--orange-d);font-weight:700">Read the full Echo Method guide →</a>',dc:'<a href="../double-close/" style="color:var(--orange-d);font-weight:700">Read the full Double Close guide →</a>',emd:'<a href="../emd/" style="color:var(--orange-d);font-weight:700">Read the full EMD guide →</a>',hml:'<a href="../hard-money/" style="color:var(--orange-d);font-weight:700">Read the full Hard Money guide →</a>',dscr:'<a href="../dscr/" style="color:var(--orange-d);font-weight:700">Read the full DSCR guide →</a>'};
+  document.getElementById('dr_body').innerHTML=d.b+(GUIDE[t]?`<p style="margin-top:14px">${GUIDE[t]}</p>`:'')+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">${REQL[t]||('Start a '+d.t+' request')} →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
   document.getElementById('drawer').classList.add('open');document.getElementById('doverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('doverlay').classList.remove('open');document.body.style.overflow=''}
 /* ---------- animated counters ---------- */

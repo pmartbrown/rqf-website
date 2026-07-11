@@ -248,7 +248,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
   <div class="k" style="color:var(--orange)">Deal Tools</div>
   <h1>Morby / Stack Calculator</h1>
   <p class="sub" style="max-width:640px">Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.</p>
-  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('morby')">Start a Morby request</button><a class="btn btn-ghost" href="../../morby-method/">What is the Morby Method? Learn more</a></div>
+  <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('morby')">Start a Morby request</button><a class="btn btn-ghost" href="../../morby-method/">What is the Morby Method?</a></div>
 </div></header>
 <div class="content"><div class="wrap">
 
@@ -707,7 +707,9 @@ const LEARN={
 function openDrawer(t){const d=LEARN[t];if(!d)return;
   document.getElementById('dr_k').textContent=d.k;
   document.getElementById('dr_title').textContent=d.t;
-  document.getElementById('dr_body').innerHTML=d.b+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">Start a ${d.t} request →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
+  const REQL={morby:'Start a Morby request',echo:'Start an Echo request',dc:'Start a Double Close request',emd:'Start an EMD request',hml:'Start a Hard Money request',dscr:'Start a DSCR request'};
+  const GUIDE={morby:'<a href="../../morby-method/" style="color:var(--orange-d);font-weight:700">Read the full Morby Method guide →</a>',echo:'<a href="../../echo-method/" style="color:var(--orange-d);font-weight:700">Read the full Echo Method guide →</a>',dc:'<a href="../../double-close/" style="color:var(--orange-d);font-weight:700">Read the full Double Close guide →</a>',emd:'<a href="../../emd/" style="color:var(--orange-d);font-weight:700">Read the full EMD guide →</a>',hml:'<a href="../../hard-money/" style="color:var(--orange-d);font-weight:700">Read the full Hard Money guide →</a>',dscr:'<a href="../../dscr/" style="color:var(--orange-d);font-weight:700">Read the full DSCR guide →</a>'};
+  document.getElementById('dr_body').innerHTML=d.b+(GUIDE[t]?`<p style="margin-top:14px">${GUIDE[t]}</p>`:'')+`<div class="dr-cta"><button class="btn" onclick="closeDrawer();openModal('${t}')">${REQL[t]||('Start a '+d.t+' request')} →</button><a class="btn btn-ghost" href="https://www.skool.com/fundinghub">Ask in the community</a></div>`;
   document.getElementById('drawer').classList.add('open');document.getElementById('doverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('doverlay').classList.remove('open');document.body.style.overflow=''}
 /* ---------- animated counters ---------- */
