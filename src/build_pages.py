@@ -168,22 +168,40 @@ DEALS = {
 ''' + steps(['Submit property, purchase price, rehab budget, and exit plan.','Deal-first underwriting with clear terms in writing.','Fund at closing; draws structured to your project.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Purchase contract and rehab scope/budget','Exit strategy (sale or refinance)','Entity documents'])),
- 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr', calc=('Run your numbers - DSCR Calculator','/calculators/dscr/'),
-   sub="Banks qualify the borrower - DSCR qualifies the property. Long-term rental financing on the rent, not your W-2s or tax returns. The portfolio-builder's loan.",
+ 'dscr': dict(kicker='Long-Term Financing', name='DSCR Loans', cta='dscr',
+   title='DSCR Loans - If It Rents, It Funds | RealQuick Funds',
+   desc="What a DSCR loan is, who it's for, and how rates are actually determined - a live market index plus the five dials lenders price from. Options down to a 0.75 DSCR.",
+   sub='If it rents, it funds. The property qualifies on its own rent - no W-2s, no tax returns, no paperwork circus.',
    body='''
-<h2>What a DSCR loan is</h2>
-<p>DSCR (debt-service coverage ratio) loans qualify on the property's cash flow - does the rent cover the payment? - instead of your personal tax returns and W-2s. That makes them the go-to financing for investors scaling a rental portfolio past what personal-income underwriting allows.</p>
-<h2>How DSCR rates are set</h2>
-<p>DSCR pricing isn't pulled from thin air. It starts with a market index - most lenders price off the <b>5-year U.S. Treasury</b> - and adds a <b>risk premium</b>. That premium isn't one number: it moves with the asset type and condition, your credit score, the property's DSCR ratio, leverage, prepayment terms, and more. A strong file can price <b>better</b> than the range shown below; a tougher file prices worse. The index moves daily, so the range does too.</p>
+<h2>What a DSCR loan actually is</h2>
+<p>A DSCR loan is a 30-year mortgage for rental property where the property does the qualifying. No W-2s, no tax returns, no employment verification - the lender asks one question: does the rent cover the payment? You can close in an LLC, own as many financed properties as you want, and your personal tax strategy - all those write-offs that make your returns look thin - never works against you.</p>
+<h2>Who it's for</h2>
+<p>Three investors live on DSCR loans: the self-employed, whose tax returns understate what they actually make; the portfolio builder who's maxed out conventional financing - banks cap you around ten financed properties, DSCR lenders don't; and the investor who simply doesn't want to hand over two years of personal financials to buy a rental. If any of those is you, this is your product.</p>
+<h2>How the ratio works</h2>
+<p>One fraction: monthly rent &divide; the full monthly payment (principal, interest, taxes, insurance, HOA). Above 1.0, the rent carries the loan. Run your numbers in the <a href="/calculators/dscr/">DSCR Calculator</a> - it computes the ratio the way lenders underwrite it and shows the biggest loan your rent supports.</p>
+<h2>How your rate is actually determined</h2>
+<p>There's no single "DSCR rate." Pricing starts with a market index - most lenders price off the <b>5-year U.S. Treasury</b> - and adds a risk premium built from your file. The index moves daily; the premium is set by five dials:</p>
+''' + ul(['<b>Your DSCR.</b> Stronger coverage, lower rate. Crossing 1.25 typically unlocks the best tier; below 1.0 adds a real premium.','<b>Your down payment.</b> Every extra 5% down buys the rate down a notch. 20% is the standard entry; 25%+ gets rewarded.','<b>Your credit score.</b> Pulled to price risk, not to verify income. Low-to-mid 600s can qualify; the best pricing generally starts in the 720s.','<b>Your prepayment penalty choice.</b> Most DSCR loans carry a stepdown penalty - say 3% year one, 2% year two, 1% year three. Accepting a longer penalty lowers the rate; buying it off raises it. Planning to refinance soon? This dial matters most.','<b>The extras.</b> Interest-only, short-term-rental income, small loan sizes, and cash-out refinances each nudge the rate up; larger loans and vanilla long-term rentals price best.']) + '''
 <div class="faqi" style="border:2px solid var(--orange);max-width:760px"><h3>Estimated current market rates</h3>
 <p style="font-family:var(--mono);font-size:16px;margin-top:10px">5-yr Treasury <b id="mk_t5">&mdash;</b> <span id="mk_asof" style="color:#9a978d;font-size:12px"></span> &nbsp;+&nbsp; risk premium &nbsp;=&nbsp; <b id="mk_lo">&mdash;</b> to <b id="mk_hi">&mdash;</b></p>
 <p style="font-size:13px;color:#9a978d;margin-top:8px">Updated each business day from the U.S. Treasury's published par yield curve. Estimates only - your exact rate comes with your written terms, and it can fall outside this range in either direction.</p></div>
-<h2>When to use it</h2>
-''' + ul(['Buying or refinancing rentals - long-term, short-term, or midterm','Scaling past what personal-income underwriting allows','As the end loan in an <a href="/echo-method/">Echo Method</a> structure']) + '''
-<h2>How RealQuick Funds funds it</h2>
-''' + steps(['Submit property, rents (actual or market), and target loan.','Cash-flow-based qualification with clear written terms.','Close and hold - build the portfolio without the paperwork circus.']) + '''
-<h2>What you'll need</h2>
-''' + ul(['Property address and rent documentation','Entity documents','Basic reserves verification'])),
+<h2>What lenders typically expect</h2>
+''' + ul(['Down payment of 20-25% - more for sub-1.0 ratios','Credit floors starting in the low 600s; best pricing in the 720s and up','A few months of payments in liquid reserves','Minimum loan sizes around $100K - smaller properties are hard to place','An appraisal with a market-rent schedule. Notice what is missing from this list: your income.']) + '''
+<h2>Short-term rentals</h2>
+<p>Airbnb income can qualify, but lenders count it conservatively - the appraiser's estimate, a 12-month revenue history, or market data, usually with a haircut. Verify your city allows STRs before you tie up the property; underwriters check.</p>
+<h2>Where DSCR fits in a creative deal</h2>
+<p>In most <a href="/morby-method/">Morby / Stack</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo-method/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/morby-stack/">Morby / Stack Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
+<h2>How it works with us</h2>
+''' + steps(['Submit the property and rents (actual or market) through the two-minute form.','We route your scenario across our DSCR lender network - including options below 1.0, down to 0.75.','Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.']) + '''
+<h2>DSCR questions, answered</h2>
+<div class="faqi"><h3>What's a good DSCR?</h3><p>1.25 and up typically unlocks the best pricing tier. Anything above 1.0 qualifies broadly.</p></div>
+<div class="faqi"><h3>Can I get a DSCR loan below 1.0?</h3><p>Yes - we have lender options down to 0.75. Expect a bigger down payment and reserves.</p></div>
+<div class="faqi"><h3>Do DSCR lenders check credit?</h3><p>Yes - to price the loan, not to verify income. Your score sets your tier; your rent does the qualifying.</p></div>
+<div class="faqi"><h3>Can I close in an LLC?</h3><p>Yes - entity vesting is normal on DSCR loans. Many investors prefer it.</p></div>
+<div class="faqi"><h3>Can I live in the property?</h3><p>No. DSCR is investment-property financing only, and lenders verify occupancy.</p></div>
+<div class="faqi"><h3>Does the lender use my lease or the appraisal rent?</h3><p>Generally the lower of your actual lease and the appraiser's market-rent schedule.</p></div>
+<div class="faqi"><h3>Is a DSCR loan hard money?</h3><p>No - it's 30-year term financing for holds, not a short-term bridge.</p></div>
+<div class="faqi"><h3>How fast can it close?</h3><p>Weeks, not months - the appraisal is usually the long pole.</p></div>'''),
 }
 def meta_desc(s, n=155):
     if len(s) <= n: return s
@@ -349,7 +367,7 @@ DSCR_TOOL_BODY = '''
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.',
- 'Deal Tools','DSCR Calculator','Banks qualify the borrower - DSCR qualifies the property. Run the rent against PITIA, with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR? Learn more','/dscr/'))
+ 'Deal Tools','DSCR Calculator','If it rents, it funds. Run the rent against PITIA - with the max-loan and rent-needed answers no other calculator gives you.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR? Learn more','/dscr/'))
 
 AFF_BODY = '''
 <h2>What an affiliate is here</h2>
