@@ -241,7 +241,7 @@ DEALS = {
 <div class="faqi"><h3>Is a DSCR loan hard money?</h3><p>No - it's 30-year term financing for holds, not a short-term bridge.</p></div>
 <div class="faqi"><h3>How fast can it close?</h3><p>Weeks, not months - the appraisal is usually the long pole.</p></div>'''),
 }
-LEGAL = '<p style="margin-top:48px;font-size:12px;color:#9a978d;font-style:italic;max-width:none">Nothing on this website is legal advice. It reflects our opinions and our experience. For legal questions, consult your own counsel.</p>\n'
+LEGAL = '<p style="margin-top:48px;font-size:16px;color:#9a978d;font-style:italic;max-width:none">Nothing on this website is legal advice. It reflects our opinions and our experience. For legal questions, consult your own counsel.</p>\n'
 def meta_desc(s, n=155):
     if len(s) <= n: return s
     return s[:n].rsplit(' ', 1)[0].rstrip(' -,;:') + '…'
