@@ -547,6 +547,8 @@ const FORMS={
   {h:'Your path',f:[FS('aff_tier','Which affiliate path interests you?','aff_tier_sel',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
   {h:'About your network',f:[F('aff_company','Company / community name'),F('aff_size','Audience or network size','text','e.g. 2,500 members'),F('aff_how','How would you refer deals to us?','textarea')]}]}
 };
+var REFERRAL=[F('referred_by_name','Referrer name','text','',0),F('referred_by_email','Referrer email','email','',0),F('referred_by_phone','Referrer phone','tel','',0)];
+['morby','echo','dc','emd','hml','dscr'].forEach(function(k){if(FORMS[k]&&FORMS[k].sections)FORMS[k].sections.push({h:'Referred by someone? (optional)',f:REFERRAL,note:'If a member or partner sent you, add their info here so they get credit.'})});
 const NAMES={morby:'Stack Method Request',echo:'Echo Method Request',dc:'Double Close Request',emd:'EMD Funding Request',hml:'Hard Money Loan Request',dscr:'DSCR Loan Request',affiliate:'Affiliate Application'};
 const FILE_OK=['application/pdf','image/png','image/jpeg'];
 function fileBad(file){if(file.size>5*1024*1024)return file.name+' is over the 5MB limit';
