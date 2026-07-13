@@ -719,44 +719,18 @@ function submitDeal(t,ack){
  if(r.errs.length){showErr(r.errs);return}
  var dt=DEAL_TYPE[t];
  SUBMITTING=true;btnState(true);
- fetchMins().then(function(){
-  var min=DEALMIN&&DEALMIN[dt];
-  if(!ack&&min&&r.amount>0&&r.amount<+min.threshold_amount){SUBMITTING=false;btnState(false);showMinWarn(t,min);return}
-  if(ack)r.fd.append('below_minimum_acknowledged','true');
-  return rcToken(RC_ACTION[dt]).then(function(tok){
-   if(!tok){return {noRC:true}}
-   r.fd.append('recaptcha_token',tok);r.fd.append('recaptcha_action',RC_ACTION[dt]);
-   return fetch(API_BASE+'/api/submissions',{method:'POST',body:r.fd}).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
-  })
-  .then(function(x){SUBMITTING=false;btnState(false);
-   if(x&&x.noRC){showErr('We couldn\'t load our security check — an ad blocker or privacy extension may be blocking reCAPTCHA. Please allow it for this page and try again, or email your deal to <a href="mailto:admin@realquickfunds.com" style="color:#a02020;text-decoration:underline">admin@realquickfunds.com</a>.');return}
-   if(x.s===201&&x.j.success){
-    if(x.j.unserviceable)showSuccess('Submission received',x.j.message||'Thank you for your submission.',x.j.submission_id);
-    else showSuccess('Deal submitted!',x.j.message||'We will review your submission and contact you soon.',x.j.submission_id);
-   }else if(x.j&&x.j.details){var msgs=[];for(var k in x.j.details)msgs.push(x.j.details[k]);showErr(msgs)}
-   else showErr((x.j&&(x.j.message||x.j.error))||'Something went wrong. Please try again.');
-  }).catch(function(){SUBMITTING=false;btnState(false);
-   showErr('We couldn\'t reach our submission system. Please try again in a moment — or submit your deal at <a href="https://txfhub.com" style="color:#a02020;text-decoration:underline">txfhub.com</a>.')});
- });
-}
-function showMinWarn(t,min){var d=document.getElementById('formWarn');if(!d)return;
- d.style.display='block';
- d.innerHTML='<b>Heads up:</b> this request is below our current '+money(+min.threshold_amount)+' minimum for this deal type. You can submit it anyway and our team will review it, or just leave your contact info and we\'ll reach out.'
- +'<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap"><button class="btn" style="border-radius:10px;padding:10px 18px;font-size:13.5px" onclick="submitDeal(\''+t+'\',true)">Submit anyway</button><button class="btn btn-ghost" style="border-radius:10px;padding:10px 18px;font-size:13.5px;color:#8a5200;border-color:#8a5200" onclick="partialLead(\''+t+'\')">Just send my info</button></div>';
- d.scrollIntoView({behavior:'smooth',block:'center'})}
-function partialLead(t){
- if(SUBMITTING)return;
- var g=function(n){var el=document.querySelector('#mform [data-name="'+n+'"]');return el?(el.value||'').trim():''};
- var body={deal_type:DEAL_TYPE[t],borrower_first_name:g('borrower_first_name'),borrower_last_name:g('borrower_last_name'),borrower_email:g('borrower_email'),borrower_phone:g('borrower_phone'),requested_amount:g('requested_amount').replace(/,/g,''),address:g('address'),city:g('city'),state:g('state'),zip:g('zip')};
- SUBMITTING=true;btnState(true);
- rcToken('PARTIAL_LEAD_SUBMISSION').then(function(tok){
+ r.fd.append('below_minimum_acknowledged','true');
+ rcToken(RC_ACTION[dt]).then(function(tok){
   if(!tok){return {noRC:true}}
-  body.recaptcha_token=tok;body.recaptcha_action='PARTIAL_LEAD_SUBMISSION';
-  return fetch(API_BASE+'/api/submissions/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+  r.fd.append('recaptcha_token',tok);r.fd.append('recaptcha_action',RC_ACTION[dt]);
+  return fetch(API_BASE+'/api/submissions',{method:'POST',body:r.fd}).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
  })
  .then(function(x){SUBMITTING=false;btnState(false);
   if(x&&x.noRC){showErr('We couldn\'t load our security check — an ad blocker or privacy extension may be blocking reCAPTCHA. Please allow it for this page and try again, or email your deal to <a href="mailto:admin@realquickfunds.com" style="color:#a02020;text-decoration:underline">admin@realquickfunds.com</a>.');return}
-  if(x.s===201&&x.j.success)showSuccess('Info received',x.j.message||'Your information has been received. Our team will be in touch soon.',x.j.partial_lead_id);
+  if(x.s===201&&x.j.success){
+   if(x.j.unserviceable)showSuccess('Submission received',x.j.message||'Thank you for your submission.',x.j.submission_id);
+   else showSuccess('Deal submitted!',x.j.message||'We will review your submission and contact you soon.',x.j.submission_id);
+  }else if(x.j&&x.j.details){var msgs=[];for(var k in x.j.details)msgs.push(x.j.details[k]);showErr(msgs)}
   else showErr((x.j&&(x.j.message||x.j.error))||'Something went wrong. Please try again.');
  }).catch(function(){SUBMITTING=false;btnState(false);
   showErr('We couldn\'t reach our submission system. Please try again in a moment — or submit your deal at <a href="https://txfhub.com" style="color:#a02020;text-decoration:underline">txfhub.com</a>.')});
