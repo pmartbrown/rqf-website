@@ -15,7 +15,7 @@ FOOTER = re.search(r'(<footer[^>]*>.*?</footer>)', idx, re.S).group(1)
 
 NAV = '''<div style="background:var(--orange);color:#141311;text-align:center;padding:20px 16px;font-size:clamp(18px,2.8vw,26px);font-weight:800;line-height:1.35">🚧 This site is under construction — to submit deals, please visit <a href="https://txfhub.com" style="text-decoration:underline;color:#141311">txfhub.com</a></div>
 <nav><div class="wrap nav-in">
-  <a class="brand" href="/"><img src="/assets/lockup_dark.png" alt="RealQuick Funds"></a>
+  <a class="brand" href="/"><img src="/assets/lockup_dark.png" alt="RealQuick Funds" width="68" height="46"></a>
   <div class="nav-links"><a href="/#types">Funding</a><a href="/calculators/">Calculators</a><a href="/#types">Learn</a><a href="/affiliates/">Become an Affiliate</a><a href="#contact">Contact</a></div>
   <div style="display:flex;align-items:center;gap:2px"><button class="btn" onclick="openModal()">Get Funded ⚡</button><button class="nav-burger" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button></div>
 </div></nav>'''

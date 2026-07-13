@@ -99,7 +99,7 @@ h1{font-family:var(--disp);font-size:clamp(40px,5.2vw,68px);font-weight:800;line
 .calc .note{font-size:11px;color:#9a978d;margin-top:10px;text-align:center}
 /* marquee */
 .marq{border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;white-space:nowrap;background:#fff}
-.marq div{display:inline-block;animation:roll 26s linear infinite;font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:#a09d92;text-transform:uppercase}
+.marq div{display:inline-block;animation:roll 26s linear infinite;font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:#6b6960;text-transform:uppercase}
 .marq span{padding:0 34px}
 @keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 section{padding:92px 0}
@@ -171,7 +171,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 .fcol{font-size:14px;display:grid;gap:9px}
 .fcol b{color:#fff;font-family:var(--disp);margin-bottom:4px}
 .fcol a:hover{color:#fff}
-.f-legal{margin-top:34px;font-size:12px;color:#5f5d55}
+.f-legal{margin-top:34px;font-size:12px;color:#a8a59c}
 /* modal & drawer */
 .modal{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(8px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
 .modal.open{display:flex}
@@ -251,7 +251,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 <main>
 <div style="background:var(--orange);color:#141311;text-align:center;padding:20px 16px;font-size:clamp(18px,2.8vw,26px);font-weight:800;line-height:1.35">🚧 This site is under construction — to submit deals, please visit <a href="https://txfhub.com" style="text-decoration:underline;color:#141311">txfhub.com</a></div>
 <nav><div class="wrap nav-in">
-  <a class="brand" href="../"><img src="../assets/lockup_dark.png" alt="RealQuick Funds"></a>
+  <a class="brand" href="../"><img src="../assets/lockup_dark.png" alt="RealQuick Funds" width="68" height="46"></a>
   <div class="nav-links"><a href="../#types">Funding</a><a href="../calculators/">Calculators</a><a href="../#types">Learn</a><a href="../affiliates/">Become an Affiliate</a><a href="#contact">Contact</a></div>
   <div style="display:flex;align-items:center;gap:2px"><button class="btn" onclick="openModal()">Get Funded ⚡</button><button class="nav-burger" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button></div>
 </div></nav>
@@ -305,7 +305,7 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 </div></div>
 <footer id="contact"><div class="wrap">
   <div class="f-in">
-    <img src="../assets/lockup_dark.png" alt="RealQuick Funds">
+    <img src="../assets/lockup_dark.png" alt="RealQuick Funds" width="68" height="46">
     <div class="fcols">
       <div class="fcol"><b>Funding</b><a href="../stack/">Stack Method</a><a href="../echo/">Echo Method</a><a href="../double-close/">Double Close</a><a href="../emd/">EMD</a><a href="../hard-money/">Hard Money</a><a href="../dscr/">DSCR</a></div>
       <div class="fcol"><b>Tools</b><a href="../calculators/">All Calculators</a><a href="../calculators/stack/">Stack Method Calculator</a><a href="../calculators/echo/">Echo Calculator</a><a href="../calculators/dscr/">DSCR Calculator</a></div>
@@ -490,6 +490,8 @@ const RC_ACTION={DC:'DEAL_SUBMISSION',EMD:'EMD_SUBMISSION',STACK:'STACK_SUBMISSI
 var DEALMIN=null,SUBMITTING=false;
 function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
  return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();return DEALMIN}).catch(function(){return null})}
+function labelFields(root){try{(root||document).querySelectorAll('.fld input,.fld select,.fld textarea').forEach(function(el){if(el.getAttribute('aria-label')||el.type==='hidden'||el.type==='file')return;if(el.id&&document.querySelector('label[for="'+el.id+'"]'))return;var f=el.closest('.fld'),lab=f?f.querySelector('label'):null,t=lab?lab.textContent.trim().replace(/\s*\*$/,''):(el.getAttribute('placeholder')||'');if(t)el.setAttribute('aria-label',t)})}catch(e){}}
+window.addEventListener('load',function(){labelFields()});
 function ensureRC(){if(document.getElementById('rcs'))return;var s=document.createElement('script');s.id='rcs';s.async=true;s.defer=true;s.src='https://www.google.com/recaptcha/enterprise.js?render='+RC_KEY;document.head.appendChild(s)}
 function rcToken(action){return new Promise(function(res){if(!(window.grecaptcha&&window.grecaptcha.enterprise)){res('');return}
  try{grecaptcha.enterprise.ready(function(){grecaptcha.enterprise.execute(RC_KEY,{action:action}).then(res).catch(function(){res('')})})}catch(e){res('')}})}
@@ -575,7 +577,7 @@ function renderForm(t,fromCalc){
  });
  if(t!=='affiliate')html+=CONSENT_HTML;
  html+='<button class="btn" id="subBtn" onclick="submitDeal(\''+t+'\')" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">'+(t==='affiliate'?'Apply to become an affiliate':'Submit — same-day decisions on most deals')+'</button>';
- document.getElementById('mform').innerHTML=html;
+ document.getElementById('mform').innerHTML=html;labelFields(document.getElementById('mform'));
  if(fromCalc){var ra=document.querySelector('#mform [data-name="requested_amount"]');
   if(ra&&t==='morby'&&window.CALC_TF>0)ra.value=Math.round(window.CALC_TF).toLocaleString();
   if(ra&&t==='echo'&&window.CALC_ECHO>0)ra.value=Math.round(window.CALC_ECHO).toLocaleString();
@@ -646,10 +648,12 @@ function submitDeal(t,ack){
   if(!ack&&min&&r.amount>0&&r.amount<+min.threshold_amount){SUBMITTING=false;btnState(false);showMinWarn(t,min);return}
   if(ack)r.fd.append('below_minimum_acknowledged','true');
   return rcToken(RC_ACTION[dt]).then(function(tok){
-   if(tok){r.fd.append('recaptcha_token',tok);r.fd.append('recaptcha_action',RC_ACTION[dt])}
-   return fetch(API_BASE+'/api/submissions',{method:'POST',body:r.fd})
-  }).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+   if(!tok){return {noRC:true}}
+   r.fd.append('recaptcha_token',tok);r.fd.append('recaptcha_action',RC_ACTION[dt]);
+   return fetch(API_BASE+'/api/submissions',{method:'POST',body:r.fd}).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+  })
   .then(function(x){SUBMITTING=false;btnState(false);
+   if(x&&x.noRC){showErr('We couldn\'t load our security check — an ad blocker or privacy extension may be blocking reCAPTCHA. Please allow it for this page and try again, or email your deal to <a href="mailto:admin@realquickfunds.com" style="color:#a02020;text-decoration:underline">admin@realquickfunds.com</a>.');return}
    if(x.s===201&&x.j.success){
     if(x.j.unserviceable)showSuccess('Submission received',x.j.message||'Thank you for your submission.',x.j.submission_id);
     else showSuccess('Deal submitted!',x.j.message||'We will review your submission and contact you soon.',x.j.submission_id);
@@ -670,10 +674,12 @@ function partialLead(t){
  var body={deal_type:DEAL_TYPE[t],borrower_first_name:g('borrower_first_name'),borrower_last_name:g('borrower_last_name'),borrower_email:g('borrower_email'),borrower_phone:g('borrower_phone'),requested_amount:g('requested_amount').replace(/,/g,''),address:g('address'),city:g('city'),state:g('state'),zip:g('zip')};
  SUBMITTING=true;btnState(true);
  rcToken('PARTIAL_LEAD_SUBMISSION').then(function(tok){
-  if(tok){body.recaptcha_token=tok;body.recaptcha_action='PARTIAL_LEAD_SUBMISSION'}
-  return fetch(API_BASE+'/api/submissions/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
- }).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+  if(!tok){return {noRC:true}}
+  body.recaptcha_token=tok;body.recaptcha_action='PARTIAL_LEAD_SUBMISSION';
+  return fetch(API_BASE+'/api/submissions/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(resp){return resp.json().then(function(j){return {s:resp.status,j:j}})})
+ })
  .then(function(x){SUBMITTING=false;btnState(false);
+  if(x&&x.noRC){showErr('We couldn\'t load our security check — an ad blocker or privacy extension may be blocking reCAPTCHA. Please allow it for this page and try again, or email your deal to <a href="mailto:admin@realquickfunds.com" style="color:#a02020;text-decoration:underline">admin@realquickfunds.com</a>.');return}
   if(x.s===201&&x.j.success)showSuccess('Info received',x.j.message||'Your information has been received. Our team will be in touch soon.',x.j.partial_lead_id);
   else showErr((x.j&&(x.j.message||x.j.error))||'Something went wrong. Please try again.');
  }).catch(function(){SUBMITTING=false;btnState(false);
