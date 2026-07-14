@@ -472,7 +472,7 @@ function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
  return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();return DEALMIN}).catch(function(){return null})}
 function labelFields(root){try{(root||document).querySelectorAll('.fld input,.fld select,.fld textarea').forEach(function(el){if(el.getAttribute('aria-label')||el.type==='hidden'||el.type==='file')return;if(el.id&&document.querySelector('label[for="'+el.id+'"]'))return;var f=el.closest('.fld'),lab=f?f.querySelector('label'):null,t=lab?lab.textContent.trim().replace(/\s*\*$/,''):(el.getAttribute('placeholder')||'');if(t)el.setAttribute('aria-label',t)})}catch(e){}}
 window.addEventListener('load',function(){labelFields()});
-var PLACES_KEY='AIzaSyAbf6aVQX_SIkSYt7210v3EexmP9hKhH34';
+var PLACES_KEY='AIzaSyBC7w9KyT9UiGncrn2OFeksXx_KNxU2f0c';
 function ensurePlaces(){if(!PLACES_KEY||window.__placesReq)return;window.__placesReq=1;var s=document.createElement('script');s.async=true;s.src='https://maps.googleapis.com/maps/api/js?key='+PLACES_KEY+'&loading=async&libraries=places';document.head.appendChild(s)}
 function initAddr(root){
  var inp=root&&root.querySelector('.addr-autocomplete');
