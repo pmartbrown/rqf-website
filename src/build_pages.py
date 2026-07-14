@@ -6,7 +6,7 @@ import os, re
 idx = open('index.html').read()
 CSS = re.search(r'<style>(.*?)</style>', idx, re.S).group(1)
 MODAL = re.search(r'(<!-- GET FUNDED MODAL -->.*?)(?=<!-- LEARN DRAWER -->)', idx, re.S).group(1)
-SCRIPT = re.search(r'<script>(.*?)</script>', idx, re.S).group(1)
+SCRIPT = max(re.findall(r'<script>(.*?)</script>', idx, re.S), key=len)
 # null-safe for pages that lack some calculator elements
 SCRIPT = SCRIPT.replace("function num(id){return +(document.getElementById(id).value.replace(/[^0-9]/g,''))||0}",
  "function num(id){var el=document.getElementById(id);return el?(+(el.value.replace(/[^0-9]/g,''))||0):0}")
@@ -72,6 +72,9 @@ def page(path, title, desc, kicker, h1, sub, body, cta_type=None, cta_label="Get
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GBE4HBBJPZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GBE4HBBJPZ');</script>
 <title>%s</title>
 <meta name="description" content="%s">
 <link rel="icon" type="image/png" href="/assets/favicon-32.png">

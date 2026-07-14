@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GBE4HBBJPZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GBE4HBBJPZ');</script>
 <title>About RealQuick Funds | 20 Years of Underwriting Discipline</title>
 <meta name="description" content="Founded by a former Chief Underwriting Officer of Zurich and AIG. $20M+ deployed, 800+ deals, all 50 states.">
 <link rel="icon" type="image/png" href="../assets/favicon-32.png">
@@ -631,6 +634,7 @@ function submitDeal(t,ack){
  .then(function(x){SUBMITTING=false;btnState(false);
   if(x&&x.noRC){showErr('We couldn\'t load our security check — an ad blocker or privacy extension may be blocking reCAPTCHA. Please allow it for this page and try again, or email your deal to <a href="mailto:admin@realquickfunds.com" style="color:#a02020;text-decoration:underline">admin@realquickfunds.com</a>.');return}
   if(x.s===201&&x.j.success){
+   if(window.gtag)gtag('event','generate_lead',{deal_type:DEAL_TYPE[t],submission_id:x.j.submission_id});
    if(x.j.unserviceable)showSuccess('Submission received',x.j.message||'Thank you for your submission.',x.j.submission_id);
    else showSuccess('Deal submitted!',x.j.message||'We will review your submission and contact you soon.',x.j.submission_id);
   }else if(x.j&&x.j.details){var msgs=[];for(var k in x.j.details)msgs.push(x.j.details[k]);showErr(msgs)}
