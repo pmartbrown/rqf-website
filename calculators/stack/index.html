@@ -209,6 +209,10 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
 @media(max-width:960px){.trow{grid-template-columns:1fr}.nav-burger{display:block}nav.nav-open .nav-links{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(18,17,15,.97);backdrop-filter:blur(16px);padding:18px 28px 24px;gap:18px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.08);z-index:59}.hero{padding:40px 0 64px}.hero:before{width:100%;height:100%;border-radius:0;background:linear-gradient(180deg,rgba(254,149,6,0) 0%,rgba(254,149,6,0) 42%,rgba(254,149,6,.12) 62%,rgba(254,149,6,.22) 100%);filter:none;top:0;right:0}.hero .calc{margin-top:8px}.hero-grid,.split,.duo{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.b{min-height:130px}.b.tall{grid-row:auto}.b .ai{font-size:80px}.types{grid-template-columns:1fr}.nav-links{display:none}.fstrip{grid-template-columns:1fr}.fstrip .ph{min-height:280px}}
 @media(max-width:640px){.bento{grid-template-columns:1fr 1fr;grid-auto-flow:dense}.b{min-height:0;padding:20px;grid-column:span 2}.b.stat{grid-column:span 1}.b .chk{grid-template-columns:1fr}}
 @media(max-width:560px){.calc{padding:22px 18px}.cgrid,.cgrid3{gap:0 8px}.cgrid .fld label,.cgrid3 .fld label{font-size:10px;white-space:normal;overflow:visible;min-height:27px;align-items:flex-end}.fld .inwrap span{padding-left:8px}.fld input{font-size:16px;padding:9px 8px 9px 3px}.fld input.pctin{padding:9px 3px 9px 8px}.fld .inwrap span.sfx{padding-right:8px}}
+.pacx{position:absolute;left:0;right:0;top:100%;z-index:100000;background:#fff;border:1.5px solid var(--line);border-top:none;border-radius:0 0 11px 11px;box-shadow:0 24px 48px -24px rgba(21,20,18,.35);max-height:240px;overflow:auto}
+.pacx>div{padding:10px 14px;font-size:14px;color:var(--ink);cursor:pointer;border-top:1px solid #f3f1ea;line-height:1.35}
+.pacx>div:first-child{border-top:none}
+.pacx>div:hover,.pacx>div.on{background:#fff2df}
 
 .pagehero{background:var(--deep);color:#fff;padding:84px 0 64px;position:relative;overflow:hidden}
 .pagehero:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(254,149,6,.18);filter:blur(110px);top:-280px;right:-120px}
@@ -523,6 +527,24 @@ function fetchMins(){if(DEALMIN)return Promise.resolve(DEALMIN);
  return fetch(API_BASE+'/api/settings/deal-minimums').then(function(r){return r.json()}).then(function(a){DEALMIN={};a.forEach(function(x){DEALMIN[x.deal_type]=x});if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();return DEALMIN}).catch(function(){return null})}
 function labelFields(root){try{(root||document).querySelectorAll('.fld input,.fld select,.fld textarea').forEach(function(el){if(el.getAttribute('aria-label')||el.type==='hidden'||el.type==='file')return;if(el.id&&document.querySelector('label[for="'+el.id+'"]'))return;var f=el.closest('.fld'),lab=f?f.querySelector('label'):null,t=lab?lab.textContent.trim().replace(/\s*\*$/,''):(el.getAttribute('placeholder')||'');if(t)el.setAttribute('aria-label',t)})}catch(e){}}
 window.addEventListener('load',function(){labelFields()});
+var PLACES_KEY='AIzaSyAbf6aVQX_SIkSYt7210v3EexmP9hKhH34';
+function ensurePlaces(){if(!PLACES_KEY||window.__placesReq)return;window.__placesReq=1;var s=document.createElement('script');s.async=true;s.src='https://maps.googleapis.com/maps/api/js?key='+PLACES_KEY+'&loading=async&libraries=places';document.head.appendChild(s)}
+function initAddr(root){
+ var inp=root&&root.querySelector('.addr-autocomplete');
+ if(!inp||inp.__ac)return;inp.__ac=1;
+ var wrap=inp.parentElement;wrap.style.position='relative';
+ var box=document.createElement('div');box.className='pacx';box.style.display='none';wrap.appendChild(box);
+ var token=null,LIB=null,items=[],active=-1,tmr;
+ function ready(){return window.google&&google.maps&&google.maps.importLibrary}
+ async function lib(){if(LIB)return LIB;LIB=await google.maps.importLibrary('places');return LIB}
+ function hide(){box.style.display='none';box.innerHTML='';items=[];active=-1}
+ function fill(n,v){var el=root.querySelector('[data-name="'+n+'"]');if(el&&v)el.value=v}
+ async function choose(pred){try{var L=await lib();var pl=pred.toPlace();await pl.fetchFields({fields:['addressComponents']});var c=pl.addressComponents||[];var g=function(t,s){var m=c.find(function(x){return x.componentType===t});return m?(s?m.shortText:m.longText):''};var street=(g('street_number')+' '+g('route')).trim();var city=g('locality')||g('postal_town')||g('sublocality')||g('sublocality_level_1')||g('neighborhood')||'';var st=g('administrative_area_level_1',1)||'';var zip=g('postal_code')||'';inp.value=street||(pred.text&&pred.text.text)||inp.value;fill('city',city);fill('state',st);fill('zip',zip);token=null;}catch(e){}hide()}
+ function render(sugs){box.innerHTML='';items=sugs||[];active=-1;if(!items.length){hide();return}items.forEach(function(s){var p=s.placePrediction;if(!p)return;var d=document.createElement('div');d.textContent=(p.text&&p.text.text)||'';d.addEventListener('mousedown',function(ev){ev.preventDefault();choose(p)});box.appendChild(d)});box.style.display='block'}
+ inp.addEventListener('input',function(){var v=inp.value.trim();clearTimeout(tmr);if(v.length<3){hide();return}tmr=setTimeout(async function(){if(!ready())return;try{var L=await lib();if(!token)token=new L.AutocompleteSessionToken();var res=await L.AutocompleteSuggestion.fetchAutocompleteSuggestions({input:v,includedRegionCodes:['us'],sessionToken:token});render(res.suggestions)}catch(e){hide()}},200)});
+ inp.addEventListener('keydown',function(e){if(box.style.display==='none')return;var d=box.children;if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,d.length-1)}else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0)}else if(e.key==='Enter'){if(active>=0&&items[active]){e.preventDefault();choose(items[active].placePrediction)}return}else if(e.key==='Escape'){hide();return}else return;for(var i=0;i<d.length;i++)d[i].className=(i===active)?'on':'';if(d[active])d[active].scrollIntoView({block:'nearest'})});
+ inp.addEventListener('blur',function(){setTimeout(hide,150)});
+}
 function ensureRC(){if(document.getElementById('rcs'))return;var s=document.createElement('script');s.id='rcs';s.async=true;s.defer=true;s.src='https://www.google.com/recaptcha/enterprise.js?render='+RC_KEY;document.head.appendChild(s)}
 function rcToken(action){return new Promise(function(res){if(!(window.grecaptcha&&window.grecaptcha.enterprise)){res('');return}
  try{grecaptcha.enterprise.ready(function(){grecaptcha.enterprise.execute(RC_KEY,{action:action}).then(res).catch(function(){res('')})})}catch(e){res('')}})}
@@ -608,7 +630,7 @@ function renderForm(t,fromCalc){
  });
  if(t!=='affiliate')html+=CONSENT_HTML;
  html+='<button class="btn" id="subBtn" onclick="submitDeal(\''+t+'\')" style="width:100%;justify-content:center;border-radius:12px;margin-top:16px">'+(t==='affiliate'?'Apply to become an affiliate':'Submit — same-day decisions on most deals')+'</button>';
- document.getElementById('mform').innerHTML=html;labelFields(document.getElementById('mform'));
+ document.getElementById('mform').innerHTML=html;labelFields(document.getElementById('mform'));initAddr(document.getElementById('mform'));
  if(fromCalc){var ra=document.querySelector('#mform [data-name="requested_amount"]');
   if(ra&&t==='morby'&&window.CALC_TF>0)ra.value=Math.round(window.CALC_TF).toLocaleString();
   if(ra&&t==='echo'&&window.CALC_ECHO>0)ra.value=Math.round(window.CALC_ECHO).toLocaleString();
@@ -695,7 +717,7 @@ function updDeps(){document.querySelectorAll('#mform [data-dep]').forEach(functi
  // second pass for chained deps
  document.querySelectorAll('#mform [data-dep]').forEach(function(el){var kv=el.getAttribute('data-dep').split('=');var src=document.getElementById(kv[0]);el.style.display=(src&&src.value===kv[1]&&src.closest('.fld').style.display!=='none')?'block':'none'});
 }
-function openModal(type,fromCalc){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';ensureRC();fetchMins();if(type){pick(type,fromCalc)}else{backStep()}}
+function openModal(type,fromCalc){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';ensureRC();ensurePlaces();fetchMins();if(type){pick(type,fromCalc)}else{backStep()}}
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
 function pick(t,fromCalc){document.getElementById('step1').classList.add('off');document.getElementById('step2').classList.add('on');document.getElementById('formTitle').textContent=NAMES[t]||'Funding Request';renderForm(t,fromCalc)}
 function backStep(){document.getElementById('step1').classList.remove('off');document.getElementById('step2').classList.remove('on')}
