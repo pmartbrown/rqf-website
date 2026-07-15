@@ -338,7 +338,7 @@ function money(n){return '$'+Math.abs(Math.round(n)).toLocaleString()}
 function pct(id){var el=document.getElementById(id);return el?(+(el.value.replace(/[^0-9.]/g,''))||0):0}
 function fmtp(el){el.value=el.value.replace(/[^0-9.]/g,'').replace(/^(\d*\.\d*).*$/,'$1')}
 function setT(id,t){var el=document.getElementById(id);if(el)el.textContent=t}
-function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
+function stack(){const pp=num('s_pp'),sc=pp*pct('s_scp')/100,plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
   const pl=pp*plp/100,cc=pp*ccp/100;
   const cash=pp+cc-pl; /* cash to close above the primary loan */
   const MINFEE=(typeof DEALMIN!=='undefined'&&DEALMIN&&DEALMIN.STACK&&+DEALMIN.STACK.minimum_fee>0)?+DEALMIN.STACK.minimum_fee:2500;
@@ -347,7 +347,7 @@ function stack(){const pp=num('s_pp'),sc=num('s_sc'),plp=pct('s_plp'),ccp=pct('s
   if(fee<MINFEE){mf=true;fee=MINFEE;cap=Math.max(sc-tc-x2-MINFEE,0)} /* $2,500 minimum funding fee */
   const net=cash-cap; /* >0: buyer brings; <0: carry supports funding beyond the gap — cash can come out */
   window.CALC_TF=Math.min(Math.max(cash,0),cap);
-  setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d',mf?'min $2,500':'= '+money(fee));
+  setT('s_sc_d','= '+money(sc));setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d',mf?'min $2,500':'= '+money(fee));
   const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(net);
   if(net>0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
     if(cap<=0)setT('s_sub','Seller carry can’t cover funding repayment — restructure or bring full cash to close.');
@@ -393,7 +393,7 @@ function smoney(n){return (n<0?'−':'')+money(n)}
 function pmt(P,ar,yrs){var n=Math.round(yrs*12),r=ar/100/12;if(n<=0||P<=0)return 0;return r?P*r/(1-Math.pow(1+r,-n)):P/n}
 function loanbal(P,ar,yrs,k){var n=Math.round(yrs*12),r=ar/100/12,M=pmt(P,ar,yrs);k=Math.min(k,n);if(P<=0)return 0;return r?P*Math.pow(1+r,k)-M*(Math.pow(1+r,k)-1)/r:Math.max(P-M*k,0)}
 function cashflow(){if(!document.getElementById('cf_res'))return;
-  var pp=num('s_pp'),plp=pct('s_plp'),sc=num('s_sc');var loan=pp*plp/100;
+  var pp=num('s_pp'),plp=pct('s_plp'),sc=pp*pct('s_scp')/100;var loan=pp*plp/100;
   var rent=num('cf_rent'),vac=pct('cf_vac'),tax=num('cf_tax'),ins=num('cf_ins');
   var r1=pct('cf_r1'),a1=pct('cf_a1'),r2=pct('cf_r2'),a2=pct('cf_a2'),by=pct('cf_by');
   var mnt=pct('cf_mnt'),cap=pct('cf_cap'),mgm=pct('cf_mgm');
@@ -589,7 +589,7 @@ function renderForm(t,fromCalc){
   if(ra&&t==='hml'&&window.CALC_HML>0)ra.value=Math.round(window.CALC_HML).toLocaleString();
   if(t==='dscr'&&window.CALC_DSCR_RENT>0){var mr=document.querySelector('#mform [data-name="monthly_rent"]');if(mr)mr.value=Math.round(window.CALC_DSCR_RENT).toLocaleString()}
   if(t==='morby'){var pp=document.querySelector('#mform [data-name="purchase_price"]'),scf=document.querySelector('#mform [data-name="seller_financed_amount"]');
-   if(pp&&num('s_pp'))pp.value=num('s_pp').toLocaleString();if(scf&&num('s_sc'))scf.value=num('s_sc').toLocaleString()}}
+   if(pp&&num('s_pp'))pp.value=num('s_pp').toLocaleString();var scv=Math.round(num('s_pp')*pct('s_scp')/100);if(scf&&scv)scf.value=scv.toLocaleString()}}
  updDeps();
 }
 function showErr(list){var d=document.getElementById('formErr');if(!d)return;d.style.display='block';d.innerHTML=(Array.isArray(list)?list:[list]).join('<br>');d.scrollIntoView({behavior:'smooth',block:'center'})}

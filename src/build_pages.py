@@ -319,7 +319,7 @@ MS_BODY = '''
     <div class="purpose">Will you bring cash to close - or walk away with some?</div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="500,000" oninput="fmt(this);stack()"></div></div>
-      <div class="fld"><label>Seller carry</label><div class="inwrap"><span>$</span><input id="s_sc" value="147,700" oninput="fmt(this);stack()"></div></div>
+      <div class="fld"><label>Seller carry <span class="hint" id="s_sc_d"></span></label><div class="inwrap"><input class="pctin" id="s_scp" value="29.54" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Primary lender <span class="hint" id="s_pl_d"></span></label><div class="inwrap"><input class="pctin" id="s_plp" value="75.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
       <div class="fld"><label>Est. closing costs <span class="hint" id="s_cc_d"></span></label><div class="inwrap"><input class="pctin" id="s_ccp" value="3.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
     </div>
