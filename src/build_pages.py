@@ -405,10 +405,10 @@ page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
 page('calculators/stack','Stack Method Calculator (Morby Method) - Free | RealQuick Funds',
  'Free Stack Method (Morby Method) calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Stack Method Calculator','Does the deal pencil - and will it profit? Run your numbers and know before you commit.',MS_BODY, cta_type='morby', cta_label='Start a Stack request', cta2=('What is the Stack Method?','/stack/'))
+ 'Deal Tools','Stack Method Calculator','Does the deal pencil? Run your numbers and know before you commit.',MS_BODY, cta_type='morby', cta_label='Start a Stack request', cta2=('What is the Stack Method?','/stack/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
- 'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo/'))
+ 'Deal Tools','Echo Calculator','Does the deal pencil? Run your numbers and know before you commit.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo/'))
 DSCR_TOOL_BODY = '''
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
@@ -485,7 +485,7 @@ DSCR_TOOL_BODY = '''
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
  'Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Plus a full rental cash flow P&L with cash-on-cash on your down payment.',
- 'Deal Tools','DSCR Calculator','If it rents, it funds. Run the rent against PITIA - then flip to the cash flow tab to see what the rental actually puts in your pocket each month.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR?','/dscr/'))
+ 'Deal Tools','DSCR Calculator','Does the deal pencil? Run your numbers and know before you commit.',DSCR_TOOL_BODY, cta_type='dscr', cta_label='Start a DSCR request', cta2=('What is DSCR?','/dscr/'))
 
 HML_TOOL_BODY = '''
 <div class="calcwrap">
@@ -533,7 +533,7 @@ HML_TOOL_BODY = '''
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/hml','Hard Money Loan Calculator - Flip Profit and Max Offer | RealQuick Funds',
  'Free hard money calculator: loan sizing with the binding constraint named, true cost of capital over your hold, flip profit and ROI, plus the max offer your financing supports.',
- 'Deal Tools','Hard Money Calculator','Loan sizing, true cost of capital, and your flip P&L - plus the max-offer answer no other calculator gives you.',HML_TOOL_BODY, cta_type='hml', cta_label='Start a Hard Money request', cta2=('What is hard money?','/hml/'))
+ 'Deal Tools','Hard Money Calculator','Does the deal pencil? Run your numbers and know before you commit.',HML_TOOL_BODY, cta_type='hml', cta_label='Start a Hard Money request', cta2=('What is hard money?','/hml/'))
 
 
 AFF_BODY = '''
