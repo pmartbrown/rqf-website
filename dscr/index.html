@@ -478,7 +478,6 @@ function dscrcf(){if(!document.getElementById('dc_res'))return;
   var opex=tax/12+ins/12+hoa+rent*(mnt+cap+mgm)/100;
   var noi=egi-opex,cf=noi-pay;
   var down=pp*dp/100,ccd=pp*ccp/100,cin=down+ccd,coc=cin>0?cf*12/cin*100:0;
-  var pitia=pay+tax/12+ins/12+hoa,d=pitia>0?rent/pitia:0;
   setT('dc_ctx','Using your DSCR check tab: '+money(loan)+' loan at '+rt+'% \u00b7 '+money(pay)+'/mo '+(io?'interest-only':'P&I')+' \u00b7 '+money(rent)+'/mo rent');
   setT('dc_cc_d','= '+money(ccd));
   setT('dc_gr',money(rent));setT('dc_vc','\u2212 '+money(rent*vac/100));setT('dc_eg',money(egi));
@@ -488,7 +487,7 @@ function dscrcf(){if(!document.getElementById('dc_res'))return;
   var res=document.getElementById('dc_res');res.className='result '+(cf>=0?'back':'bring');
   document.getElementById('dc_rl').textContent=cf>=0?'Estimated monthly cash flow':'Estimated monthly shortfall';
   document.getElementById('dc_rv').textContent=money(cf);
-  setT('dc_sub',smoney(cf*12)+' per year \u00b7 DSCR '+(d?d.toFixed(2):'\u2014')+(cin>0?' \u00b7 '+coc.toFixed(1)+'% cash-on-cash on '+money(cin)+' invested':''))}
+  setT('dc_coc',cin>0?coc.toFixed(1)+'%':'\u2014')}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();if(document.getElementById('hm_res'))hml();
 /* ---------- mobile nav ---------- */
 function toggleNav(){document.querySelector('nav').classList.toggle('nav-open')}

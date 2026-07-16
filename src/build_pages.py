@@ -466,8 +466,9 @@ DSCR_TOOL_BODY = '''
       <div class="prow tot"><span>Net operating income</span><b id="dc_noi"></b></div>
       <div class="prow"><span>DSCR loan payment</span><b id="dc_pi"></b></div>
       <div class="prow tot"><span>Cash invested (down + closing)</span><b id="dc_cin"></b></div>
+      <div class="prow"><span>Cash-on-cash return</span><b id="dc_coc"></b></div>
     </div>
-    <div class="result bring" id="dc_res"><div class="rl" id="dc_rl">Estimated monthly cash flow</div><div class="rv" id="dc_rv">$0</div><div class="rsub" id="dc_sub"></div></div>
+    <div class="result bring" id="dc_res"><div class="rl" id="dc_rl">Estimated monthly cash flow</div><div class="rv" id="dc_rv">$0</div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button>
     </div></div>
 </div>
