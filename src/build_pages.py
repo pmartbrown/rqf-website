@@ -20,7 +20,7 @@ NAV = '''<nav><div class="wrap nav-in">
 </div></nav>'''
 
 EXTRA_CSS = '''
-.pagehero{background:var(--deep);color:#fff;padding:84px 0 64px;position:relative;overflow:hidden}
+.pagehero{background:var(--deep);color:#fff;padding:42px 0 64px;position:relative;overflow:hidden}
 .pagehero:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(254,149,6,.18);filter:blur(110px);top:-280px;right:-120px}
 .pagehero .wrap{position:relative;z-index:2}
 .pagehero h1{color:#fff;font-size:clamp(34px,4.6vw,56px)}
