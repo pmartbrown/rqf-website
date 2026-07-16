@@ -350,12 +350,12 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
     <div class="pcard affiliate">
       <div class="mono">Affiliate Program</div>
       <h3>Earn on every deal you bring.</h3>
-      <p>We lend our own capital on escrow-secured funding — so affiliates split actual profits 50/50 on deals we fund, and earn the majority of the referral on hard money and DSCR placed through our lending network. Bring deals as a community member, or straight through this site.</p>
+      <p>We lend our own capital on escrow-secured funding — so affiliates split actual profits 50/50 on deals we fund, and earn the majority of the referral on hard money and DSCR placed through our lending network. Bring deals right through this site, or go VIP with your own white-label funding site.</p>
       <a class="btn" href="affiliates/">Become an Affiliate →</a>
     </div>
     <div class="pcard skool">
       <div class="mono">The Funding Hub · Free on Skool</div>
-      <h3>The playbook is in the community.</h3>
+      <h3>The playbook is in the Funding Hub.</h3>
       <p>Live deal breakdowns, funding strategy, direct access to Paul, and a network of investors closing deals together. Free to join.</p>
       <a class="btn btn-dark" href="https://www.skool.com/fundinghub/about">Join the Funding Hub →</a>
     </div>
@@ -670,7 +670,7 @@ const FORMS={
  affiliate:{title:'Affiliate Application',sections:[
   {h:'Your information',f:[F('aff_first','First name'),F('aff_last','Last name'),F('aff_email','Email','email'),F('aff_phone','Phone','tel')]},
   {h:'Your path',f:[FS('aff_tier','Which affiliate path interests you?','aff_tier_sel',['VIP Affiliate - white-label platform','Free Affiliate - refer via realquickfunds.com','Not sure yet - tell me more'])]},
-  {h:'About your network',f:[F('aff_company','Company / community name'),F('aff_size','Audience or network size','text','e.g. 2,500 members'),F('aff_how','How would you refer deals to us?','textarea')]}]}
+  {h:'About your network',f:[F('aff_company','Company / brand name'),F('aff_size','Audience or network size','text','e.g. 2,500 members'),F('aff_how','How would you refer deals to us?','textarea')]}]}
 };
 var REFERRAL=[F('referred_by_first_name','Referrer first name','text','',0),F('referred_by_last_name','Referrer last name','text','',0),F('referred_by_email','Referrer email','email','',0),F('referred_by_phone','Referrer phone (optional)','tel','',0)];
 ['morby','echo','dc','emd','hml','dscr'].forEach(function(k){if(FORMS[k]&&FORMS[k].sections)FORMS[k].sections.push({h:'Referred by someone? (optional)',f:REFERRAL,note:'Optional. But if a member or partner sent you, add their first name, last name and email so they get credit and a copy of your request — phone is optional.'})});
@@ -770,8 +770,8 @@ function showSuccess(title,msg,ref){document.getElementById('mform').innerHTML='
 function submitDeal(t,ack){
  if(SUBMITTING)return;
  hideErr();
- if(t==='affiliate'){showSuccess('Let\'s get you started','Affiliate onboarding happens inside our community right now. Join us at Funding Hub and our team will take it from there — VIP white-label setup included.','');
-  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub/about">Join the community →</a></div>');return}
+ if(t==='affiliate'){showSuccess('Let\'s get you started','Affiliate onboarding happens inside the Funding Hub right now. Join us and our team will take it from there — VIP white-label setup included.','');
+  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub/about">Join the Funding Hub →</a></div>');return}
  var r=collect(t);
  if(r.errs.length){showErr(r.errs);return}
  var dt=DEAL_TYPE[t];
