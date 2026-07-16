@@ -239,7 +239,7 @@ DEALS = {
 ''' + steps(['Submit the contract, EMD amount, and escrow details.','Fast verification and written terms - typically same business day.','EMD wires to escrow; repayment per the agreement at closing or termination.']) + '''
 <h2>What you'll need</h2>
 ''' + ul(['Executed purchase contract','Escrow/title wiring instructions','Clear EMD refundability terms'])),
- 'hard-money': dict(kicker='Leverage', name='Hard Money Loans', cta='hml', req='Start a Hard Money request', title='Hard Money Loans | RealQuick Funds',
+ 'hml': dict(kicker='Leverage', name='Hard Money Loans', cta='hml', req='Start a Hard Money request', title='Hard Money Loans | RealQuick Funds',
    sub='Asset-based loans for flips and value-add projects - underwritten on the property and the plan, not your W-2.',
    body='''
 <h2>What hard money is</h2>
@@ -307,7 +307,7 @@ CALC_BODY = '''
   <a class="tool" href="/calculators/stack/"><div class="ic">&#9672;</div><h3>Stack Method Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, the max loan your rent supports, and a full rental cash-flow P&amp;L with cash-on-cash.</p><div class="go">Open calculator &rarr;</div></a>
-  <a class="tool" href="/calculators/hard-money/"><div class="ic">&#9874;</div><h3>Hard Money Calculator</h3><span class="tag">Flip profit + max offer</span><p>Loan sizing that names your binding constraint, the true cost of capital over your hold, your flip P&amp;L - and the most you can pay for the house.</p><div class="go">Open calculator &rarr;</div></a>
+  <a class="tool" href="/calculators/hml/"><div class="ic">&#9874;</div><h3>Hard Money Calculator</h3><span class="tag">Flip profit + max offer</span><p>Loan sizing that names your binding constraint, the true cost of capital over your hold, your flip P&amp;L - and the most you can pay for the house.</p><div class="go">Open calculator &rarr;</div></a>
   <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>A Double Close calculator is in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:20px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>'''
@@ -530,11 +530,11 @@ HML_TOOL_BODY = '''
 <h2>The number to memorize</h2>
 <p>The max-offer box is the classic 70% rule computed with your actual numbers instead of folklore: the ARV cap minus your rehab is the most you can pay and still finance the deal your way. The breakeven box is your absolute ceiling - the purchase price where profit hits zero. Between those two numbers is your negotiating room.</p>
 <h2>Where it fits</h2>
-<p>Hard money is the workhorse of creative finance: it's the primary lender on most <a href="/echo/">Echo Method</a> B-C closings and plenty of <a href="/calculators/stack/">Stack Method</a> structures. New to the product? Read the <a href="/hard-money/">hard money deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
+<p>Hard money is the workhorse of creative finance: it's the primary lender on most <a href="/echo/">Echo Method</a> B-C closings and plenty of <a href="/calculators/stack/">Stack Method</a> structures. New to the product? Read the <a href="/hml/">hard money deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
-page('calculators/hard-money','Hard Money Loan Calculator - Flip Profit and Max Offer | RealQuick Funds',
+page('calculators/hml','Hard Money Loan Calculator - Flip Profit and Max Offer | RealQuick Funds',
  'Free hard money calculator: loan sizing with the binding constraint named, true cost of capital over your hold, flip profit and ROI, plus the max offer your financing supports.',
- 'Deal Tools','Hard Money Calculator','Loan sizing, true cost of capital, and your flip P&L - plus the max-offer answer no other calculator gives you.',HML_TOOL_BODY, cta_type='hml', cta_label='Start a Hard Money request', cta2=('What is hard money?','/hard-money/'))
+ 'Deal Tools','Hard Money Calculator','Loan sizing, true cost of capital, and your flip P&L - plus the max-offer answer no other calculator gives you.',HML_TOOL_BODY, cta_type='hml', cta_label='Start a Hard Money request', cta2=('What is hard money?','/hml/'))
 
 
 AFF_BODY = '''
