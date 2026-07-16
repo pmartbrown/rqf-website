@@ -126,8 +126,8 @@ DEALS = {
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
    body='''
 <h2>What the Stack Method is</h2>
-<div class="vlb" role="button" tabindex="0" aria-label="Play video: The Stack Method explained" onclick="openVideo('c0PO4beYONE')" onkeydown="if(event.key==='Enter')openVideo('c0PO4beYONE')">
-  <img src="https://i.ytimg.com/vi/c0PO4beYONE/hqdefault.jpg" alt="The Stack Method explained" loading="lazy">
+<div class="vlb" role="button" tabindex="0" aria-label="Play video: The Stack Method explained" onclick="openVideo('de3yz9HeosA')" onkeydown="if(event.key==='Enter')openVideo('de3yz9HeosA')">
+  <img src="https://i.ytimg.com/vi/de3yz9HeosA/hqdefault.jpg" alt="The Stack Method explained" loading="lazy">
   <div class="vplay"></div>
   <div class="vcap">▶ Watch: The Stack Method explained</div>
 </div>
