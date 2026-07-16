@@ -441,7 +441,7 @@ function cashflow(){if(!document.getElementById('cf_res'))return;
   var bl=document.getElementById('cf_blr');
   if(bl){if(by>0&&by<a2&&sc>0){bl.style.display='flex';document.getElementById('cf_bll').textContent='Carry balloon due (year '+by+')';setT('cf_bl',money(loanbal(sc,r2,a2,Math.round(by*12))))}else bl.style.display='none'}}
 function dscr(){if(!document.getElementById('ds_res'))return;
-  var pp=num('d_pp'),rent=num('d_rent'),dp=pct('d_dp'),rt=pct('d_rt'),tm=pct('d_tm'),tax=num('d_tax'),ins=num('d_ins'),hoa=num('d_hoa'),tg=pct('d_tg')||1.25;
+  var pp=num('d_pp'),rent=num('d_rent'),dp=pct('d_dp'),rt=pct('d_rt'),tm=pct('d_tm'),tax=num('d_tax'),ins=num('d_ins'),hoa=num('d_hoa'),tg=1.0;
   var ioEl=document.getElementById('d_io');var io=ioEl&&ioEl.value==='Yes';
   var loan=pp*(1-dp/100);
   var pi=pmt(loan,rt,tm),iopay=loan*rt/100/12;
@@ -465,8 +465,8 @@ function dscr(){if(!document.getElementById('ds_res'))return;
   var maxPitia=rent/tg,piBudget=Math.max(maxPitia-tia,0);
   var pf=pmt(1,rt,tm);
   var maxLoan=io?(rt>0?piBudget*12*100/rt:0):(pf>0?piBudget/pf:0);
-  setT('ds_mll','Max loan at DSCR '+tg.toFixed(2));setT('ds_ml',money(Math.max(maxLoan,0)));
-  setT('ds_rnl','Rent needed at '+tg.toFixed(2));setT('ds_rn',money(tg*pitia)+'/mo');
+  setT('ds_mll','Max loan at DSCR 1.0');setT('ds_ml',money(Math.max(maxLoan,0)));
+  setT('ds_rnl','Rent to break even (1.0)');setT('ds_rn',money(tg*pitia)+'/mo');
   window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;dscrcf()}
 function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
@@ -509,7 +509,7 @@ function mktApply(){if(!MKT||!(MKT.dgs5>0))return;
   var f=function(n){return n.toFixed(2)+'%'},ds='';
   if(MKT.as_of){var dp=MKT.as_of.split('-');if(dp.length===3){var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];ds=MO[+dp[1]-1]+' '+(+dp[2])}}
   document.querySelectorAll('.mkline').forEach(function(el){el.style.display='block';
-    el.innerHTML='<b>Est. current market DSCR rate: '+f(lo)+'&ndash;'+f(hi)+'</b> &middot; 5-yr Treasury '+f(MKT.dgs5)+(ds?' (as of '+ds+')':'')+' + risk premium. Your rate may price better or worse &mdash; the rate field below is prefilled with the midpoint and fully editable.'});
+    el.innerHTML='<b>Est. market DSCR rate: '+f(lo)+'&ndash;'+f(hi)+'</b> &middot; 5-yr Treasury '+f(MKT.dgs5)+(ds?' ('+ds+')':'')+' + premium &middot; yours may price better or worse &middot; rate below prefilled, editable.'});
   setT('mk_t5',f(MKT.dgs5));setT('mk_lo',f(lo));setT('mk_hi',f(hi));setT('mk_asof',ds?'(as of '+ds+')':'');
   var r=document.getElementById('cf_r1');
   if(r&&r.value==='7.0'){r.value=mid.toFixed(2);if(document.getElementById('cf_res'))cashflow()}

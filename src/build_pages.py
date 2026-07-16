@@ -306,7 +306,7 @@ CALC_BODY = '''
 <div class="toolgrid">
   <a class="tool" href="/calculators/stack/"><div class="ic">&#9672;</div><h3>Stack Method Calculator</h3><span class="tag">Purchase + cash flow analysis</span><p>Can you close the stack - and should you keep it? Carry-coverage math plus a full rental P&amp;L with DSCR and balloon planning.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/echo/"><div class="ic">&#9678;</div><h3>Echo Calculator</h3><span class="tag">The only one on the internet</span><p>Does the spread cover the Echo? Run both legs and see what's left for the wholesaler after funding is repaid on the same settlement.</p><div class="go">Open calculator &rarr;</div></a>
-  <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, max loan at your target DSCR, and a full rental cash-flow P&amp;L with cash-on-cash.</p><div class="go">Open calculator &rarr;</div></a>
+  <a class="tool" href="/calculators/dscr/"><div class="ic">&#8962;</div><h3>DSCR Calculator</h3><span class="tag">The way lenders underwrite</span><p>Gross rent &divide; PITIA &mdash; with interest-only compare, the max loan your rent supports, and a full rental cash-flow P&amp;L with cash-on-cash.</p><div class="go">Open calculator &rarr;</div></a>
   <a class="tool" href="/calculators/hard-money/"><div class="ic">&#9874;</div><h3>Hard Money Calculator</h3><span class="tag">Flip profit + max offer</span><p>Loan sizing that names your binding constraint, the true cost of capital over your hold, your flip P&amp;L - and the most you can pay for the house.</p><div class="go">Open calculator &rarr;</div></a>
   <div class="tool soon"><div class="ic">&#8644;</div><h3>More tools on the way</h3><span class="tag">Coming soon</span><p>A Double Close calculator is in the workshop. Got a request? Tell us in the community.</p><div class="go" style="color:#9a978d">In the workshop</div></div>
 </div>
@@ -334,7 +334,7 @@ MS_BODY = '''
     <div id="pane_cf" style="display:none">
     <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan and carry from your purchase analysis tab.</div>
     <div class="note" style="text-align:left;margin:0 0 12px" id="cf_ctx"></div>
-    <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
+    <div class="mkline" style="display:none;font-size:11px;line-height:1.4;color:#8a5a00;background:#fff2df;border-radius:8px;padding:5px 10px;margin:0 0 10px"></div>
     <div class="cgrid">
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="cf_rent" value="4,000" oninput="fmt(this);cashflow()"></div></div>
       <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="cf_vac" value="5.0" oninput="fmtp(this);cashflow()"><span class="sfx">%</span></div></div>
@@ -415,7 +415,7 @@ DSCR_TOOL_BODY = '''
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
     <div class="ctabs" id="dtabs"><button class="on" onclick="dtab('dq',this)">DSCR check</button><button onclick="dtab('dcf',this)">Cash flow analysis</button></div>
     <div id="pane_dq">
-    <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
+    <div class="mkline" style="display:none;font-size:11px;line-height:1.4;color:#8a5a00;background:#fff2df;border-radius:8px;padding:5px 10px;margin:0 0 10px"></div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="360,000" oninput="fmt(this);dscr()"></div></div>
       <div class="fld"><label>Monthly rent</label><div class="inwrap"><span>$</span><input id="d_rent" value="2,800" oninput="fmt(this);dscr()"></div></div>
@@ -427,10 +427,9 @@ DSCR_TOOL_BODY = '''
       <div class="fld"><label>Annual taxes</label><div class="inwrap"><span>$</span><input id="d_tax" value="3,000" oninput="fmt(this);dscr()"></div></div>
       <div class="fld"><label>Annual insurance</label><div class="inwrap"><span>$</span><input id="d_ins" value="1,380" oninput="fmt(this);dscr()"></div></div>
     </div>
-    <div class="cgrid3">
+    <div class="cgrid">
       <div class="fld"><label>HOA /mo</label><div class="inwrap"><span>$</span><input id="d_hoa" value="0" oninput="fmt(this);dscr()"></div></div>
       <div class="fld"><label>Interest-only?</label><div class="inwrap" style="padding-left:6px"><select id="d_io" onchange="dscr()" style="width:100%;border:none;background:transparent;font-family:Inter;font-size:14.5px;padding:10px 8px;outline:none;color:var(--ink)"><option>No</option><option>Yes</option></select></div></div>
-      <div class="fld"><label>Target DSCR</label><div class="inwrap"><input class="pctin" id="d_tg" value="1.25" oninput="fmtp(this);dscr()"><span class="sfx">&nbsp;</span></div></div>
     </div>
     <div class="pnl">
       <div class="prow"><span>Principal &amp; interest</span><b id="ds_pi"></b></div>
@@ -440,8 +439,8 @@ DSCR_TOOL_BODY = '''
     </div>
     <div class="result back" id="ds_res" style="margin-top:10px"><div class="rl" id="ds_rl">DSCR</div><div class="rv" id="ds_rv">-</div><div class="rsub" id="ds_sub"></div></div>
     <div class="solves">
-      <div class="solve"><div class="sl" id="ds_mll">Max loan at DSCR 1.25</div><div class="sv" id="ds_ml">-</div></div>
-      <div class="solve"><div class="sl" id="ds_rnl">Rent needed at 1.25</div><div class="sv" id="ds_rn">-</div></div>
+      <div class="solve"><div class="sl" id="ds_mll">Max loan at DSCR 1.0</div><div class="sv" id="ds_ml">-</div></div>
+      <div class="solve"><div class="sl" id="ds_rnl">Rent to break even (1.0)</div><div class="sv" id="ds_rn">-</div></div>
     </div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button>
     </div>
@@ -481,7 +480,7 @@ DSCR_TOOL_BODY = '''
 <h2>What your number means</h2>
 <ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - not dead. We have lender options down to 0.75 - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
 <h2>How to use this calculator</h2>
-<ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at your target DSCR, and the rent you'd need to hit it.</li></ul>
+<ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at DSCR 1.0, and the rent you'd need to break even.</li></ul>
 <p>Running a Stack Method deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/stack/">Stack Method Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
 <p style="margin-top:18px"><a href="/calculators/" style="color:var(--orange-d);font-weight:700">&larr; All deal calculators</a></p>'''
 page('calculators/dscr','DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds',
