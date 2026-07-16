@@ -376,6 +376,11 @@ MS_BODY = '''
     </div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only. Exact figures arrive with your written terms, typically the same day.</p>
+<div class="vlb" role="button" tabindex="0" aria-label="Play video: How to use the Stack Method Calculator" onclick="openVideo('lbS-frAADS4')" onkeydown="if(event.key==='Enter')openVideo('lbS-frAADS4')">
+  <img src="https://i.ytimg.com/vi/lbS-frAADS4/hqdefault.jpg" alt="How to use the Stack Method Calculator" loading="lazy">
+  <div class="vplay"></div>
+  <div class="vcap">▶ Watch: How to use the Stack Method Calculator</div>
+</div>
 <h2>What this calculator tells you</h2>
 <p>The Stack Method - also called the Morby Method - combines a seller-carried note with a primary lender so the capital stack covers the purchase. The purchase analysis tab answers the question that decides the deal: can you close this structure? It checks that the seller carry can repay the transactional funding and fees, caps the funding accordingly, and shows exactly what lands on you at the closing table - cash to bring, or cash back.</p>
 <p>Then flip to the cash flow analysis tab: a full monthly rental P&amp;L on the same numbers - vacancy, taxes, insurance, maintenance, CapEx, property management, both loan payments, the carry balloon, and your DSCR. Whether you can close it and whether you should keep it, on one card.</p>
@@ -479,6 +484,11 @@ DSCR_TOOL_BODY = '''
     </div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario. Exact figures arrive with your written terms.</p>
+<div class="vlb" role="button" tabindex="0" aria-label="Play video: How to use the DSCR Calculator" onclick="openVideo('zvLB7bH91yQ')" onkeydown="if(event.key==='Enter')openVideo('zvLB7bH91yQ')">
+  <img src="https://i.ytimg.com/vi/zvLB7bH91yQ/hqdefault.jpg" alt="How to use the DSCR Calculator" loading="lazy">
+  <div class="vplay"></div>
+  <div class="vcap">▶ Watch: How to use the DSCR Calculator</div>
+</div>
 <h2>What DSCR actually is</h2>
 <p>One fraction. Rent on top, payment on the bottom. DSCR = monthly rent &divide; the full monthly payment - principal, interest, taxes, insurance, and any HOA (PITIA). The rent figure comes from your lease or the appraiser's market-rent schedule. Repairs, management, utilities, and vacancy never enter the math - lenders qualify the payment, not your operating budget.</p>
 <p>Most free calculators get this wrong by subtracting operating expenses first. This one runs the same fraction the lender runs.</p>
