@@ -7,12 +7,12 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBE4HBBJPZ"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GBE4HBBJPZ');</script>
 <title>DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds</title>
-<meta name="description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75.">
+<meta name="description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Plus a full rental cash flow P&L with cash-on-cash on your down payment.">
 <link rel="icon" type="image/png" href="../../assets/favicon-32.png">
 <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
 <link rel="canonical" href="https://realquickfunds.com/calculators/dscr/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="RealQuick Funds"><meta property="og:title" content="DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds"><meta property="og:description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75."><meta property="og:url" content="https://realquickfunds.com/calculators/dscr/"><meta property="og:image" content="https://pmartbrown.github.io/rqf-website/assets/og-image.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds"><meta name="twitter:description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Interest-only compare, max-loan and rent-needed solves. Some of our lenders fund down to 0.75."><meta name="twitter:image" content="https://pmartbrown.github.io/rqf-website/assets/og-image.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="RealQuick Funds"><meta property="og:title" content="DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds"><meta property="og:description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Plus a full rental cash flow P&L with cash-on-cash on your down payment."><meta property="og:url" content="https://realquickfunds.com/calculators/dscr/"><meta property="og:image" content="https://pmartbrown.github.io/rqf-website/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DSCR Calculator - Rental Property Loan Qualifier | RealQuick Funds"><meta name="twitter:description" content="Free DSCR calculator that computes it the way lenders actually underwrite - gross rent divided by PITIA. Plus a full rental cash flow P&L with cash-on-cash on your down payment."><meta name="twitter:image" content="https://pmartbrown.github.io/rqf-website/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -264,13 +264,15 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
 <header class="pagehero"><div class="wrap">
   <div class="k" style="color:var(--orange)">Deal Tools</div>
   <h1>DSCR Calculator</h1>
-  <p class="sub" style="max-width:640px">If it rents, it funds. Run the rent against PITIA - with the max-loan and rent-needed answers no other calculator gives you.</p>
+  <p class="sub" style="max-width:640px">If it rents, it funds. Run the rent against PITIA - then flip to the cash flow tab to see what the rental actually puts in your pocket each month.</p>
   <div class="hero-ctas" style="margin-top:26px"><button class="btn" onclick="openModal('dscr')">Start a DSCR request</button><a class="btn btn-ghost" href="../../dscr/">What is DSCR?</a></div>
 </div></header>
 <div class="content"><div class="wrap">
 
 <div class="calcwrap">
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">DSCR Calculator</div>
+    <div class="ctabs" id="dtabs"><button class="on" onclick="dtab('dq',this)">DSCR check</button><button onclick="dtab('dcf',this)">Cash flow analysis</button></div>
+    <div id="pane_dq">
     <div class="mkline" style="display:none;font-size:12.5px;line-height:1.5;color:#8a5a00;background:#fff2df;border-radius:10px;padding:8px 12px;margin:0 0 12px"></div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="d_pp" value="360,000" oninput="fmt(this);dscr()"></div></div>
@@ -299,7 +301,34 @@ a.tool:hover{transform:translateY(-3px);box-shadow:0 26px 60px -30px rgba(21,20,
       <div class="solve"><div class="sl" id="ds_mll">Max loan at DSCR 1.25</div><div class="sv" id="ds_ml">-</div></div>
       <div class="solve"><div class="sl" id="ds_rnl">Rent needed at 1.25</div><div class="sv" id="ds_rn">-</div></div>
     </div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button>
+    </div>
+    <div id="pane_dcf" style="display:none">
+    <div class="purpose">Keep it as a rental? Full monthly P&amp;L - uses the price, loan, rent, taxes and insurance from your DSCR check tab.</div>
+    <div class="note" style="text-align:left;margin:0 0 12px" id="dc_ctx"></div>
+    <div class="cgrid3">
+      <div class="fld"><label>Vacancy</label><div class="inwrap"><input class="pctin" id="dc_vac" value="5.0" oninput="fmtp(this);dscrcf()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Maintenance</label><div class="inwrap"><input class="pctin" id="dc_mnt" value="5.0" oninput="fmtp(this);dscrcf()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>CapEx</label><div class="inwrap"><input class="pctin" id="dc_cap" value="5.0" oninput="fmtp(this);dscrcf()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="cgrid">
+      <div class="fld"><label>Prop Mgmt</label><div class="inwrap"><input class="pctin" id="dc_mgm" value="10.0" oninput="fmtp(this);dscrcf()"><span class="sfx">%</span></div></div>
+      <div class="fld"><label>Est. closing costs <span class="hint" id="dc_cc_d"></span></label><div class="inwrap"><input class="pctin" id="dc_cc" value="3.0" oninput="fmtp(this);dscrcf()"><span class="sfx">%</span></div></div>
+    </div>
+    <div class="pnl">
+      <div class="prow"><span>Gross rent</span><b id="dc_gr"></b></div>
+      <div class="prow"><span>Vacancy</span><b id="dc_vc"></b></div>
+      <div class="prow tot"><span>Effective income</span><b id="dc_eg"></b></div>
+      <div class="prow"><span>Taxes + insurance + HOA</span><b id="dc_ti"></b></div>
+      <div class="prow"><span>Maintenance + CapEx</span><b id="dc_mc"></b></div>
+      <div class="prow"><span>Property management</span><b id="dc_mg"></b></div>
+      <div class="prow tot"><span>Net operating income</span><b id="dc_noi"></b></div>
+      <div class="prow"><span>DSCR loan payment</span><b id="dc_pi"></b></div>
+      <div class="prow tot"><span>Cash invested (down + closing)</span><b id="dc_cin"></b></div>
+    </div>
+    <div class="result bring" id="dc_res"><div class="rl" id="dc_rl">Estimated monthly cash flow</div><div class="rv" id="dc_rv">$0</div><div class="rsub" id="dc_sub"></div></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('dscr',true)">Submit this deal</button>
+    </div></div>
 </div>
 <p style="font-size:12.5px;color:#9a978d;margin-top:14px">Estimates only - rates and terms vary by scenario. Exact figures arrive with your written terms.</p>
 <h2>What DSCR actually is</h2>
@@ -468,11 +497,35 @@ function dscr(){if(!document.getElementById('ds_res'))return;
   var maxLoan=io?(rt>0?piBudget*12*100/rt:0):(pf>0?piBudget/pf:0);
   setT('ds_mll','Max loan at DSCR '+tg.toFixed(2));setT('ds_ml',money(Math.max(maxLoan,0)));
   setT('ds_rnl','Rent needed at '+tg.toFixed(2));setT('ds_rn',money(tg*pitia)+'/mo');
-  window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;}
+  window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;dscrcf()}
 function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
+function dtab(which,btn){document.querySelectorAll('#dtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('pane_dq').style.display=which==='dq'?'block':'none';
+  document.getElementById('pane_dcf').style.display=which==='dcf'?'block':'none';
+  if(which==='dcf')dscrcf()}
+function dscrcf(){if(!document.getElementById('dc_res'))return;
+  var pp=num('d_pp'),rent=num('d_rent'),dp=pct('d_dp'),rt=pct('d_rt'),tm=pct('d_tm'),tax=num('d_tax'),ins=num('d_ins'),hoa=num('d_hoa');
+  var ioEl=document.getElementById('d_io');var io=ioEl&&ioEl.value==='Yes';
+  var loan=pp*(1-dp/100);var pay=io?loan*rt/100/12:pmt(loan,rt,tm);
+  var vac=pct('dc_vac'),mnt=pct('dc_mnt'),cap=pct('dc_cap'),mgm=pct('dc_mgm'),ccp=pct('dc_cc');
+  var egi=rent*(1-vac/100);
+  var opex=tax/12+ins/12+hoa+rent*(mnt+cap+mgm)/100;
+  var noi=egi-opex,cf=noi-pay;
+  var down=pp*dp/100,ccd=pp*ccp/100,cin=down+ccd,coc=cin>0?cf*12/cin*100:0;
+  var pitia=pay+tax/12+ins/12+hoa,d=pitia>0?rent/pitia:0;
+  setT('dc_ctx','Using your DSCR check tab: '+money(loan)+' loan at '+rt+'% \u00b7 '+money(pay)+'/mo '+(io?'interest-only':'P&I')+' \u00b7 '+money(rent)+'/mo rent');
+  setT('dc_cc_d','= '+money(ccd));
+  setT('dc_gr',money(rent));setT('dc_vc','\u2212 '+money(rent*vac/100));setT('dc_eg',money(egi));
+  setT('dc_ti','\u2212 '+money(tax/12+ins/12+hoa));setT('dc_mc','\u2212 '+money(rent*(mnt+cap)/100));setT('dc_mg','\u2212 '+money(rent*mgm/100));
+  setT('dc_noi',smoney(noi));setT('dc_pi','\u2212 '+money(pay));
+  setT('dc_cin',money(cin));
+  var res=document.getElementById('dc_res');res.className='result '+(cf>=0?'back':'bring');
+  document.getElementById('dc_rl').textContent=cf>=0?'Estimated monthly cash flow':'Estimated monthly shortfall';
+  document.getElementById('dc_rv').textContent=money(cf);
+  setT('dc_sub',smoney(cf*12)+' per year \u00b7 DSCR '+(d?d.toFixed(2):'\u2014')+(cin>0?' \u00b7 '+coc.toFixed(1)+'% cash-on-cash on '+money(cin)+' invested':''))}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();if(document.getElementById('hm_res'))hml();
 /* ---------- mobile nav ---------- */
 function toggleNav(){document.querySelector('nav').classList.toggle('nav-open')}

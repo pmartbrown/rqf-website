@@ -425,11 +425,35 @@ function dscr(){if(!document.getElementById('ds_res'))return;
   var maxLoan=io?(rt>0?piBudget*12*100/rt:0):(pf>0?piBudget/pf:0);
   setT('ds_mll','Max loan at DSCR '+tg.toFixed(2));setT('ds_ml',money(Math.max(maxLoan,0)));
   setT('ds_rnl','Rent needed at '+tg.toFixed(2));setT('ds_rn',money(tg*pitia)+'/mo');
-  window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;}
+  window.CALC_DSCR=loan;window.CALC_DSCR_RENT=rent;dscrcf()}
 function ctab2(which,btn){document.querySelectorAll('#mtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.getElementById('pane_pa').style.display=which==='pa'?'block':'none';
   document.getElementById('pane_cf').style.display=which==='cf'?'block':'none';
   if(which==='cf')cashflow()}
+function dtab(which,btn){document.querySelectorAll('#dtabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('pane_dq').style.display=which==='dq'?'block':'none';
+  document.getElementById('pane_dcf').style.display=which==='dcf'?'block':'none';
+  if(which==='dcf')dscrcf()}
+function dscrcf(){if(!document.getElementById('dc_res'))return;
+  var pp=num('d_pp'),rent=num('d_rent'),dp=pct('d_dp'),rt=pct('d_rt'),tm=pct('d_tm'),tax=num('d_tax'),ins=num('d_ins'),hoa=num('d_hoa');
+  var ioEl=document.getElementById('d_io');var io=ioEl&&ioEl.value==='Yes';
+  var loan=pp*(1-dp/100);var pay=io?loan*rt/100/12:pmt(loan,rt,tm);
+  var vac=pct('dc_vac'),mnt=pct('dc_mnt'),cap=pct('dc_cap'),mgm=pct('dc_mgm'),ccp=pct('dc_cc');
+  var egi=rent*(1-vac/100);
+  var opex=tax/12+ins/12+hoa+rent*(mnt+cap+mgm)/100;
+  var noi=egi-opex,cf=noi-pay;
+  var down=pp*dp/100,ccd=pp*ccp/100,cin=down+ccd,coc=cin>0?cf*12/cin*100:0;
+  var pitia=pay+tax/12+ins/12+hoa,d=pitia>0?rent/pitia:0;
+  setT('dc_ctx','Using your DSCR check tab: '+money(loan)+' loan at '+rt+'% \u00b7 '+money(pay)+'/mo '+(io?'interest-only':'P&I')+' \u00b7 '+money(rent)+'/mo rent');
+  setT('dc_cc_d','= '+money(ccd));
+  setT('dc_gr',money(rent));setT('dc_vc','\u2212 '+money(rent*vac/100));setT('dc_eg',money(egi));
+  setT('dc_ti','\u2212 '+money(tax/12+ins/12+hoa));setT('dc_mc','\u2212 '+money(rent*(mnt+cap)/100));setT('dc_mg','\u2212 '+money(rent*mgm/100));
+  setT('dc_noi',smoney(noi));setT('dc_pi','\u2212 '+money(pay));
+  setT('dc_cin',money(cin));
+  var res=document.getElementById('dc_res');res.className='result '+(cf>=0?'back':'bring');
+  document.getElementById('dc_rl').textContent=cf>=0?'Estimated monthly cash flow':'Estimated monthly shortfall';
+  document.getElementById('dc_rv').textContent=money(cf);
+  setT('dc_sub',smoney(cf*12)+' per year \u00b7 DSCR '+(d?d.toFixed(2):'\u2014')+(cin>0?' \u00b7 '+coc.toFixed(1)+'% cash-on-cash on '+money(cin)+' invested':''))}
 if(document.getElementById('s_res'))stack();if(document.getElementById('e_res'))echo();if(document.getElementById('cf_res'))cashflow();if(document.getElementById('ds_res'))dscr();if(document.getElementById('hm_res'))hml();
 /* ---------- mobile nav ---------- */
 function toggleNav(){document.querySelector('nav').classList.toggle('nav-open')}
