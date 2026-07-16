@@ -263,6 +263,11 @@ DEALS = {
    sub='If it rents, it funds. The property qualifies on its own rent - no W-2s, no tax returns, no paperwork circus.',
    body='''
 <h2>What a DSCR loan actually is</h2>
+<div class="vlb" role="button" tabindex="0" aria-label="Play video: DSCR Loans explained" onclick="openVideo('rqZFNdBUG2I')" onkeydown="if(event.key==='Enter')openVideo('rqZFNdBUG2I')">
+  <img src="https://i.ytimg.com/vi/rqZFNdBUG2I/hqdefault.jpg" alt="DSCR Loans explained" loading="lazy">
+  <div class="vplay"></div>
+  <div class="vcap">▶ Watch: DSCR Loans explained</div>
+</div>
 <p>A DSCR loan is a 30-year mortgage for rental property where the property does the qualifying. No W-2s, no tax returns, no employment verification - the lender asks one question: does the rent cover the payment? You can close in an LLC, own as many financed properties as you want, and your personal tax strategy - all those write-offs that make your returns look thin - never works against you.</p>
 <h2>Who it's for</h2>
 <p>Three investors live on DSCR loans: the self-employed, whose tax returns understate what they actually make; the portfolio builder who's maxed out conventional financing - banks cap you around ten financed properties, DSCR lenders don't; and the investor who simply doesn't want to hand over two years of personal financials to buy a rental. If any of those is you, this is your product.</p>
