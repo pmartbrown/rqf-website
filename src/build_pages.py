@@ -126,7 +126,7 @@ DEALS = {
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
    body='''
 <h2>What the Stack Method is</h2>
-<p>The Stack Method is a creative-finance structure that combines a seller-carried note with a primary lender so the total capital stack covers the purchase price and closing costs, and sometimes more than covers it. The name comes from stacking funding sources on one deal. You'll also hear it called the <b>Morby Method</b>. Same structure, same math. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
+<p>The Stack Method is a creative-finance structure that combines a seller-carried note with a primary lender so the total capital stack covers the purchase price and closing costs, and sometimes more than covers it. The name comes from stacking funding sources on one deal. Also known as the <b>Morby Method</b>. Or if you're old enough to have watched M*A*S*H on TV, you might recognize it as a piggyback loan, an 80-20 loan, or a purchase money mortgage. Done right, the buyer closes with minimal cash out of pocket, and in some structures walks away from the closing table with funds in hand.</p>
 <h2>Who it's for</h2>
 <p>The classic Stack Method buyer is an investor who wants the property but doesn't want the down payment tied up in it. Maybe you're building a portfolio and would rather spread your capital across three acquisitions than sink all of it into one. Maybe you've found a motivated seller who's open to carrying part of the price, but real cash still has to show up at the table for the deal to close. If the seller is willing to stay in the deal and the numbers support it, this structure turns "I can't cover the down payment" into a closing date.</p>
 <h2>The three stacked pieces</h2>
@@ -316,7 +316,6 @@ MS_BODY = '''
   <div class="calc"><div style="font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--mut);margin-bottom:10px">Stack Method</div>
     <div class="ctabs" id="mtabs"><button class="on" onclick="ctab2('pa',this)">Purchase analysis</button><button onclick="ctab2('cf',this)">Cash flow analysis</button></div>
     <div id="pane_pa">
-    <div class="purpose">Will you bring cash to close - or walk away with some?</div>
     <div class="cgrid">
       <div class="fld"><label>Purchase price</label><div class="inwrap"><span>$</span><input id="s_pp" value="500,000" oninput="fmt(this);stack()"></div></div>
       <div class="fld"><label>Seller carry <span class="hint" id="s_sc_d"></span></label><div class="inwrap"><input class="pctin" id="s_scp" value="30.0" oninput="fmtp(this);stack()"><span class="sfx">%</span></div></div>
@@ -406,7 +405,7 @@ page('calculators','Deal Calculators for Creative Finance | RealQuick Funds',
  'Deal Tools','Run your numbers.','The deal tool library - free calculators built by the funder. Know whether the deal works before you talk to anyone.',CALC_BODY)
 page('calculators/stack','Stack Method Calculator (Morby Method) - Free | RealQuick Funds',
  'Free Stack Method (Morby Method) calculator: carry-coverage purchase analysis plus a full rental cash flow P&L with DSCR and balloon planning. Built by the funder.',
- 'Deal Tools','Stack Method Calculator','Can you close it - and should you keep it? Purchase analysis with carry-coverage math, plus a full rental cash flow P&L.',MS_BODY, cta_type='morby', cta_label='Start a Stack request', cta2=('What is the Stack Method?','/stack/'))
+ 'Deal Tools','Stack Method Calculator','Does the deal pencil - and will it profit? Run your numbers and know before you commit.',MS_BODY, cta_type='morby', cta_label='Start a Stack request', cta2=('What is the Stack Method?','/stack/'))
 page('calculators/echo','Echo Method Calculator - Free | RealQuick Funds',
  "The only Echo calculator on the internet: see whether the deal's spread covers the funding on the B-C close. Built by RealQuick Funds.",
  'Deal Tools','Echo Calculator','Does the spread cover the Echo? Run both legs and know in thirty seconds.',ECHO_CALC_BODY, cta_type='echo', cta_label='Start an Echo request', cta2=('What is the Echo Method?','/echo/'))
