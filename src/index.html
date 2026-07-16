@@ -357,7 +357,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
       <div class="mono">The Funding Hub · Free on Skool</div>
       <h3>The playbook is in the Funding Hub.</h3>
       <p>Live deal breakdowns, funding strategy, direct access to Paul, and a network of investors closing deals together. Free to join.</p>
-      <a class="btn btn-dark" href="https://www.skool.com/fundinghub/about">Join the Funding Hub →</a>
+      <a class="btn btn-dark" href="https://www.skool.com/fundinghub/plans">Join the Funding Hub →</a>
     </div>
   </div>
 </div></section>
@@ -771,7 +771,7 @@ function submitDeal(t,ack){
  if(SUBMITTING)return;
  hideErr();
  if(t==='affiliate'){showSuccess('Let\'s get you started','Affiliate onboarding happens inside the Funding Hub right now. Join us and our team will take it from there — VIP white-label setup included.','');
-  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub/about">Join the Funding Hub →</a></div>');return}
+  document.getElementById('mform').insertAdjacentHTML('beforeend','<div style="text-align:center;margin-top:-8px"><a class="btn btn-ghost" style="border-radius:12px" href="https://www.skool.com/fundinghub/plans">Join the Funding Hub →</a></div>');return}
  var r=collect(t);
  if(r.errs.length){showErr(r.errs);return}
  var dt=DEAL_TYPE[t];
