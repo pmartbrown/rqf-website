@@ -126,14 +126,14 @@ DEALS = {
    sub='Stack seller carry with a primary lender and acquire property with little - sometimes zero - of your own cash. In the right structure, you can even receive cash back at closing.',
    body='''
 <h2>What the Stack Method is</h2>
-<p>The Stack Method is a creative-finance structure where you combine a seller carry note with a primary lender. Together, these two funding sources make up the full capital stack - enough to cover the purchase price and closing costs, and sometimes more. It's called the Stack Method because you're stacking multiple funding sources on a single deal.</p>
-<p>It also goes by the name <b>Morby Method</b>. Structures like this have been around since the 1970s, running through the early 2000s under names like Piggyback Loan, 80-20 Loan, and Purchase Money Mortgage. Every five or ten years, it seems to find a new name.</p>
-<p>Done right, this structure lets the buyer close with little to no cash out of pocket - and in some cases, actually leave the closing table with money in hand.</p>
 <div class="vlb" role="button" tabindex="0" aria-label="Play video: The Stack Method explained" onclick="openVideo('c0PO4beYONE')" onkeydown="if(event.key==='Enter')openVideo('c0PO4beYONE')">
   <img src="https://i.ytimg.com/vi/c0PO4beYONE/hqdefault.jpg" alt="The Stack Method explained" loading="lazy">
   <div class="vplay"></div>
   <div class="vcap">▶ Watch: The Stack Method explained</div>
 </div>
+<p>The Stack Method is a creative-finance structure where you combine a seller carry note with a primary lender. Together, these two funding sources make up the full capital stack - enough to cover the purchase price and closing costs, and sometimes more. It's called the Stack Method because you're stacking multiple funding sources on a single deal.</p>
+<p>It also goes by the name <b>Morby Method</b>. Structures like this have been around since the 1970s, running through the early 2000s under names like Piggyback Loan, 80-20 Loan, and Purchase Money Mortgage. Every five or ten years, it seems to find a new name.</p>
+<p>Done right, this structure lets the buyer close with little to no cash out of pocket - and in some cases, actually leave the closing table with money in hand.</p>
 <h2>Who it's for</h2>
 <p>The classic Stack Method buyer is an investor who wants the property but doesn't want the down payment tied up in it. Maybe you're building a portfolio and would rather spread your capital across three acquisitions than sink all of it into one. Maybe you've found a motivated seller who's open to carrying part of the price, but real cash still has to show up at the table for the deal to close. If the seller is willing to stay in the deal and the numbers support it, this structure turns "I can't cover the down payment" into a closing date.</p>
 <h2>The three stacked pieces</h2>
