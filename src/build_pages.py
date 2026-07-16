@@ -559,7 +559,12 @@ page('calculators/hml','Hard Money Loan Calculator - Flip Profit and Max Offer |
 
 
 AFF_BODY = '''
-<h2>What an affiliate is here</h2>
+<h2>What an affiliate is:</h2>
+<div class="vlb" role="button" tabindex="0" aria-label="Play video: How the affiliate program works" onclick="openVideo('Jqk0PenXrXM')" onkeydown="if(event.key==='Enter')openVideo('Jqk0PenXrXM')">
+  <img src="https://i.ytimg.com/vi/Jqk0PenXrXM/hqdefault.jpg" alt="How the affiliate program works" loading="lazy">
+  <div class="vplay"></div>
+  <div class="vcap">▶ Watch: How the affiliate program works</div>
+</div>
 <p>An affiliate is anyone who brings us deals, and there are two ways to do it.</p>
 <p>The first is open to everyone: bring your deal straight through this site, realquickfunds.com. No membership, no application, no cost. You find the deal, you stay on it, and you get paid when it funds.</p>
 <p>The second is the VIP path, built for people who want to turn this into a real pipeline. We build you your own custom <b>white-label funding website</b> - your brand, our full product line behind it - to drive your own leads through, and we run an <b>automated nurture campaign</b> on those leads for you, so the follow-up keeps working even when you're not. You bring the traffic; the system does the chasing and we handle the funding.</p>
