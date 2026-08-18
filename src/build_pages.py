@@ -339,6 +339,7 @@ MS_BODY = '''
       <div class="fld"><label>TC fee</label><div class="inwrap"><span>$</span><input id="s_tc" value="3,000" oninput="fmt(this);stack()"></div></div>
       <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
     </div>
+    <div class="prow" style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 0;font-size:14px"><span style="color:var(--mut)">Cash to seller <span class="hint">price − carry</span></span><b id="s_scash">$0</b></div>
     <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div>

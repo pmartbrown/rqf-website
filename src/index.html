@@ -261,6 +261,7 @@ footer{background:var(--deep);color:#8f8d84;padding:52px 0;margin-top:92px}
       <div class="fld"><label>TC fee</label><div class="inwrap"><span>$</span><input id="s_tc" value="3,000" oninput="fmt(this);stack()"></div></div>
       <div class="fld"><label>2nd closing</label><div class="inwrap"><span>$</span><input id="s_x2" value="1,200" oninput="fmt(this);stack()"></div></div>
     </div>
+    <div class="prow" style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 0;font-size:14px"><span style="color:var(--mut)">Cash to seller <span class="hint">price − carry</span></span><b id="s_scash">$0</b></div>
     <div class="result bring" id="s_res"><div class="rl" id="s_rl">Estimated cash to close</div><div class="rv" id="s_rv">$0</div><div class="rsub" id="s_sub"></div></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:12px;border-radius:12px" onclick="openModal('morby',true)">Submit this deal</button>
     </div>
@@ -444,25 +445,30 @@ function money(n){return '$'+Math.abs(Math.round(n)).toLocaleString()}
 function pct(id){var el=document.getElementById(id);return el?(+(el.value.replace(/[^0-9.]/g,''))||0):0}
 function fmtp(el){el.value=el.value.replace(/[^0-9.]/g,'').replace(/^(\d*\.\d*).*$/,'$1')}
 function setT(id,t){var el=document.getElementById(id);if(el)el.textContent=t}
-function stack(){const pp=num('s_pp'),sc=pp*pct('s_scp')/100,plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
-  const pl=pp*plp/100,cc=pp*ccp/100;
-  const cash=pp+cc-pl; /* cash to close above the primary loan */
+function stack(){const pp=num('s_pp'),scp=pct('s_scp'),plp=pct('s_plp'),ccp=pct('s_ccp'),fp=pct('s_fp'),tc=num('s_tc'),x2=num('s_x2');
+  const sc=pp*scp/100,pl=pp*plp/100,cc=pp*ccp/100,scash=pp-sc;
+  setT('s_sc_d','= '+money(sc));setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_scash',money(scash));
+  const res=document.getElementById('s_res'),rl=document.getElementById('s_rl'),rv=document.getElementById('s_rv');
+  if(scp>100||plp>100){window.CALC_TF=0;setT('s_fp_d','—');res.className='result bring';rv.textContent='—';rl.textContent='Check your ratios';
+    setT('s_sub',(scp>100?'Seller carry can’t exceed 100% of the purchase price.':'Primary loan can’t exceed 100% of the purchase price.')+' Adjust the inputs to a fundable structure.');return}
   const MINFEE=(typeof DEALMIN!=='undefined'&&DEALMIN&&DEALMIN.STACK&&+DEALMIN.STACK.minimum_fee>0)?+DEALMIN.STACK.minimum_fee:2500;
-  let cap=Math.max((sc-tc-x2)/(1+fp/100),0); /* max TF the seller carry can repay (TF + fee + TC + 2nd close) */
-  let fee=cap*fp/100,mf=false;
-  if(fee<MINFEE){mf=true;fee=MINFEE;cap=Math.max(sc-tc-x2-MINFEE,0)} /* $2,500 minimum funding fee */
-  const net=cash-cap; /* >0: buyer brings; <0: carry supports funding beyond the gap — cash can come out */
-  window.CALC_TF=Math.min(Math.max(cash,0),cap);
-  setT('s_sc_d','= '+money(sc));setT('s_pl_d','= '+money(pl));setT('s_cc_d','= '+money(cc));setT('s_fp_d',mf?'min $2,500':'= '+money(fee));
-  const res=document.getElementById('s_res');document.getElementById('s_rv').textContent=money(net);
-  if(net>0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
-    if(cap<=0)setT('s_sub','Seller carry can’t cover funding repayment — restructure or bring full cash to close.');
-    else setT('s_sub','RQF funds '+money(cap)+' (max your seller carry repays) — you bring the rest.')}
-  else if(net>=-0.5){res.className='result bring';document.getElementById('s_rl').textContent='Estimated cash to close';
-    setT('s_sub','RQF funds the full '+money(Math.max(cash,0))+' gap — seller carry covers repayment ✓')}
-  else{res.className='result out';document.getElementById('s_rl').textContent='Estimated cash back at closing';
-    if(cash>0)setT('s_sub','Your seller carry supports up to '+money(cap)+' in funding — '+money(cash)+' covers your close and the rest can come out to you. Final structure set in your written terms.');
-    else setT('s_sub','Your primary loan more than covers the close, and your carry supports up to '+money(cap)+' in funding on top. Final structure set in your written terms.')}}
+  const gap=pp+cc-pl; /* first-close cash needed above the primary loan */
+  const capF=Math.max((sc-tc-x2)/(1+fp/100),0); /* most TF the seller carry can repay */
+  const F=Math.min(Math.max(gap,0),capF); /* transactional funding actually deployed */
+  let fee=0,mf=false;if(F>0){fee=F*fp/100;if(fee<MINFEE){fee=MINFEE;mf=true}}
+  window.CALC_TF=F;setT('s_fp_d',F<=0?'—':(mf?'min '+money(MINFEE):'= '+money(fee)));
+  const net=(pp+cc+fee+tc+x2)-(pl+sc); /* + bring · − cash back · fee on TF deployed only */
+  rv.textContent=money(net);
+  if(net>0.5){res.className='result bring';rl.textContent='Estimated cash to close';
+    if(capF<=0)setT('s_sub','Seller carry can’t cover funding repayment — restructure or bring full cash to close.');
+    else if(F<gap-0.5)setT('s_sub','RQF funds '+money(F)+' (max your seller carry repays) — you bring the rest. Seller nets '+money(scash)+' cash.');
+    else setT('s_sub','RQF funds the '+money(F)+' gap — seller carry covers repayment. Seller nets '+money(scash)+' cash.')}
+  else if(net>=-0.5){res.className='result bring';rl.textContent='Estimated cash to close';
+    setT('s_sub','RQF funds the '+money(F)+' gap — seller carry covers repayment ✓ Seller nets '+money(scash)+' cash.')}
+  else{res.className='result out';rl.textContent='Estimated cash back at closing';const ltv=pp>0?Math.round((pl+sc)/pp*100):0;
+    let s='Seller nets '+money(scash)+' cash; RQF funds '+money(F)+' repaid by the carry, and the surplus comes back to you. ';
+    if(pl+sc>pp+0.5)s+='Note: primary + carry = '+ltv+'% of price — the seller carries above the property’s equity and the primary funds cash-out, so confirm both parties are aligned. ';
+    s+='Final structure set in your written terms.';setT('s_sub',s)}}
 function echo(){const ab=num('e_ab'),bc=num('e_bc'),lv=pct('e_lv'),ccp=pct('e_ccp'),fp=pct('e_fp');
   const MINF=(typeof DEALMIN!=='undefined'&&DEALMIN&&DEALMIN.ECHO&&+DEALMIN.ECHO.minimum_fee>0)?+DEALMIN.ECHO.minimum_fee:2500;
   const loan=bc*lv/100;
