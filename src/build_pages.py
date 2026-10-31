@@ -610,7 +610,7 @@ page('affiliates','Become an Affiliate | RealQuick Funds',
 ABOUT_BODY = '''
 <h2>Underwritten like an institution. Delivered like a friend in the business.</h2>
 <p>RealQuick Funds was founded by Paul Brown after a 30-year career in global insurance - including Chief Underwriting Officer roles at Zurich and AIG across the United States, Japan, and Singapore. Three decades of pricing risk for some of the world's largest financial institutions now works for real estate investors: disciplined underwriting, honest answers, and capital that shows up when the closing table needs it.</p>
-<p>Based in Lehi, Utah, RQF has managed 800+ deals and deployed more than $20M across all 50 states - with same-day decisions on most submissions.</p>
+<p>Based in Lehi, Utah, RQF has managed 800+ deals and deployed more than $30M across all 50 states - with same-day decisions on most submissions.</p>
 <div class="fstrip" style="margin-top:36px">
   <div class="ph" style="background-image:url('/assets/paul.jpg')"></div>
   <div class="fx">
@@ -625,7 +625,7 @@ ABOUT_BODY = '''
   <a class="btn btn-ghost" style="background:#fff;color:var(--ink);border:1px solid var(--line)" href="https://meetings-na2.hubspot.com/justin-pilakka" target="_blank" rel="noopener">Schedule with Justin</a>
 </div>'''
 page('about','About RealQuick Funds | 20 Years of Underwriting Discipline',
- 'Founded by a former Chief Underwriting Officer of Zurich and AIG. $20M+ deployed, 800+ deals, all 50 states.',
+ 'Founded by a former Chief Underwriting Officer of Zurich and AIG. $30M+ deployed, 800+ deals, all 50 states.',
  'About RealQuick Funds','Twenty years of pricing risk.<br>Now pricing your deal.',
  'The funding company built on institutional underwriting and creative-finance fluency.',ABOUT_BODY)
 
