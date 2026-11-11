@@ -286,16 +286,16 @@ DEALS = {
 <p style="font-family:var(--mono);font-size:16px;margin-top:10px">5-yr Treasury <b id="mk_t5">&mdash;</b> <span id="mk_asof" style="color:#9a978d;font-size:12px"></span> &nbsp;+&nbsp; risk premium &nbsp;=&nbsp; <b id="mk_lo">&mdash;</b> to <b id="mk_hi">&mdash;</b></p>
 <p style="font-size:13px;color:#9a978d;margin-top:8px">Updated each business day from the U.S. Treasury's published par yield curve. Estimates only - your exact rate comes with your written terms, and it can fall outside this range in either direction.</p></div>
 <h2>What lenders typically expect</h2>
-''' + ul(['Down payment of 20-25% - more for sub-1.0 ratios','Credit floors starting in the low 600s; best pricing in the 720s and up','A few months of payments in liquid reserves','Minimum loan sizes around $100K - smaller properties are hard to place','An appraisal with a market-rent schedule. Notice what is missing from this list: your income.']) + '''
+''' + ul(['Down payment of 20-25% - more for sub-1.0 ratios','Credit floors starting in the low 600s; best pricing in the 720s and up','A few months of payments in liquid reserves','Minimum loan sizes around $100K - smaller properties are harder to finance','An appraisal with a market-rent schedule. Notice what is missing from this list: your income.']) + '''
 <h2>Short-term rentals</h2>
 <p>Airbnb income can qualify, but lenders count it conservatively - the appraiser's estimate, a 12-month revenue history, or market data, usually with a haircut. Verify your city allows STRs before you tie up the property; underwriters check.</p>
 <h2>Where DSCR fits in a creative deal</h2>
 <p>In most <a href="/stack/">Stack Method</a> structures, the DSCR loan is the primary lender - the base of the stack that the seller carry and transactional funding build on. It also serves as the end loan in an <a href="/echo/">Echo Method</a> structure. Run the whole structure in the <a href="/calculators/stack/">Stack Method Calculator</a> and check the rent coverage in the <a href="/calculators/dscr/">DSCR Calculator</a>. When both pencil, you have a deal.</p>
 <h2>How it works with us</h2>
-''' + steps(['Submit the property and rents (actual or market) through the two-minute form.','We route your scenario across our DSCR lender network - including options below 1.0, down to 0.75.','Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.']) + '''
+''' + steps(['Submit the property and rents (actual or market) through the two-minute form.','We review your DSCR scenario, including options below 1.0, down to 0.75.','Written terms on the funding side typically same day; DSCR closings generally run a few weeks with the appraisal.']) + '''
 <h2>DSCR questions, answered</h2>
 <div class="faqi"><h3>What's a good DSCR?</h3><p>1.25 and up typically unlocks the best pricing tier. Anything above 1.0 qualifies broadly.</p></div>
-<div class="faqi"><h3>Can I get a DSCR loan below 1.0?</h3><p>Yes - we have lender options down to 0.75. Expect a bigger down payment and reserves.</p></div>
+<div class="faqi"><h3>Can I get a DSCR loan below 1.0?</h3><p>Yes - options go down to 0.75. Expect a bigger down payment and reserves.</p></div>
 <div class="faqi"><h3>Do DSCR lenders check credit?</h3><p>Yes - to price the loan, not to verify income. Your score sets your tier; your rent does the qualifying.</p></div>
 <div class="faqi"><h3>Can I close in an LLC?</h3><p>Yes - entity vesting is normal on DSCR loans. Many investors prefer it.</p></div>
 <div class="faqi"><h3>Can I live in the property?</h3><p>No. DSCR is investment-property financing only, and lenders verify occupancy.</p></div>
@@ -501,7 +501,7 @@ DSCR_TOOL_BODY = '''
 <h2>Run one in your head</h2>
 <p>A property rents for $2,800. The all-in payment is $2,330 - that's $1,965 of principal and interest, $250 of taxes, $115 of insurance, no HOA. 2,800 &divide; 2,330 = <b>1.20</b>. The rent clears the payment with room to spare - a deal most DSCR lenders will look at.</p>
 <h2>What your number means</h2>
-<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - not dead. We have lender options down to 0.75 - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
+<ul><li><b>1.25 and above</b> - strong. This is the classic best-pricing tier.</li><li><b>1.0 to 1.24</b> - qualifies. A DSCR above 1.0 means better terms.</li><li><b>Below 1.0</b> - not dead. Options go down to 0.75 - expect a bigger down payment and reserves.</li><li><b>Under 0.75</b> - restructure: more down payment, interest-only, or higher rent.</li></ul>
 <h2>How to use this calculator</h2>
 <ul><li>Enter the purchase price, expected rent, and your down payment - the loan amount and monthly payment show beside the fields.</li><li>The rate is an editable estimate - exact terms come with your written quote.</li><li>Flip Interest-only to Yes to see how an IO period changes your ratio - it can rescue a marginal deal.</li><li>The two boxes under the result answer the questions that matter: the biggest loan this rent supports at DSCR 1.0, and the rent you'd need to break even.</li></ul>
 <p>Running a Stack Method deal? The DSCR loan is usually the primary lender in the stack - check the whole structure in the <a href="/calculators/stack/">Stack Method Calculator</a>, or read the <a href="/dscr/">DSCR loan deep dive</a>. Questions? Ask in <a href="https://www.skool.com/fundinghub">the community</a>.</p>
@@ -571,7 +571,7 @@ AFF_BODY = '''
 <p>The second is the VIP path, built for people who want to turn this into a real pipeline. We build you your own custom <b>white-label funding website</b> - your brand, our full product line behind it - to drive your own leads through, and we run an <b>automated nurture campaign</b> on those leads for you, so the follow-up keeps working even when you're not. You bring the traffic; the system does the chasing and we handle the funding.</p>
 <p>The per-deal split is identical on both paths - a straight 50/50 on everything we fund directly. What changes is volume. The VIP setup is built to bring you far more deals - your white-label site and automated nurture working your leads around the clock - so a lot more deal flow, and a lot more income, at the same split. Inside the <a href="https://www.skool.com/fundinghub">Funding Hub</a> we call our affiliates acquisition team members.</p>
 <h2>Why the math is different here</h2>
-<p>On escrow-secured funding - EMD, Double Close, Stack Method, and Echo - we're the <b>direct lender</b>, not a broker. It's our capital, so there's no middleman taking a cut ahead of you: when a deal you bring funds, we split <b>actual profits 50/50</b>. You earn dollar for dollar alongside us. On the business we refer out - hard money and DSCR - we've negotiated a strong referral rate with our lending network, and <b>the majority of it goes to you</b>.</p>
+<p>On escrow-secured funding - EMD, Double Close, Stack Method, and Echo - we're the <b>direct lender</b>, not a broker. It's our capital, so there's no middleman taking a cut ahead of you: when a deal you bring funds, we split <b>actual profits 50/50</b>. You earn dollar for dollar alongside us. On hard money and DSCR loans, <b>you earn the majority of the fee</b>. We also offer ground up construction and RV park lending.</p>
 <h2>What 50/50 actually looks like</h2>
 <p>Here's a real one. A Stack deal came to us out of Utah County. We wired the cash to close, the deal closed clean, and it generated $8,531 in profit.</p>
 <p>Bring us a deal like that and the split is automatic, straight down the middle: <b>$4,265 to you</b>, $4,265 to us. You found it. We funded it. Same number, same side of the table.</p>
@@ -581,7 +581,7 @@ AFF_BODY = '''
   <div class="faqi"><h3>Free Affiliate <span style="font-family:var(--mono);font-size:11px;color:#9a978d;letter-spacing:.08em">START TODAY - $0</span></h3>
   <ul>
    <li>Send deals straight through this site - you bring the deal, you're on it, and you earn when it funds</li>
-   <li>50/50 split of actual profits on deals we fund directly; the majority of the referral on placed lending</li>
+   <li>50/50 split of actual profits on deals we fund directly; the majority of the fee on hard money and DSCR loans</li>
    <li>No application, no approval step, no cost</li>
    <li>Want a head start? The free tier of the <a href="https://www.skool.com/fundinghub">Funding Hub</a> gets you oriented</li>
   </ul>
@@ -597,7 +597,7 @@ AFF_BODY = '''
   <p style="margin-top:14px;font-size:13.5px;color:#9a978d"><em>Best for operators ready to run funding as a business under their own brand.</em></p></div>
 </div>
 <h2>How it works</h2>
-''' + steps(['Pick your door - join the Funding Hub (our recommended path), or send your first deal through this site today.','Bring the deal - inside the Funding Hub you learn the exact structures and vocabulary that get deals funded fast.','Get paid when it funds - 50/50 on deals we fund directly, the majority of the referral on placed lending. We handle underwriting, docs, TC, and capital.']) + '''
+''' + steps(['Pick your door - join the Funding Hub (our recommended path), or send your first deal through this site today.','Bring the deal - inside the Funding Hub you learn the exact structures and vocabulary that get deals funded fast.','Get paid when it funds - 50/50 on deals we fund directly, the majority of the fee on hard money and DSCR loans. We handle underwriting, docs, TC, and capital.']) + '''
 <h2>Ready?</h2>
 <p>Tier details and pricing live inside the Funding Hub. And if you want to talk VIP through with Paul before you jump, grab a time - it's optional, not a gate.</p>
 <div class="sched"><a class="btn" href="https://www.skool.com/fundinghub/plans">Join the Funding Hub →</a><a class="btn btn-dark" href="https://meetings-na2.hubspot.com/realquickfunds/skoolcall">Book an optional call with Paul about joining</a></div>'''
@@ -637,7 +637,7 @@ FAQS = [
  ("Do you fund 100% of a double close?","Yes - we fund 100% of the A-to-B purchase. Your B-to-C sale repays us through escrow the same day."),
  ("What is the Stack Method?","A creative-finance structure - also called the Morby Method - stacking seller carry with a primary lender so you close with little or no cash - sometimes with cash back. Stack Method and Morby Method are the same thing. See the full guide on our Stack Method page, and run your numbers in the calculator."),
  ("How does repayment work?","Repayment flows through licensed title/escrow at closing - funds never pass through personal accounts. Every transaction is escrow-secured and title-verified."),
- ("How do I become an affiliate?","Just bring a deal. Affiliates are Funding Hub community members - or non-members submitting straight through realquickfunds.com - who send us deals. We recommend joining the community first to learn how we fund, but it isn't required. Because we lend our own capital on escrow-secured funding, affiliates split actual profits 50/50 on deals we fund directly, and earn the majority of the referral on hard money and DSCR placed through our lending network. VIP adds the full playbooks and a white-label funding site - details and pricing inside the community."),
+ ("How do I become an affiliate?","Just bring a deal. Affiliates are Funding Hub community members - or non-members submitting straight through realquickfunds.com - who send us deals. We recommend joining the community first to learn how we fund, but it isn't required. Because we lend our own capital on escrow-secured funding, affiliates split actual profits 50/50 on deals we fund directly, and earn the majority of the fee on hard money and DSCR loans. We also offer ground up construction and RV park lending. VIP adds the full playbooks and a white-label funding site - details and pricing inside the community."),
 ]
 faq_html = ''.join('<div class="faqi"><h3>%s</h3><p>%s</p></div>' % (q,a) for q,a in FAQS)
 import json
